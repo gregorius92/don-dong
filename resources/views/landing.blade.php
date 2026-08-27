@@ -423,14 +423,14 @@
                     <span class="text-citrus-300 font-semibold">{{ __('messages.hero_badge_spicy') }}</span>
                 </div>
 
-                <div class="relative mb-2 sm:mb-3 select-none max-w-full flex items-center justify-center overflow-visible">
-                    <h1 id="hero-title" class="w-full max-w-[300px] sm:max-w-[440px] md:max-w-[580px] lg:max-w-[700px] xl:max-w-[800px] opacity-0 transform scale-95 flex items-center justify-center group cursor-default overflow-visible">
+                <div class="relative mb-3 sm:mb-4 select-none max-w-full flex items-center justify-center overflow-visible">
+                    <h1 id="hero-title" class="w-full max-w-[340px] sm:max-w-[540px] md:max-w-[700px] lg:max-w-[880px] xl:max-w-[1020px] opacity-0 transform scale-95 flex items-center justify-center group cursor-default overflow-visible">
                         <span class="sr-only">Đông</span>
                         <img src="{{ asset('images/logo_hero_dong.svg') }}"
                              alt="Đông"
                              loading="eager"
                              decoding="async"
-                             class="w-full h-auto max-h-[170px] sm:max-h-[220px] md:max-h-[280px] lg:max-h-[340px] xl:max-h-[400px] object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.85)] group-hover:scale-105 transition-transform duration-500 overflow-visible">
+                             class="w-full h-auto max-h-[220px] sm:max-h-[290px] md:max-h-[360px] lg:max-h-[440px] xl:max-h-[500px] object-contain drop-shadow-[0_25px_50px_rgba(0,0,0,0.9)] group-hover:scale-105 transition-transform duration-500 overflow-visible">
                     </h1>
                 </div>
 

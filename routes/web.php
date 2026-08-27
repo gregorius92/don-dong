@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [LandingController::class, 'index'])->name('home');
+Route::get('/katalog', [\App\Http\Controllers\ProductCatalogController::class, 'index'])->name('products.catalog');
+Route::get('/products-catalog', [\App\Http\Controllers\ProductCatalogController::class, 'index']);
 Route::get('/lang/{lang}', [\App\Http\Controllers\LanguageController::class, 'switchLang'])->name('lang.switch');
 Route::post('/testimonials', [\App\Http\Controllers\TestimonialController::class, 'store'])->name('testimonials.store');
 

@@ -79,12 +79,12 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-    <!-- Lenis Smooth Scroll -->
-    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <!-- Lenis Smooth Scroll (Non-blocking) -->
+    <script defer src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 
-    <!-- GSAP & ScrollTrigger -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- GSAP & ScrollTrigger (Non-blocking) -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <!-- Alpine.js for lightweight UI state -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
@@ -109,24 +109,32 @@
             font-family: 'Outfit', sans-serif;
         }
 
-        /* 100% Viewport Fullscreen Slide Section */
+        /* Responsive Scene Container: Fullscreen on Desktop, Natural Fluid Flow on Mobile */
         .scene-container {
             position: relative;
             z-index: 10;
             width: 100%;
-            height: 100vh;
-            height: 100svh;
-            height: 100dvh;
+            min-height: 100vh;
             min-height: 100dvh;
-            max-height: 100dvh;
+            height: auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding-top: 4rem;
-            padding-bottom: 1.5rem;
+            padding-top: 5rem;
+            padding-bottom: 3.5rem;
             box-sizing: border-box;
-            overflow: hidden;
+            overflow: visible;
+        }
+
+        @media (min-width: 1024px) {
+            .scene-container {
+                height: 100dvh;
+                max-height: 100dvh;
+                padding-top: 4.25rem;
+                padding-bottom: 1.5rem;
+                overflow: hidden;
+            }
         }
 
         /* Cinematic Fixed Video Stage */
@@ -251,6 +259,8 @@
                 <div class="relative h-20 w-20 sm:h-24 sm:w-24 rounded-2xl bg-black/60 backdrop-blur-xl border border-tropical-400/40 p-1 shadow-2xl flex items-center justify-center overflow-hidden">
                     <img src="{{ asset('images/logo_dondong_official_asli.jpg') }}"
                         alt="DonDong Logo"
+                        loading="eager"
+                        decoding="async"
                         class="h-full w-full object-cover rounded-xl shadow-inner">
                 </div>
             </div>
@@ -287,7 +297,7 @@
             muted
             loop
             playsinline
-            preload="auto"
+            preload="none"
             disablePictureInPicture
             disableRemotePlayback
             poster="{{ asset('images/hero.png') }}"
@@ -310,6 +320,8 @@
                 <div class="h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-black/40 backdrop-blur-md border border-white/15 p-0.5 flex items-center justify-center overflow-hidden group-hover:border-tropical-400/50 transition-all duration-300 shadow-md">
                     <img src="{{ asset('images/logo_dondong_official_asli.jpg') }}"
                         alt="DonDong Official Emblem"
+                        loading="eager"
+                        decoding="async"
                         class="h-full w-full object-cover rounded-lg group-hover:scale-110 transition-transform duration-500">
                 </div>
                 <div class="flex flex-col">
@@ -602,75 +614,93 @@
 
 
         <!-- =========================================================================
-             SCENE 04: THE PRODUCT REVEAL & 3-STEP RITUAL (Strict 100dvh Fullscreen)
+             SCENE 04: THE PRODUCT SHOWCASE (Strict 100dvh Fullscreen - 3 Cards Grid)
              ========================================================================= -->
         <section id="scene-4" class="scene-container px-4 sm:px-8">
             <div class="max-w-7xl mx-auto w-full my-auto">
 
-                <div class="text-center mb-5 sm:mb-6">
+                <div class="text-center mb-4 sm:mb-5">
                     <span class="text-tropical-400 text-xs sm:text-sm lg:text-base font-extrabold uppercase tracking-[0.25em] block mb-1.5">
-                        {{ __('messages.product_eyebrow') }}
+                        {{ __('messages.product_scene_eyebrow') }}
                     </span>
-                    <h2 class="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-display font-black text-white tracking-tight">
-                        {{ __('messages.product_title') }}
+                    <h2 class="text-2xl sm:text-4xl lg:text-5xl font-display font-black text-white tracking-tight leading-tight">
+                        {{ __('messages.product_scene_title') }}
                     </h2>
                 </div>
 
-                <!-- Product Showcase & 3-Step Ritual Integrated Deck -->
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center mb-5 sm:mb-6">
-                    <!-- Packshot -->
-                    <div class="lg:col-span-4 flex items-center justify-center">
-                        <div class="relative w-full max-w-[220px] sm:max-w-[260px] rounded-2xl glass-panel p-4 shadow-xl">
-                            <img src="{{ asset('images/product.png') }}"
-                                alt="NutriSari DonDong Pack"
-                                loading="lazy"
-                                decoding="async"
-                                class="w-full h-auto max-h-[160px] sm:max-h-[200px] object-contain drop-shadow-xl">
-                            <div class="mt-2.5 pt-2.5 border-t border-white/10 flex items-center justify-between text-xs sm:text-sm font-bold text-slate-300">
-                                <span class="text-tropical-300 uppercase">NutriSari DonDong</span>
-                                <span class="text-citrus-300">{{ __('messages.pack_sachet_count') }}</span>
-                            </div>
-                        </div>
-                    </div>
+                <!-- 3-Product Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-4 sm:mb-5">
+                    @php
+                        $displayProducts = (isset($products) && $products->isNotEmpty()) ? $products->take(3) : collect([
+                            (object)[
+                                'name' => 'DonDong! Original Sachet',
+                                'description' => 'Bubuk minuman sari kedondong asli kemasan sachet isi 10. Praktis larut seketika di air es.',
+                                'price_display' => 'Rp 25.000 / Box (10s)',
+                                'image_path' => null
+                            ],
+                            (object)[
+                                'name' => 'DonDong! Less Sugar',
+                                'description' => 'Varian rendah gula dengan pemanis alami, sensasi segar ekstra dingin tetap maksimal.',
+                                'price_display' => 'Rp 28.000 / Box (10s)',
+                                'image_path' => null
+                            ],
+                            (object)[
+                                'name' => 'DonDong! Family Pouch',
+                                'description' => 'Kemasan hemat 500g untuk dinikmati bersama seluruh anggota keluarga setiap saat.',
+                                'price_display' => 'Rp 85.000 / Pouch (500g)',
+                                'image_path' => null
+                            ],
+                        ]);
+                    @endphp
 
-                    <!-- Ritual Steps -->
-                    <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-                        <div class="p-4 sm:p-5 rounded-xl glass-panel-subtle border border-white/10 hover:border-tropical-400/40 transition">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="w-8 h-8 rounded-lg bg-tropical-500/20 text-tropical-400 font-display font-black text-xs sm:text-sm flex items-center justify-center">01</span>
-                                <span class="text-lg sm:text-xl">✂️</span>
-                            </div>
-                            <h4 class="text-sm sm:text-base lg:text-lg font-bold text-white mb-1">{{ __('messages.ritual_step_1_title') }}</h4>
-                            <p class="text-xs sm:text-sm lg:text-base text-slate-300 leading-snug">{{ __('messages.ritual_step_1_desc') }}</p>
-                        </div>
+                    @foreach($displayProducts as $index => $prod)
+                        <div class="rounded-2xl glass-panel p-4 sm:p-5 shadow-2xl flex flex-col justify-between group hover:border-tropical-400/50 transition-all duration-300">
+                            <div>
+                                <!-- Packshot Canvas -->
+                                <div class="relative w-full h-[120px] sm:h-[140px] rounded-xl bg-black/40 border border-white/10 p-3 flex items-center justify-center overflow-hidden mb-3 group-hover:bg-black/60 transition">
+                                    <img src="{{ !empty($prod->image_path) ? asset('storage/' . $prod->image_path) : asset('images/product.png') }}"
+                                        alt="{{ is_object($prod) && method_exists($prod, 'translate') ? $prod->translate('name') : $prod->name }}"
+                                        loading="lazy"
+                                        decoding="async"
+                                        class="w-full h-full object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-300">
 
-                        <div class="p-4 sm:p-5 rounded-xl glass-panel-subtle border border-white/10 hover:border-citrus-400/40 transition">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="w-8 h-8 rounded-lg bg-citrus-400/20 text-citrus-300 font-display font-black text-xs sm:text-sm flex items-center justify-center">02</span>
-                                <span class="text-lg sm:text-xl">💧</span>
-                            </div>
-                            <h4 class="text-sm sm:text-base lg:text-lg font-bold text-white mb-1">{{ __('messages.ritual_step_2_title') }}</h4>
-                            <p class="text-xs sm:text-sm lg:text-base text-slate-300 leading-snug">{{ __('messages.ritual_step_2_desc') }}</p>
-                        </div>
+                                    <div class="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-tropical-500/20 backdrop-blur-md border border-tropical-400/30 text-[10px] font-black uppercase text-tropical-300">
+                                        {{ $index === 0 ? '✨ Best Seller' : ($index === 1 ? '🍃 Low Sugar' : '🏡 Family Size') }}
+                                    </div>
+                                </div>
 
-                        <div class="p-4 sm:p-5 rounded-xl glass-panel-subtle border border-white/10 hover:border-tropical-400/40 transition">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="w-8 h-8 rounded-lg bg-tropical-500/20 text-tropical-400 font-display font-black text-xs sm:text-sm flex items-center justify-center">03</span>
-                                <span class="text-lg sm:text-xl">🧊</span>
+                                <h3 class="text-base sm:text-lg font-display font-black text-white group-hover:text-citrus-300 transition-colors mb-1.5 truncate">
+                                    {{ is_object($prod) && method_exists($prod, 'translate') ? $prod->translate('name') : $prod->name }}
+                                </h3>
+
+                                <p class="text-xs sm:text-sm text-slate-300 line-clamp-2 mb-3 leading-relaxed font-light">
+                                    {{ is_object($prod) && method_exists($prod, 'translate') ? $prod->translate('description') : $prod->description }}
+                                </p>
                             </div>
-                            <h4 class="text-sm sm:text-base lg:text-lg font-bold text-white mb-1">{{ __('messages.ritual_step_3_title') }}</h4>
-                            <p class="text-xs sm:text-sm lg:text-base text-slate-300 leading-snug">{{ __('messages.ritual_step_3_desc') }}</p>
+
+                            <div class="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+                                <div>
+                                    <span class="text-xs sm:text-sm font-display font-black text-citrus-400 block">
+                                        {{ $prod->price_display ?? 'Rp 25.000' }}
+                                    </span>
+                                </div>
+                                <a href="#channel"
+                                    class="px-3.5 sm:px-4 py-1.5 rounded-full bg-tropical-500 hover:bg-tropical-400 text-slate-950 text-xs font-display font-black uppercase tracking-wider transition transform hover:scale-105 shadow-md">
+                                    {{ __('messages.order_now') }}
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
 
-                <!-- Feature Strip -->
-                <div class="rounded-xl glass-panel p-4 flex flex-col sm:flex-row items-center justify-around gap-2 text-center text-xs sm:text-sm lg:text-base xl:text-lg">
-                    <span class="text-slate-200 font-medium">⚡ {{ __('messages.product_strip_1') }}</span>
-                    <span class="hidden sm:inline text-white/20">&bull;</span>
-                    <span class="text-slate-200 font-medium">🍊 {{ __('messages.product_strip_2') }}</span>
-                    <span class="hidden sm:inline text-white/20">&bull;</span>
-                    <span class="text-slate-200 font-medium">✨ {{ __('messages.product_strip_3') }}</span>
+                <!-- Catalog Link CTA -->
+                <div class="text-center">
+                    <a href="{{ route('products.catalog') }}"
+                        class="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/10 hover:bg-tropical-500/20 border border-white/15 hover:border-tropical-400/50 text-xs sm:text-sm font-display font-bold text-slate-200 hover:text-white transition transform hover:scale-105 shadow-lg">
+                        <span>🛍️</span>
+                        <span>{{ __('messages.view_all_products') }}</span>
+                        <span class="text-tropical-300 font-extrabold">&rarr;</span>
+                    </a>
                 </div>
 
             </div>
@@ -904,7 +934,7 @@
             <!-- Minimalist Footer -->
             <footer class="w-full pt-3 pb-1 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs sm:text-sm text-slate-400">
                 <div class="flex items-center gap-2.5">
-                    <img src="{{ asset('images/logo_dondong_official_asli.jpg') }}" alt="DonDong Logo" class="h-6 w-auto rounded object-contain">
+                    <img src="{{ asset('images/logo_dondong_official_asli.jpg') }}" alt="DonDong Logo" loading="lazy" decoding="async" class="h-6 w-auto rounded object-contain">
                     <span class="text-slate-300 font-semibold">{{ __('messages.company_name') }}</span>
                 </div>
                 <span>{{ __('messages.footer_copyright') }}</span>
@@ -1105,7 +1135,7 @@
                 });
             });
 
-            // Preloader Controller with Strict Buffer & Playback Verification
+            // Preloader Controller: Instant, Smooth Reveal
             const preloader = document.getElementById('cinematic-preloader');
             const preloaderBar = document.getElementById('preloader-bar');
             const preloaderText = document.getElementById('preloader-text');
@@ -1113,60 +1143,38 @@
 
             let isRevealed = false;
             let heroTl = null;
-            let progress = 10;
-
-            // Smoothly advance progress bar for a snappy, branded intro
-            const progressTimer = setInterval(() => {
-                if (isRevealed) {
-                    clearInterval(progressTimer);
-                    return;
-                }
-                progress += Math.floor(Math.random() * 14) + 10;
-                if (preloaderBar) preloaderBar.style.width = Math.min(progress, 90) + '%';
-                if (progress >= 90) {
-                    clearInterval(progressTimer);
-                    setTimeout(finishAndReveal, 350);
-                }
-            }, 120);
 
             function finishAndReveal() {
                 if (isRevealed) return;
                 isRevealed = true;
-                clearInterval(progressTimer);
 
                 if (preloaderBar) preloaderBar.style.width = '100%';
                 if (preloaderText) {
                     preloaderText.innerText = "{{ app()->getLocale() == 'en' ? 'Ready!' : 'Kesegaran Siap!' }}";
                 }
 
-                // Smooth reveal
                 setTimeout(() => {
                     if (preloader) {
                         preloader.classList.add('opacity-0', 'pointer-events-none');
                         setTimeout(() => {
                             preloader.remove();
-                        }, 600);
+                        }, 400);
                     }
 
                     // Trigger Hero GSAP entrance animation
                     if (heroTl) {
                         heroTl.play();
                     }
-                }, 300);
+                }, 80);
             }
+
+            // Immediately reveal without artificial delays
+            setTimeout(finishAndReveal, 120);
 
             if (heroVideo) {
-                // Kickstart playback immediately in background
+                // Request video playback in background gently
                 heroVideo.play().catch(() => {});
-
-                // Listen for early play
-                heroVideo.addEventListener('playing', () => {
-                    setTimeout(finishAndReveal, 200);
-                }, { once: true });
             }
-
-            // Quick maximum fallback (never wait more than 1.8s)
-            setTimeout(finishAndReveal, 1800);
 
             // 3. Register GSAP Plugins
             if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {

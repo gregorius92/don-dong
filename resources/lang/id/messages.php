@@ -162,6 +162,11 @@ return [
     'review_modal_submit' => 'Kirim Ulasan',
     'company_name' => 'NutriSari DonDong • PT Heavenly Nutrition',
 
+    'view_all_products' => 'Lihat Semua Varian Produk',
+    'product_scene_eyebrow' => 'PILIHAN KEMASAN & VARIAN',
+    'product_scene_title' => 'SEGARNYA KEDONDONG DALAM BERBAGAI UKURAN.',
+    'order_now' => 'Pesan Sekarang',
+
     // Footer
     'footer_desc' => 'NutriSari Dondong — Menghadirkan kesegaran buah kedondong asli nusantara dengan standar kualitas dan keamanan pangan terjamin.',
     'footer_links_title' => 'Navigasi',

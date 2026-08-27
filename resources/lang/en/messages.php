@@ -162,6 +162,11 @@ return [
     'review_modal_submit' => 'Submit Review',
     'company_name' => 'NutriSari DonDong • PT Heavenly Nutrition',
 
+    'view_all_products' => 'View All Product Variants',
+    'product_scene_eyebrow' => 'PACKAGING & VARIANTS',
+    'product_scene_title' => 'AUTHENTIC AMBARELLA IN EVERY PACK SIZE.',
+    'order_now' => 'Order Now',
+
     // Footer
     'footer_desc' => 'NutriSari Dondong — Delivering authentic Indonesian ambarella fruit refreshment with uncompromising food safety and quality standards.',
     'footer_links_title' => 'Navigation',

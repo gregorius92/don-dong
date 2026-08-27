@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>{{ app()->getLocale() == 'en' ? 'Dong — The Authentic Ambarella Experience' : 'Dong — Cocok Segar Setelah Makan Pedas' }}</title>
-    <meta name="description" content="{{ app()->getLocale() == 'en' ? 'Experience the authentic, crisp sweet-and-sour taste of Indonesian ambarella fruit with Dong. Cinematic instant freshness in every chilled glass.' : 'Nikmati sensasi kesegaran buah kedondong asli Indonesia bersama Dong. Cocok segar setelah makan pedas.' }}">
+    <title>{{ app()->getLocale() == 'en' ? 'Đông — Giải nhiệt sau món cay • Perut Pedas Langsung Tuntas' : 'Đông — Giải nhiệt sau món cay • Perut Pedas Langsung Tuntas' }}</title>
+    <meta name="description" content="Đông — Giải nhiệt sau món cay. Minuman kesegaran sari kedondong asli. Perut pedas langsung tuntas.">
 
     <!-- Canonical & OpenGraph -->
     <link rel="canonical" href="{{ url()->current() }}">
@@ -470,12 +470,12 @@
         <section id="scene-2" class="scene-container px-4 sm:px-8">
             <div class="max-w-7xl mx-auto w-full my-auto py-4 lg:py-0">
 
-                <!-- Kinetic Sensory Word Row -->
-                <div class="kinetic-words-wrap flex items-center justify-between gap-3 sm:gap-6 mb-6 sm:mb-8 overflow-x-auto lg:overflow-hidden no-scrollbar select-none opacity-90 w-full py-2">
-                    <span class="text-2xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-black text-outline-green uppercase tracking-tighter kinetic-word whitespace-nowrap leading-none shrink-0" data-speed="1.2">{{ __('messages.scene2_word_1') }}</span>
-                    <span class="text-2xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-black text-white glow-text-green uppercase tracking-tighter kinetic-word whitespace-nowrap leading-none shrink-0" data-speed="0.8">{{ __('messages.scene2_word_2') }}</span>
-                    <span class="text-2xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-black text-outline-light uppercase tracking-tighter kinetic-word whitespace-nowrap leading-none shrink-0" data-speed="1.4">{{ __('messages.scene2_word_3') }}</span>
-                    <span class="text-2xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-black text-citrus-400 glow-text-gold uppercase tracking-tighter kinetic-word whitespace-nowrap leading-none shrink-0" data-speed="0.9">{{ __('messages.scene2_word_4') }}</span>
+                <!-- Kinetic Sensory Word Row (Responsive & Centered) -->
+                <div class="kinetic-words-wrap flex items-center justify-between gap-2 sm:gap-4 lg:gap-6 mb-6 sm:mb-8 overflow-visible select-none opacity-90 w-full py-2">
+                    <span class="text-xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black text-outline-green uppercase tracking-tight kinetic-word whitespace-nowrap leading-none shrink-0" data-speed="1.1">{{ __('messages.scene2_word_1') }}</span>
+                    <span class="text-xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black text-white glow-text-green uppercase tracking-tight kinetic-word whitespace-nowrap leading-none shrink-0" data-speed="0.8">{{ __('messages.scene2_word_2') }}</span>
+                    <span class="text-xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black text-outline-light uppercase tracking-tight kinetic-word whitespace-nowrap leading-none shrink-0" data-speed="1.2">{{ __('messages.scene2_word_3') }}</span>
+                    <span class="text-xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black text-citrus-400 glow-text-gold uppercase tracking-tight kinetic-word whitespace-nowrap leading-none shrink-0" data-speed="0.8">{{ __('messages.scene2_word_4') }}</span>
                 </div>
 
                 <!-- 2-Column Grid -->
@@ -1193,11 +1193,12 @@
                     });
                 }
 
-                // Kinetic Words Parallax
+                // Kinetic Words Parallax (Bounded within viewport)
                 const kineticWords = document.querySelectorAll('.kinetic-word');
                 kineticWords.forEach((word, i) => {
                     const speed = parseFloat(word.getAttribute('data-speed')) || 1;
-                    const direction = (i % 2 === 0) ? -35 : 35;
+                    // First word moves slightly right, last word moves slightly left, middle words alternate
+                    const direction = (i === 0) ? 12 : ((i === kineticWords.length - 1) ? -12 : ((i % 2 === 0) ? -10 : 10));
                     gsap.to(word, {
                         x: direction * speed,
                         ease: 'none',

@@ -2,8 +2,8 @@
 
 return [
     // Brand & Header
-    'brand_name' => 'Dong',
-    'brand_tagline' => 'Cocok Segar Setelah Makan Pedas',
+    'brand_name' => 'Đông',
+    'brand_tagline' => 'Giải nhiệt sau món cay — Perut Pedas Langsung Tuntas',
     'nav_story' => 'Cerita',
     'nav_taste' => 'Sensasi Rasa',
     'nav_ritual' => 'Cara Seduh',
@@ -15,16 +15,16 @@ return [
     // Testimonials Section
     'testimonials_eyebrow' => 'TESTIMONI PEMBELI',
     'testimonials_title' => 'KATA MEREKA YANG SUDAH MENIKMATI.',
-    'testimonials_subtitle' => 'Cerita nyata dari penikmat kesegaran Dong di seluruh Indonesia.',
+    'testimonials_subtitle' => 'Cerita nyata dari penikmat kesegaran Đông di seluruh Indonesia.',
     'testimonials_rating_summary' => '4.9/5 dari 1.200+ Ulasan Pembeli Terverifikasi',
 
     // Hero Section
-    'hero_eyebrow' => 'KAMPANYE RASA BARU',
-    'hero_title' => 'COCOK SEGAR SETELAH MAKAN PEDAS.',
-    'hero_lead' => 'Nikmati sensasi rasa kedondong yang segar dan khas dalam setiap tegukan Dong.',
+    'hero_eyebrow' => 'GIẢI NHIỆT SAU MÓN CAY',
+    'hero_title' => 'PERUT PEDAS LANGSUNG TUNTAS.',
+    'hero_lead' => 'Sensasi kesegaran kedondong asli untuk melegakan rasa pedas seketika.',
     'hero_cta_primary' => 'RASAKAN SEGARNYA',
     'hero_cta_secondary' => 'KENALI PRODUK',
-    'hero_badge' => 'Karakter Asam-Manis Tropis Asli',
+    'hero_badge' => 'Giải nhiệt sau món cay',
 
     // Section 2: The Taste & Sensory Flavor Profile
     'taste_eyebrow' => 'SENSASI RASA',

@@ -1,4 +1,7 @@
-FROM php:8.2-cli
+FROM php:8.4-cli
+
+# Set working directory
+WORKDIR /var/www
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -8,22 +11,40 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     libzip-dev \
+    libpq-dev \
+    sqlite3 \
+    libsqlite3-dev \
     zip \
-    unzip
+    unzip \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# Install PHP extensions for SQLite, MySQL, and PostgreSQL
+RUN docker-php-ext-install \
+    pdo_mysql \
+    pdo_sqlite \
+    pdo_pgsql \
+    mbstring \
+    exif \
+    pcntl \
+    bcmath \
+    gd \
+    zip
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+# Get Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Get latest Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Copy application files
+COPY . /var/www
 
-# Set working directory
-WORKDIR /var/www
+# Install Composer dependencies
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Expose port 8000 for Artisan serve
-EXPOSE 8000
+# Ensure permissions
+RUN chmod +x /var/www/docker/entrypoint.sh \
+    && mkdir -p /var/www/database \
+    && chmod -R 777 /var/www/storage /var/www/bootstrap/cache /var/www/database
 
-CMD ["php", "-S", "0.0.0.0:8000", "-t", "public", "server.php"]
+# Expose Render default port
+EXPOSE 10000
+
+ENTRYPOINT ["/var/www/docker/entrypoint.sh"]

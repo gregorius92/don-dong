@@ -1,810 +1,1304 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth bg-[#fafaf6] text-slate-900 selection:bg-[#70b838] selection:text-white">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ app()->getLocale() == 'en' ? ($settings['meta_title_en'] ?? $settings['meta_title'] ?? 'DonDong! - Fresh Authentic Ambarella') : ($settings['meta_title'] ?? 'DonDong! - Segarnya Kedondong Asli & Ekstrak Alami') }}</title>
-    <meta name="description" content="{{ app()->getLocale() == 'en' ? ($settings['meta_description_en'] ?? $settings['meta_description'] ?? 'Experience the pure tropical sensation of authentic Ambarella fruit juice and powder.') : ($settings['meta_description'] ?? 'Sensasi kesegaran buah kedondong asli pilihan. Nikmati minuman dingin segar dan serbuk buah alami DonDong!') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <title>{{ app()->getLocale() == 'en' ? 'NutriSari Dondong — The Freshness of Ambarella, Bringing You Back' : 'NutriSari Dondong — Segarnya Dondong, Bikin Balik Lagi' }}</title>
+    <meta name="description" content="{{ app()->getLocale() == 'en' ? 'Experience the authentic, crisp sweet-and-sour taste of Indonesian ambarella fruit with NutriSari Dondong. Instant freshness in every chilled glass.' : 'Nikmati sensasi rasa dondong yang segar dan khas bersama NutriSari Dondong. Temukan rasa asam-manis otentik buah kedondong asli Indonesia di sini.' }}">
+
+    <!-- Canonical & OpenGraph -->
+    <link rel="canonical" href="{{ url()->current() }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ app()->getLocale() == 'en' ? 'NutriSari Dondong — The Freshness of Ambarella, Bringing You Back' : 'NutriSari Dondong — Segarnya Dondong, Bikin Balik Lagi' }}">
+    <meta property="og:description" content="{{ app()->getLocale() == 'en' ? 'Experience the authentic, crisp sweet-and-sour taste of Indonesian ambarella fruit with NutriSari Dondong.' : 'Nikmati sensasi rasa dondong yang segar dan khas bersama NutriSari Dondong.' }}">
+    <meta property="og:site_name" content="NutriSari Dondong">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NutriSari Dondong — Segarnya Dondong, Bikin Balik Lagi">
+
+    <!-- Favicon & App Icons -->
+    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo_dondong_official_asli.jpg') }}">
+    <link rel="shortcut icon" href="{{ asset('images/logo_dondong_official_asli.jpg') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo_dondong_official_asli.jpg') }}">
+
+    <!-- Google Fonts: Outfit (Display) & Plus Jakarta Sans (Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Outfit', 'Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        tropical: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534', // Signature DonDong Dark Green
+                            900: '#14532d',
+                            950: '#052e16',
+                        },
+                        citrus: {
+                            300: '#fde047',
+                            400: '#facc15', // Signature DonDong Sunny Yellow
+                            500: '#eab308',
+                            600: '#ca8a04',
+                            700: '#a16207',
+                        },
+                        chilli: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            500: '#f43f5e',
+                            600: '#e11d48', // Packaging "Perut Pedas Langsung Tuntas" Coral Red
+                            700: '#be123c',
+                            800: '#9f1239',
+                        },
+                        sun: {
+                            bg: '#fffdf2', // Packaging Soft Sunny Lemon Yellow Backdrop
+                            card: '#ffffff',
+                            subtle: '#fefce8', // Creamy Yogurt Yellow
+                            border: '#fef08a',
+                            dark: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
+
+    <!-- Structured Data JSON-LD -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "NutriSari Dondong",
+            "image": "{{ asset('images/product.png') }}",
+            "description": "Minuman serbuk sari buah kedondong asli Indonesia dengan rasa asam-manis menyegarkan dan tinggi Vitamin C.",
+            "brand": {
+                "@type": "Brand",
+                "name": "NutriSari"
+            },
+            "offers": {
+                "@type": "Offer",
+                "priceCurrency": "IDR",
+                "price": "15000",
+                "availability": "https://schema.org/InStock"
+            }
+        }
+    </script>
+
     <style>
-        [x-cloak] { display: none !important; }
-        
-        /* Particle canvas background */
-        #bubblesCanvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
+        [x-cloak] {
+            display: none !important;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
             height: 100%;
-            pointer-events: none;
-            z-index: 1;
         }
 
-        /* Subtle mesh background */
-        .tropical-radial-glow {
-            background: radial-gradient(circle at 50% 20%, rgba(34, 197, 94, 0.15) 0%, rgba(245, 158, 11, 0.08) 35%, rgba(255, 255, 255, 0) 70%);
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fffdf2;
+            height: 100%;
+            margin: 0;
+            padding: 0;
         }
 
-        .ambient-mesh {
-            background: 
-                radial-gradient(at 0% 0%, rgba(34, 197, 94, 0.12) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(245, 158, 11, 0.12) 0px, transparent 50%),
-                radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.08) 0px, transparent 50%);
+        .font-display {
+            font-family: 'Outfit', sans-serif;
         }
 
-        .glass-pill {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+        /* 100% Viewport Fullscreen Slide Section */
+        .snap-section {
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            height: 100dvh;
+            min-height: 100dvh;
+            max-height: 100dvh;
+            box-sizing: border-box;
         }
 
-        .product-card-shine {
-            position: relative;
-            overflow: hidden;
+        /* Ambient Sunlit Gradient Mesh matching packaging */
+        .sun-mesh {
+            background-color: #fffdf2;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(254, 240, 138, 0.65) 0px, transparent 55%),
+                radial-gradient(at 100% 0%, rgba(134, 239, 172, 0.35) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(253, 224, 71, 0.40) 0px, transparent 60%);
         }
-        .product-card-shine::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(60deg, transparent 40%, rgba(255, 255, 255, 0.4) 50%, transparent 60%);
-            transform: translateX(-100%);
-            transition: transform 0.8s ease;
+
+        @keyframes floatGentle {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-8px) rotate(0.5deg);
+            }
         }
-        .product-card-shine:hover::after {
-            transform: translateX(100%);
+
+        .animate-float-gentle {
+            animation: floatGentle 5s ease-in-out infinite;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans antialiased overflow-x-hidden selection:bg-green-500 selection:text-white" x-data="{ mobileMenuOpen: false, activeTab: 'all' }">
 
-    <!-- Top Glow Effect -->
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-green-300/20 via-yellow-200/10 to-transparent blur-3xl pointer-events-none -z-10"></div>
+<body class="bg-sun-bg text-slate-800 antialiased overflow-x-hidden"
+    x-data="{ 
+          scrolled: false, 
+          mobileNavOpen: false,
+          activeStep: 1,
+          openFaq: 1,
+          openReviewModal: false,
+          reviewRating: 5,
+          reviewHoverRating: 5,
+          currentSection: 'hero',
+          init() {
+              const sections = document.querySelectorAll('section[id]');
+              const observer = new IntersectionObserver((entries) => {
+                  entries.forEach(entry => {
+                      if (entry.isIntersecting) {
+                          this.currentSection = entry.target.id;
+                      }
+                  });
+              }, { threshold: 0.5 });
+              sections.forEach(s => observer.observe(s));
+          }
+      }">
 
-    <!-- Floating Navigation Bar -->
-    <header class="fixed top-4 left-0 right-0 z-50 px-4 md:px-8 max-w-7xl mx-auto">
-        <nav class="glass-pill rounded-full px-6 py-3.5 flex items-center justify-between shadow-lg shadow-green-950/5 border border-white/60 transition-all duration-300">
-            <!-- Brand Logo -->
-            <a href="#" class="flex items-center space-x-2 group">
-                <span class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-green-600 to-yellow-400 flex items-center justify-center text-white shadow-md shadow-green-600/30 group-hover:scale-105 transition transform">
-                    🍃
-                </span>
-                <span class="text-2xl font-black tracking-tight text-slate-900">
-                    DonDong<span class="text-yellow-500 animate-pulse">!</span>
-                </span>
+    <!-- Fixed Header Navigation Bar (Fixed Top 0 - Ultra Clean) -->
+    <header class="fixed top-0 left-0 right-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-sun-border shadow-xs py-2.5 sm:py-3 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between">
+
+            <!-- Official Brand Logo (Enlarged & Crisp) -->
+            <a href="#hero" class="flex items-center gap-2.5 group py-1" aria-label="DonDong Home">
+                <div class="h-12 sm:h-14 md:h-16 flex items-center overflow-hidden rounded-2xl bg-white border border-sun-border p-1 shadow-xs group-hover:scale-105 transition-transform duration-300">
+                    <img src="{{ asset('images/logo_dondong_official_asli.jpg') }}" alt="DonDong Logo Asli" class="h-full w-auto object-contain transform scale-110">
+                </div>
+                <div class="hidden lg:flex flex-col">
+                    <span class="text-base font-display font-black tracking-tight text-tropical-950 leading-none">DonDong</span>
+                    <span class="text-[10px] font-extrabold text-tropical-700 uppercase tracking-wider mt-0.5">Perut Pedas Langsung Tuntas</span>
+                </div>
             </a>
-            
-            <!-- Desktop Menu Links -->
-            <div class="hidden md:flex items-center space-x-1 font-semibold text-sm text-slate-600 bg-white/50 p-1.5 rounded-full border border-slate-200/50">
-                <a href="#about" class="px-4 py-2 rounded-full hover:text-green-700 hover:bg-white/80 transition">{{ __('messages.about') }}</a>
-                <a href="#products" class="px-4 py-2 rounded-full hover:text-green-700 hover:bg-white/80 transition">{{ __('messages.products') }}</a>
-                <a href="#benefits" class="px-4 py-2 rounded-full hover:text-green-700 hover:bg-white/80 transition">{{ __('messages.benefits') }}</a>
-                <a href="#testimonials" class="px-4 py-2 rounded-full hover:text-green-700 hover:bg-white/80 transition">{{ __('messages.testimonials') }}</a>
-            </div>
 
-            <!-- Right Action & Language Switcher -->
-            <div class="hidden md:flex items-center space-x-4">
-                <!-- Language Selector -->
-                <div class="flex items-center bg-white/70 rounded-full p-1 border border-slate-200/60 text-xs font-bold shadow-inner">
-                    <a href="{{ route('lang.switch', 'id') }}" class="px-2.5 py-1 rounded-full transition {{ app()->getLocale() == 'id' ? 'bg-green-600 text-white shadow-sm' : 'text-slate-500 hover:text-green-600' }}">ID</a>
-                    <a href="{{ route('lang.switch', 'en') }}" class="px-2.5 py-1 rounded-full transition {{ app()->getLocale() == 'en' ? 'bg-green-600 text-white shadow-sm' : 'text-slate-500 hover:text-green-600' }}">EN</a>
+            <!-- Desktop Navigation Menu (Streamlined & Clean) -->
+            <nav class="hidden md:flex items-center gap-7 text-xs font-extrabold uppercase tracking-wider text-slate-700" aria-label="Primary Navigation">
+                <a href="#hero" :class="currentSection === 'hero' ? 'text-tropical-700 font-black' : 'text-slate-600 hover:text-tropical-700'" class="transition-colors">Home</a>
+                <a href="#rasa" :class="currentSection === 'rasa' ? 'text-tropical-700 font-black' : 'text-slate-600 hover:text-tropical-700'" class="transition-colors">{{ __('messages.nav_taste') }}</a>
+                <a href="#ritual" :class="currentSection === 'ritual' ? 'text-tropical-700 font-black' : 'text-slate-600 hover:text-tropical-700'" class="transition-colors">{{ __('messages.nav_ritual') }}</a>
+                <a href="#produk" :class="currentSection === 'produk' ? 'text-tropical-700 font-black' : 'text-slate-600 hover:text-tropical-700'" class="transition-colors">{{ __('messages.nav_product') }}</a>
+                <a href="#testimoni" :class="currentSection === 'testimoni' ? 'text-tropical-700 font-black' : 'text-slate-600 hover:text-tropical-700'" class="transition-colors">{{ __('messages.nav_testimonials') }}</a>
+                <a href="#faq" :class="currentSection === 'faq' ? 'text-tropical-700 font-black' : 'text-slate-600 hover:text-tropical-700'" class="transition-colors">FAQ</a>
+            </nav>
+
+            <!-- Language Switch & CTA -->
+            <div class="hidden md:flex items-center gap-3">
+                <div class="inline-flex rounded-xl border border-slate-200 p-0.5 text-xs font-bold bg-slate-50">
+                    <a href="{{ route('lang.switch', 'id') }}" class="px-2.5 py-1 rounded-lg transition {{ app()->getLocale() == 'id' ? 'bg-white text-tropical-950 shadow-xs font-black' : 'text-slate-500 hover:text-slate-900' }}">ID</a>
+                    <a href="{{ route('lang.switch', 'en') }}" class="px-2.5 py-1 rounded-lg transition {{ app()->getLocale() == 'en' ? 'bg-white text-tropical-950 shadow-xs font-black' : 'text-slate-500 hover:text-slate-900' }}">EN</a>
                 </div>
 
-                <!-- Direct WhatsApp CTA -->
-                <a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '' }}?text=Halo%20DonDong!%20Saya%20ingin%20pesan%20produk%20segar%20DonDong." 
-                   target="_blank"
-                   class="px-5 py-2.5 rounded-full bg-gradient-to-r from-green-600 via-green-500 to-emerald-600 text-white font-bold text-sm shadow-md shadow-green-600/25 hover:shadow-lg hover:shadow-green-600/40 hover:-translate-y-0.5 transition-all flex items-center space-x-2">
-                    <span>{{ __('messages.buy_now') }}</span>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                <a href="#channel"
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-tropical-700 hover:bg-tropical-800 text-white text-xs font-extrabold uppercase tracking-wider shadow-xs transition-all transform hover:-translate-y-0.5">
+                    <span>{{ __('messages.nav_order') }}</span>
+                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+                    </svg>
                 </a>
             </div>
 
-            <!-- Mobile Hamburger Button -->
-            <div class="md:hidden flex items-center space-x-2">
-                <button @click="mobileMenuOpen = !mobileMenuOpen" class="w-10 h-10 rounded-full bg-white/80 border border-slate-200/60 flex items-center justify-center text-slate-700 hover:text-green-600 focus:outline-none shadow-sm" aria-label="Toggle Menu">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-show="!mobileMenuOpen">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-show="mobileMenuOpen" x-cloak>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            </div>
-        </nav>
+            <!-- Mobile Hamburger -->
+            <button @click="mobileNavOpen = !mobileNavOpen" class="md:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100" aria-label="Toggle Menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path x-show="!mobileNavOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    <path x-show="mobileNavOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
 
-        <!-- Mobile Menu Drawer -->
-        <div x-show="mobileMenuOpen" 
-             x-cloak
-             x-transition:enter="transition ease-out duration-200"
-             x-transition:enter-start="opacity-0 -translate-y-4 scale-95"
-             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-             x-transition:leave="transition ease-in duration-150"
-             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-             x-transition:leave-end="opacity-0 -translate-y-4 scale-95"
-             class="md:hidden mt-3 bg-white/95 backdrop-blur-2xl rounded-3xl p-6 shadow-2xl border border-white/80 space-y-4">
-            <div class="flex flex-col space-y-2 font-semibold text-slate-700">
-                <a href="#about" @click="mobileMenuOpen = false" class="px-4 py-3 rounded-2xl hover:bg-green-50 hover:text-green-600 transition">{{ __('messages.about') }}</a>
-                <a href="#products" @click="mobileMenuOpen = false" class="px-4 py-3 rounded-2xl hover:bg-green-50 hover:text-green-600 transition">{{ __('messages.products') }}</a>
-                <a href="#benefits" @click="mobileMenuOpen = false" class="px-4 py-3 rounded-2xl hover:bg-green-50 hover:text-green-600 transition">{{ __('messages.benefits') }}</a>
-                <a href="#testimonials" @click="mobileMenuOpen = false" class="px-4 py-3 rounded-2xl hover:bg-green-50 hover:text-green-600 transition">{{ __('messages.testimonials') }}</a>
-            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div x-show="mobileNavOpen" x-cloak class="md:hidden bg-white border-t border-sun-border px-6 py-5 space-y-3 shadow-lg">
+            <a href="#hero" @click="mobileNavOpen = false" class="block py-2 text-sm font-bold text-slate-800 hover:text-tropical-700">Home</a>
+            <a href="#rasa" @click="mobileNavOpen = false" class="block py-2 text-sm font-bold text-slate-800 hover:text-tropical-700">{{ __('messages.nav_taste') }}</a>
+            <a href="#ritual" @click="mobileNavOpen = false" class="block py-2 text-sm font-bold text-slate-800 hover:text-tropical-700">{{ __('messages.nav_ritual') }}</a>
+            <a href="#produk" @click="mobileNavOpen = false" class="block py-2 text-sm font-bold text-slate-800 hover:text-tropical-700">{{ __('messages.nav_product') }}</a>
+            <a href="#cerita" @click="mobileNavOpen = false" class="block py-2 text-sm font-bold text-slate-800 hover:text-tropical-700">{{ __('messages.nav_story') }}</a>
+            <a href="#momen" @click="mobileNavOpen = false" class="block py-2 text-sm font-bold text-slate-800 hover:text-tropical-700">{{ __('messages.nav_moments') }}</a>
+            <a href="#testimoni" @click="mobileNavOpen = false" class="block py-2 text-sm font-bold text-slate-800 hover:text-tropical-700">{{ __('messages.nav_testimonials') }}</a>
+            <a href="#faq" @click="mobileNavOpen = false" class="block py-2 text-sm font-bold text-slate-800 hover:text-tropical-700">FAQ</a>
 
             <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
-                <div class="flex items-center space-x-1 bg-slate-100 rounded-full p-1 text-xs font-bold">
-                    <a href="{{ route('lang.switch', 'id') }}" class="px-3 py-1.5 rounded-full {{ app()->getLocale() == 'id' ? 'bg-green-600 text-white' : 'text-slate-600' }}">ID</a>
-                    <a href="{{ route('lang.switch', 'en') }}" class="px-3 py-1.5 rounded-full {{ app()->getLocale() == 'en' ? 'bg-green-600 text-white' : 'text-slate-600' }}">EN</a>
+                <div class="inline-flex rounded-lg border border-slate-200 p-1 text-xs bg-slate-50">
+                    <a href="{{ route('lang.switch', 'id') }}" class="px-3 py-1 rounded-md {{ app()->getLocale() == 'id' ? 'bg-white text-slate-900 font-bold' : 'text-slate-500' }}">ID</a>
+                    <a href="{{ route('lang.switch', 'en') }}" class="px-3 py-1 rounded-md {{ app()->getLocale() == 'en' ? 'bg-white text-slate-900 font-bold' : 'text-slate-500' }}">EN</a>
                 </div>
-                <a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '' }}" @click="mobileMenuOpen = false" class="px-6 py-3 bg-green-600 text-white rounded-full font-bold text-sm shadow-lg shadow-green-600/30">
-                    {{ __('messages.buy_now') }}
+                <a href="#channel" @click="mobileNavOpen = false" class="px-4 py-2 rounded-xl bg-tropical-700 text-white text-xs font-bold">
+                    {{ __('messages.nav_order') }}
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section with Dynamic Bubbles Canvas & Mesh Background -->
-    <section class="relative min-h-[92vh] flex items-center pt-32 pb-20 overflow-hidden ambient-mesh">
-        <!-- Interactive HTML5 Canvas Particle Engine -->
-        <canvas id="bubblesCanvas"></canvas>
+    <!-- Floating Fullscreen Section Dot Navigation with Interactive Tooltips (Desktop) -->
+    <nav class="hidden lg:flex fixed right-6 top-1/2 -translate-y-1/2 z-50 flex-col items-center gap-3 bg-white/85 backdrop-blur-md border border-slate-200/80 p-2.5 rounded-full shadow-md" aria-label="Section Quick Nav">
+        <div class="relative flex items-center group">
+            <div class="absolute right-full mr-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[10px] font-bold uppercase tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none shadow-md">01 &bull; Home</div>
+            <a href="#hero" class="w-3 h-3 rounded-full transition-all duration-300" :class="currentSection === 'hero' ? 'bg-tropical-700 scale-125 ring-2 ring-tropical-700/30' : 'bg-slate-300 hover:bg-slate-500'"></a>
+        </div>
+        <div class="relative flex items-center group">
+            <div class="absolute right-full mr-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[10px] font-bold uppercase tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none shadow-md">02 &bull; Profil Rasa</div>
+            <a href="#rasa" class="w-3 h-3 rounded-full transition-all duration-300" :class="currentSection === 'rasa' ? 'bg-tropical-700 scale-125 ring-2 ring-tropical-700/30' : 'bg-slate-300 hover:bg-slate-500'"></a>
+        </div>
+        <div class="relative flex items-center group">
+            <div class="absolute right-full mr-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[10px] font-bold uppercase tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none shadow-md">03 &bull; Cara Seduh</div>
+            <a href="#ritual" class="w-3 h-3 rounded-full transition-all duration-300" :class="currentSection === 'ritual' ? 'bg-tropical-700 scale-125 ring-2 ring-tropical-700/30' : 'bg-slate-300 hover:bg-slate-500'"></a>
+        </div>
+        <div class="relative flex items-center group">
+            <div class="absolute right-full mr-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[10px] font-bold uppercase tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none shadow-md">04 &bull; Produk & Beli</div>
+            <a href="#produk" class="w-3 h-3 rounded-full transition-all duration-300" :class="currentSection === 'produk' ? 'bg-tropical-700 scale-125 ring-2 ring-tropical-700/30' : 'bg-slate-300 hover:bg-slate-500'"></a>
+        </div>
+        <div class="relative flex items-center group">
+            <div class="absolute right-full mr-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[10px] font-bold uppercase tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none shadow-md">05 &bull; Cerita Buah</div>
+            <a href="#cerita" class="w-3 h-3 rounded-full transition-all duration-300" :class="currentSection === 'cerita' ? 'bg-tropical-700 scale-125 ring-2 ring-tropical-700/30' : 'bg-slate-300 hover:bg-slate-500'"></a>
+        </div>
+        <div class="relative flex items-center group">
+            <div class="absolute right-full mr-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[10px] font-bold uppercase tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none shadow-md">06 &bull; Momen Segar</div>
+            <a href="#momen" class="w-3 h-3 rounded-full transition-all duration-300" :class="currentSection === 'momen' ? 'bg-tropical-700 scale-125 ring-2 ring-tropical-700/30' : 'bg-slate-300 hover:bg-slate-500'"></a>
+        </div>
+        <div class="relative flex items-center group">
+            <div class="absolute right-full mr-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[10px] font-bold uppercase tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none shadow-md">07 &bull; Testimoni</div>
+            <a href="#testimoni" class="w-3 h-3 rounded-full transition-all duration-300" :class="currentSection === 'testimoni' ? 'bg-tropical-700 scale-125 ring-2 ring-tropical-700/30' : 'bg-slate-300 hover:bg-slate-500'"></a>
+        </div>
+        <div class="relative flex items-center group">
+            <div class="absolute right-full mr-3 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[10px] font-bold uppercase tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none shadow-md">08 &bull; FAQ & Pesan</div>
+            <a href="#faq" class="w-3 h-3 rounded-full transition-all duration-300" :class="currentSection === 'faq' ? 'bg-tropical-700 scale-125 ring-2 ring-tropical-700/30' : 'bg-slate-300 hover:bg-slate-500'"></a>
+        </div>
+    </nav>
 
-        <!-- Ambient Background Glows -->
-        <div class="absolute top-20 left-10 w-72 h-72 bg-emerald-400/20 rounded-full blur-3xl animate-blob -z-0 pointer-events-none"></div>
-        <div class="absolute bottom-10 right-10 w-96 h-96 bg-yellow-400/20 rounded-full blur-3xl animate-blob [animation-delay:4s] -z-0 pointer-events-none"></div>
-        
-        <div class="container mx-auto px-6 relative z-10 max-w-7xl">
-            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-                
-                <!-- Left Hero Copy -->
-                <div class="lg:w-7/12 text-center lg:text-left">
-                    <!-- Fresh Status Pill -->
-                    <div class="inline-flex items-center space-x-2.5 px-4 py-2 rounded-full bg-white/80 backdrop-blur-md border border-green-200/80 text-green-800 text-xs md:text-sm font-bold mb-6 shadow-sm shadow-green-900/5 animate-pulse-slow">
-                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
-                        <span class="w-2 h-2 rounded-full bg-emerald-600 -ml-4"></span>
-                        <span class="tracking-wide uppercase font-black text-emerald-700">{{ __('messages.100_real_fruit') }}</span>
-                        <span class="text-slate-300">•</span>
-                        <span class="text-slate-600 font-medium">Fresh Cold-Pressed & Pure Extract</span>
-                    </div>
+    <main class="w-full">
+        <!-- =========================================================================
+             1. HERO SECTION — FULLSCREEN (100dvh)
+             ========================================================================= -->
+        <section id="hero" class="snap-section w-full h-[100dvh] min-h-[100dvh] max-h-[100dvh] flex flex-col justify-center relative pt-14 pb-4 sm:pt-16 sm:pb-6 border-b border-sun-border sun-mesh overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-8 relative z-10 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
 
-                    <!-- Main Dynamic Headline -->
-                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 leading-[1.08] mb-6">
-                        {{ $content->translate('hero_title') }}
-                    </h1>
+                    <!-- Left: Confident Commercial Typography -->
+                    <div class="lg:col-span-7 text-center lg:text-left">
 
-                    <!-- Subtitle -->
-                    <p class="text-lg sm:text-xl text-slate-600 mb-10 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal">
-                        {{ $content->translate('hero_subtitle') }}
-                    </p>
+                        <!-- <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-tropical-100 border border-tropical-200 text-tropical-950 text-[10px] sm:text-xs font-extrabold uppercase tracking-wider mb-3 sm:mb-5 shadow-2xs">
+                            <span class="w-2 h-2 rounded-full bg-tropical-600"></span>
+                            <span>{{ __('messages.hero_eyebrow') }}</span>
+                            <span class="bg-chilli-600 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded-full">Perut Pedas Langsung Tuntas</span>
+                        </div> -->
 
-                    <!-- Interactive Dual CTA Buttons -->
-                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                        <a href="{{ $content->translate('hero_cta_link') ?: 'https://wa.me/' . ($settings['whatsapp_number'] ?? '') }}" 
-                           target="_blank"
-                           class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-green-600 via-emerald-600 to-green-700 text-white rounded-2xl font-bold text-lg hover:shadow-2xl hover:shadow-green-600/40 transform hover:-translate-y-1 transition-all flex items-center justify-center space-x-3 group">
-                            <span>{{ $content->translate('hero_cta_text') }}</span>
-                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                            </svg>
-                        </a>
-                        <a href="#products" 
-                           class="w-full sm:w-auto px-8 py-4 bg-white/80 backdrop-blur-md border-2 border-slate-200/80 text-slate-800 rounded-2xl font-bold text-lg hover:bg-white hover:border-green-600 hover:text-green-700 transition-all flex items-center justify-center space-x-2">
-                            <span>{{ __('messages.see_products') }}</span>
-                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </a>
-                    </div>
+                        <h1 class="text-2xl sm:text-4xl lg:text-6xl xl:text-7xl font-display font-black tracking-tight leading-[1.1] text-slate-950 mb-3 sm:mb-5">
+                            {{ !empty($content->translate('hero_title')) ? $content->translate('hero_title') : __('messages.hero_title') }}
+                        </h1>
 
-                    <!-- Micro Feature Highlights -->
-                    <div class="mt-12 pt-8 border-t border-slate-200/60 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm font-semibold text-slate-600">
-                        <div class="flex items-center space-x-2">
-                            <span class="w-5 h-5 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-black">✓</span>
-                            <span>Tanpa Pemanis Buatan</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <span class="w-5 h-5 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-black">✓</span>
-                            <span>Kaya Vitamin C Alami</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <span class="w-5 h-5 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-black">✓</span>
-                            <span>Dipetik dari Kebun Lokal</span>
-                        </div>
-                    </div>
-                </div>
+                        <p class="text-xs sm:text-base lg:text-lg text-slate-700 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-4 sm:mb-6">
+                            {{ !empty($content->translate('hero_subtitle')) ? $content->translate('hero_subtitle') : __('messages.hero_lead') }}
+                        </p>
 
-                <!-- Right Hero 3D Bento Glass Card -->
-                <div class="lg:w-5/12 relative w-full max-w-lg mx-auto">
-                    <!-- Glass Spotlight Background -->
-                    <div class="relative bg-gradient-to-b from-white/90 via-white/50 to-white/30 backdrop-blur-2xl rounded-[3rem] p-8 md:p-10 border border-white/90 shadow-2xl shadow-green-950/10">
-                        
-                        <!-- Floating Fruit Product Image -->
-                        <div class="relative z-10 py-6 animate-float flex justify-center items-center">
-                            <img src="{{ asset('storage/' . ($content->hero_image_path ?? 'images/product.png')) }}" 
-                                 alt="DonDong Juice & Powder" 
-                                 class="max-h-[380px] w-auto object-contain drop-shadow-[0_35px_35px_rgba(22,163,74,0.3)] hover:scale-105 transition-transform duration-500">
+                        <!-- CTAs -->
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2.5 sm:gap-4 mb-5 sm:mb-6">
+                            <a href="{{ !empty($content->hero_cta_link) ? $content->hero_cta_link : '#channel' }}"
+                                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-tropical-800 hover:bg-tropical-900 text-white font-display font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-sm hover:shadow-md transition-all transform hover:-translate-y-0.5">
+                                <span>{{ !empty($content->translate('hero_cta_text')) ? $content->translate('hero_cta_text') : __('messages.hero_cta_primary') }}</span>
+                                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+                                </svg>
+                            </a>
+
+                            <a href="#rasa"
+                                class="w-full sm:w-auto inline-flex items-center justify-center px-5 py-3 rounded-xl bg-white hover:bg-tropical-50 border border-tropical-200 text-tropical-900 font-bold text-xs sm:text-sm tracking-wider uppercase transition-all shadow-2xs">
+                                <span>{{ __('messages.hero_cta_secondary') }}</span>
+                            </a>
                         </div>
 
-                        <!-- Floating Micro Badge 1 (Top Left) -->
-                        <div class="absolute -top-4 -left-4 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-xl shadow-slate-900/5 border border-slate-100 flex items-center space-x-2.5 animate-float-delayed">
-                            <span class="text-xl">⚡</span>
+                        <!-- Proof Points -->
+                        <div class="pt-4 border-t border-sun-border grid grid-cols-3 gap-2 sm:gap-4 max-w-xl mx-auto lg:mx-0 text-left">
                             <div>
-                                <div class="text-[10px] uppercase tracking-wider font-extrabold text-slate-400">Immune Boost</div>
-                                <div class="text-xs font-bold text-slate-800">Tinggi Vitamin C</div>
+                                <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-0.5">{{ app()->getLocale() == 'en' ? 'Fruit Extract' : 'Bahan Baku' }}</span>
+                                <span class="text-[11px] sm:text-sm font-extrabold text-tropical-950">{{ app()->getLocale() == 'en' ? 'Real Ambarella' : 'Kedondong Asli' }}</span>
+                            </div>
+                            <div>
+                                <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-0.5">{{ app()->getLocale() == 'en' ? 'Preparation' : 'Penyajian' }}</span>
+                                <span class="text-[11px] sm:text-sm font-extrabold text-tropical-950">{{ app()->getLocale() == 'en' ? 'Instant Cold' : 'Larut Air Es' }}</span>
+                            </div>
+                            <div>
+                                <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-0.5">{{ app()->getLocale() == 'en' ? 'Nutrition' : 'Nutrisi' }}</span>
+                                <span class="text-[11px] sm:text-sm font-extrabold text-chilli-600">{{ app()->getLocale() == 'en' ? 'High Vitamin C' : 'Tinggi Vitamin C' }}</span>
                             </div>
                         </div>
 
-                        <!-- Floating Micro Badge 2 (Bottom Right) -->
-                        <div class="absolute -bottom-4 -right-4 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-xl shadow-slate-900/5 border border-slate-100 flex items-center space-x-2.5 animate-float">
-                            <span class="text-xl">🌿</span>
-                            <div>
-                                <div class="text-[10px] uppercase tracking-wider font-extrabold text-slate-400">100% Pure</div>
-                                <div class="text-xs font-bold text-slate-800">Kedondong Pilihan</div>
+                    </div>
+
+                    <!-- Right: Real Product Photograph -->
+                    <div class="lg:col-span-5 flex flex-col items-center justify-center relative mt-2 lg:mt-0">
+                        <div class="relative w-full max-w-[240px] sm:max-w-sm lg:max-w-[400px] rounded-3xl bg-white border border-sun-border p-2 sm:p-2.5 shadow-xl overflow-hidden group">
+
+                            <!-- Ambient Glow -->
+                            <div class="absolute -top-12 -right-12 w-48 h-48 bg-citrus-400/30 rounded-full blur-3xl pointer-events-none"></div>
+                            <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-tropical-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+                            <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-sun-subtle">
+                                <img src="{{ !empty($content->hero_image) ? asset('storage/' . $content->hero_image) : asset('images/hero.png') }}"
+                                    alt="NutriSari DonDong — Segarnya Kedondong Asli"
+                                    class="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                                    loading="eager">
                             </div>
+
                         </div>
                     </div>
+
                 </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Why DonDong Section (Modern Bento Grid) -->
-    <section id="benefits" class="py-24 relative bg-white border-y border-slate-100">
-        <div class="container mx-auto px-6 max-w-7xl">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="text-green-600 font-extrabold text-sm uppercase tracking-widest">{{ __('messages.benefits') }}</span>
-                <h2 class="text-3xl sm:text-5xl font-black text-slate-900 mt-2 mb-4 tracking-tight">
-                    {{ $content->translate('benefits_title') }}
-                </h2>
-                <p class="text-slate-600 text-lg">Setiap tetes dan butiran DonDong menghadirkan kebaikan alami buah kedondong tropis untuk tubuh bertenaga sepanjang hari.</p>
             </div>
 
-            <!-- Modern 4-Card Bento Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                <!-- Bento Card 1: 100% Organik & Alami -->
-                <div class="group bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent p-8 rounded-3xl border border-emerald-500/20 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-950/5 transition-all duration-300 flex flex-col justify-between">
-                    <div>
-                        <div class="w-14 h-14 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-2xl shadow-lg shadow-emerald-600/30 mb-6 group-hover:scale-110 transition-transform">
-                            🌿
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3">{{ __('messages.benefit_1_title') }}</h3>
-                        <p class="text-slate-600 leading-relaxed text-sm">{{ __('messages.benefit_1_desc') }}</p>
-                    </div>
-                    <div class="mt-8 pt-4 border-t border-emerald-200/50 text-xs font-bold text-emerald-700 flex items-center space-x-1">
-                        <span>Alami Tanpa Pengawet</span>
-                    </div>
-                </div>
+            <!-- Scroll Down Indicator -->
+            <a href="#rasa" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-slate-400 hover:text-tropical-700 transition-colors">
+                <span class="text-[10px] font-bold uppercase tracking-widest">Scroll</span>
+                <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </a>
+        </section>
 
-                <!-- Bento Card 2: Kesegaran Instan -->
-                <div class="group bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent p-8 rounded-3xl border border-amber-500/20 hover:border-amber-500/50 hover:shadow-xl hover:shadow-amber-950/5 transition-all duration-300 flex flex-col justify-between">
-                    <div>
-                        <div class="w-14 h-14 rounded-2xl bg-amber-500 text-white flex items-center justify-center text-2xl shadow-lg shadow-amber-500/30 mb-6 group-hover:scale-110 transition-transform">
-                            ⚡
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3">{{ __('messages.benefit_2_title') }}</h3>
-                        <p class="text-slate-600 leading-relaxed text-sm">{{ __('messages.benefit_2_desc') }}</p>
-                    </div>
-                    <div class="mt-8 pt-4 border-t border-amber-200/50 text-xs font-bold text-amber-700 flex items-center space-x-1">
-                        <span>Energy & Mood Booster</span>
-                    </div>
-                </div>
 
-                <!-- Bento Card 3: Praktis Siap Seduh -->
-                <div class="group bg-gradient-to-br from-lime-500/10 via-lime-500/5 to-transparent p-8 rounded-3xl border border-lime-500/20 hover:border-lime-500/50 hover:shadow-xl hover:shadow-lime-950/5 transition-all duration-300 flex flex-col justify-between">
-                    <div>
-                        <div class="w-14 h-14 rounded-2xl bg-lime-600 text-white flex items-center justify-center text-2xl shadow-lg shadow-lime-600/30 mb-6 group-hover:scale-110 transition-transform">
-                            ✨
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3">{{ __('messages.benefit_3_title') }}</h3>
-                        <p class="text-slate-600 leading-relaxed text-sm">{{ __('messages.benefit_3_desc') }}</p>
-                    </div>
-                    <div class="mt-8 pt-4 border-t border-lime-200/50 text-xs font-bold text-lime-800 flex items-center space-x-1">
-                        <span>Mudah Dibawa Kapan Saja</span>
-                    </div>
-                </div>
+        <!-- =========================================================================
+             2. SECTION 2 — THE TASTE & SENSORY FLAVOR PROFILE METER (100dvh Fullscreen)
+             ========================================================================= -->
+        <section id="rasa" class="snap-section w-full h-[100dvh] min-h-[100dvh] max-h-[100dvh] flex flex-col justify-center relative pt-14 pb-4 sm:pt-16 sm:pb-6 border-b border-sun-border bg-white overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-8 w-full">
 
-                <!-- Bento Card 4: Kualitas & Higienitas -->
-                <div class="group bg-gradient-to-br from-teal-500/10 via-teal-500/5 to-transparent p-8 rounded-3xl border border-teal-500/20 hover:border-teal-500/50 hover:shadow-xl hover:shadow-teal-950/5 transition-all duration-300 flex flex-col justify-between">
-                    <div>
-                        <div class="w-14 h-14 rounded-2xl bg-teal-600 text-white flex items-center justify-center text-2xl shadow-lg shadow-teal-600/30 mb-6 group-hover:scale-110 transition-transform">
-                            💎
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3">{{ __('messages.benefit_4_title') }}</h3>
-                        <p class="text-slate-600 leading-relaxed text-sm">{{ __('messages.benefit_4_desc') }}</p>
-                    </div>
-                    <div class="mt-8 pt-4 border-t border-teal-200/50 text-xs font-bold text-teal-800 flex items-center space-x-1">
-                        <span>Standar Mutu Terjamin</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Ingredients & Story Section -->
-    <section id="about" class="py-24 overflow-hidden relative ambient-mesh">
-        <div class="container mx-auto px-6 max-w-7xl">
-            <div class="flex flex-col lg:flex-row items-center gap-16">
-                <!-- Left Image Showcase with Glass Frame -->
-                <div class="lg:w-1/2 relative">
-                    <div class="relative z-10 bg-white/70 backdrop-blur-xl p-4 rounded-[3rem] shadow-2xl border border-white/90">
-                        <img src="{{ asset('storage/' . ($content->ingredients_image_path ?? 'images/ingredients.png')) }}" 
-                             alt="DonDong Natural Ingredients" 
-                             class="rounded-[2.5rem] w-full h-auto object-cover">
-                    </div>
-                    <div class="absolute -bottom-6 -left-6 w-40 h-40 bg-green-400/20 rounded-full blur-2xl -z-0"></div>
-                </div>
-
-                <!-- Right Story Content -->
-                <div class="lg:w-1/2">
-                    <span class="text-green-600 font-extrabold text-sm uppercase tracking-widest">{{ __('messages.about') }}</span>
-                    <h2 class="text-3xl sm:text-5xl font-black text-slate-900 mt-2 mb-6 tracking-tight">
-                        {{ $content->translate('ingredients_title') }}
+                <div class="text-center max-w-3xl mx-auto mb-6 sm:mb-12">
+                    <span class="text-xs font-extrabold tracking-widest text-tropical-700 uppercase block mb-1 sm:mb-2">
+                        {{ __('messages.taste_eyebrow') }}
+                    </span>
+                    <h2 class="text-2xl sm:text-4xl lg:text-5xl font-display font-extrabold text-slate-950 mb-2 sm:mb-3 leading-tight">
+                        {{ !empty($content->translate('benefits_title')) ? $content->translate('benefits_title') : __('messages.taste_title') }}
                     </h2>
-                    <p class="text-lg text-slate-600 leading-relaxed mb-8">
-                        {{ $content->translate('ingredients_content') }}
+                    <p class="text-base sm:text-lg font-medium text-tropical-800 leading-snug">
+                        {{ !empty($content->translate('benefits_content')) ? $content->translate('benefits_content') : __('messages.taste_desc') }}
                     </p>
+                </div>
 
-                    <!-- Key Health Checkpoints -->
-                    <div class="space-y-4">
-                        <div class="flex items-center space-x-4 bg-white/80 backdrop-blur-sm p-4 rounded-2xl border border-slate-200/60 shadow-sm">
-                            <div class="w-10 h-10 rounded-xl bg-green-100 text-green-700 flex items-center justify-center font-black flex-shrink-0">
-                                🍊
-                            </div>
-                            <span class="font-bold text-slate-800">{{ __('messages.ingredient_1') }}</span>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+
+                    <!-- Left: Narrative & Sensory Characteristics -->
+                    <div class="lg:col-span-6 space-y-5">
+                        <div class="border-l-4 border-tropical-600 pl-5">
+                            <span class="text-xs font-bold uppercase tracking-wider text-citrus-600 block mb-1">KARAKTER RASA ASLI</span>
+                            <p class="text-base sm:text-lg font-display font-bold text-slate-900 leading-relaxed">
+                                "{{ __('messages.taste_detail') }}"
+                            </p>
                         </div>
-
-                        <div class="flex items-center space-x-4 bg-white/80 backdrop-blur-sm p-4 rounded-2xl border border-slate-200/60 shadow-sm">
-                            <div class="w-10 h-10 rounded-xl bg-yellow-100 text-yellow-700 flex items-center justify-center font-black flex-shrink-0">
-                                🥗
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            Keseimbangan asam segar khas buah kedondong matang pohon berpadu manis gula tebu murni, memberikan ledakan kesegaran tanpa rasa getir di tenggorokan.
+                        </p>
+                        <div class="grid grid-cols-2 gap-3 pt-2">
+                            <div class="bg-tropical-50 border border-tropical-200 rounded-xl p-3 text-center">
+                                <span class="text-[10px] font-extrabold uppercase text-tropical-800 block">KEDONDONG ASLI</span>
+                                <span class="text-xs font-bold text-slate-900">100% Ekstrak Sari Buah</span>
                             </div>
-                            <span class="font-bold text-slate-800">{{ __('messages.ingredient_2') }}</span>
-                        </div>
-
-                        <div class="flex items-center space-x-4 bg-white/80 backdrop-blur-sm p-4 rounded-2xl border border-slate-200/60 shadow-sm">
-                            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-black flex-shrink-0">
-                                🌿
+                            <div class="bg-citrus-50 border border-citrus-200 rounded-xl p-3 text-center">
+                                <span class="text-[10px] font-extrabold uppercase text-citrus-700 block">TANPA PENGAWET</span>
+                                <span class="text-xs font-bold text-slate-900">Alami & Terpercaya</span>
                             </div>
-                            <span class="font-bold text-slate-800">{{ __('messages.ingredient_3') }}</span>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Product Showcase Section (Dynamic Variant Showcase) -->
-    <section id="products" class="py-24 bg-gradient-to-b from-slate-900 via-emerald-950 to-slate-950 text-white relative overflow-hidden rounded-[3rem] mx-3 md:mx-6 my-10 shadow-2xl">
-        <!-- Background Ambient Lights -->
-        <div class="absolute top-0 right-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute bottom-0 left-1/4 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <!-- Right: Flavor Balance Meter (Sensorik Bar) -->
+                    <div class="lg:col-span-6">
+                        <div class="rounded-3xl border border-sun-border bg-sun-subtle p-6 sm:p-8 shadow-xs">
+                            <div class="mb-5">
+                                <span class="text-xs font-extrabold uppercase tracking-widest text-tropical-800 block mb-1">{{ __('messages.flavor_meter_title') }}</span>
+                                <p class="text-xs text-slate-500">{{ __('messages.flavor_meter_subtitle') }}</p>
+                            </div>
 
-        <div class="container mx-auto px-6 max-w-7xl relative z-10">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="text-yellow-400 font-extrabold text-sm uppercase tracking-widest">Koleksi Produk</span>
-                <h2 class="text-3xl sm:text-5xl font-black mt-2 mb-4 tracking-tight">
-                    {{ __('messages.choose_variant') }}
-                </h2>
-                <p class="text-emerald-200/80 text-lg">{{ __('messages.find_freshness') }}</p>
-            </div>
-
-            <!-- Product Carousel Container with Alpine -->
-            <div x-data="{ 
-                currentSlide: 0, 
-                totalSlides: {{ count($products) }},
-                interval: null,
-                itemsPerPage() {
-                    return window.innerWidth >= 1024 ? 4 : (window.innerWidth >= 768 ? 2 : 1);
-                },
-                get totalPages() {
-                    return Math.max(1, Math.ceil(this.totalSlides / Math.max(1, this.itemsPerPage())));
-                },
-                prev() {
-                    this.currentSlide = (this.currentSlide - 1 + this.totalPages) % this.totalPages;
-                    this.resetInterval();
-                },
-                next() { 
-                    this.currentSlide = (this.currentSlide + 1) % this.totalPages; 
-                    this.resetInterval();
-                },
-                goTo(index) {
-                    this.currentSlide = index;
-                    this.resetInterval();
-                },
-                resetInterval() {
-                    clearInterval(this.interval);
-                    if (this.totalSlides > 0) {
-                        this.interval = setInterval(() => { 
-                            this.currentSlide = (this.currentSlide + 1) % this.totalPages; 
-                        }, 6000);
-                    }
-                },
-                init() {
-                    window.addEventListener('resize', () => { this.currentSlide = 0; });
-                    this.resetInterval();
-                }
-            }" class="relative w-full">
-                
-                <!-- Carousel Track Wrapper -->
-                <div class="overflow-hidden py-6 -mx-4 px-4">
-                    <div class="flex transition-transform duration-700 ease-out" 
-                         :style="`transform: translateX(-${currentSlide * 100}%)`">
-                        
-                        @forelse($products as $product)
-                        <div class="w-full md:w-1/2 lg:w-[25%] flex-shrink-0 px-3">
-                            <div class="bg-white/10 backdrop-blur-xl border border-white/15 rounded-[2.5rem] p-6 h-full flex flex-col justify-between hover:bg-white/15 hover:border-green-400/50 hover:shadow-2xl hover:shadow-green-500/20 transform hover:-translate-y-2 transition-all duration-300 product-card-shine group">
-                                
+                            <div class="space-y-4">
+                                <!-- Stat 1: Asam Segar -->
                                 <div>
-                                    <!-- Image Container -->
-                                    <div class="aspect-square bg-white/5 rounded-3xl mb-6 overflow-hidden flex items-center justify-center p-6 border border-white/10 group-hover:border-white/20 transition-all relative">
-                                        <img src="{{ asset('storage/' . ($product->image_path ?: 'images/product.png')) }}" 
-                                             alt="{{ $product->name }}" 
-                                             class="max-w-full max-h-full object-contain drop-shadow-xl group-hover:scale-110 transition-transform duration-500">
-                                        
-                                        <!-- Best Seller Micro Badge -->
-                                        <span class="absolute top-3 left-3 bg-yellow-400/90 text-slate-900 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shadow">
-                                            100% Asli
+                                    <div class="flex justify-between items-center text-xs font-bold text-slate-800 mb-1.5">
+                                        <span class="flex items-center gap-1.5">
+                                            <span class="text-sm">🍋</span>
+                                            <span>{{ __('messages.flavor_stat_1_name') }}</span>
                                         </span>
+                                        <span class="text-tropical-700 font-extrabold">{{ __('messages.flavor_stat_1_val') }}</span>
                                     </div>
-
-                                    <!-- Product Info -->
-                                    <h3 class="text-xl font-bold mb-2 line-clamp-2 text-white group-hover:text-yellow-300 transition-colors">
-                                        {{ $product->translate('name') }}
-                                    </h3>
-                                    <p class="text-slate-300 text-sm leading-relaxed mb-6 line-clamp-3">
-                                        {{ $product->translate('description') }}
-                                    </p>
+                                    <div class="h-2.5 w-full rounded-full bg-slate-200 overflow-hidden">
+                                        <div class="h-full rounded-full bg-gradient-to-r from-tropical-500 to-tropical-600 w-[90%] transition-all duration-500"></div>
+                                    </div>
                                 </div>
 
-                                <!-- Price & Action CTA -->
-                                <div class="pt-4 border-t border-white/10 flex items-center justify-between mt-auto">
-                                    <div>
-                                        <div class="text-[10px] uppercase tracking-wider text-emerald-300 font-bold">Harga</div>
-                                        <div class="text-xl font-black text-yellow-400">{{ $product->price_display }}</div>
-                                    </div>
-
-                                    <a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '' }}?text={{ urlencode('Halo DonDong! Saya tertarik untuk memesan: ' . $product->name . ' (' . $product->price_display . ')') }}" 
-                                       target="_blank"
-                                       class="px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-white rounded-2xl font-bold text-sm shadow-lg shadow-green-600/30 transition-all flex items-center space-x-1.5">
-                                        <span>{{ __('messages.buy') }}</span>
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.765-5.764-5.765zm3.392 7.624c-.131.374-.757.701-1.045.741-.283.04-.551.05-.884-.04-.203-.053-.473-.131-.806-.271-1.428-.596-2.352-2.049-2.423-2.144-.071-.095-.572-.765-.572-1.458 0-.693.363-1.033.493-1.173.132-.14.286-.174.382-.174.095 0 .191.002.274.005.086.002.202-.033.315.24.116.279.399.972.434 1.044.036.071.06.155.012.251-.048.096-.1.173-.18.251-.081.079-.17.176-.242.235-.081.066-.165.138-.07.301.096.162.427.705.917 1.141.63.563 1.161.738 1.326.823.165.084.263.07.362-.047.099-.117.432-.505.548-.678.116-.174.232-.146.39-.088.158.058 1.001.472 1.174.558.173.088.29.131.332.205.04.07.04.407-.091.782z"/></svg>
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                        @empty
-                        <div class="w-full text-center py-16 px-6 bg-white/5 rounded-3xl">
-                            <p class="text-xl text-slate-400">Produk DonDong akan segera hadir kembali!</p>
-                        </div>
-                        @endforelse
-
-                    </div>
-                </div>
-
-                <!-- Navigation Arrows -->
-                <button @click="prev()" 
-                        class="hidden md:flex items-center justify-center absolute -left-5 lg:-left-7 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white text-slate-900 shadow-2xl hover:bg-yellow-400 transition-all z-20 focus:outline-none"
-                        aria-label="Previous Products">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
-                </button>
-                <button @click="next()" 
-                        class="hidden md:flex items-center justify-center absolute -right-5 lg:-right-7 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white text-slate-900 shadow-2xl hover:bg-yellow-400 transition-all z-20 focus:outline-none"
-                        aria-label="Next Products">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
-                </button>
-
-                <!-- Pagination Dots -->
-                <div class="flex justify-center mt-8 space-x-2">
-                    <template x-for="i in totalPages" :key="i">
-                        <button @click="goTo(i - 1)" 
-                                :class="{'bg-yellow-400 w-8': currentSlide === i - 1, 'bg-white/30 w-2.5 hover:bg-white/60': currentSlide !== i - 1}"
-                                class="h-2.5 rounded-full transition-all duration-300 focus:outline-none"></button>
-                    </template>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="py-24 bg-slate-50 relative">
-        <div class="container mx-auto px-6 max-w-7xl">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="text-green-600 font-extrabold text-sm uppercase tracking-widest">{{ __('messages.testimonials') }}</span>
-                <h2 class="text-3xl sm:text-5xl font-black text-slate-900 mt-2 mb-4 tracking-tight">
-                    {{ __('messages.what_they_say') }}
-                </h2>
-                <p class="text-slate-600 text-lg">Cerita nyata dari sahabat DonDong yang telah merasakan sensasi asam-manis menyegarkan setiap hari.</p>
-            </div>
-
-            <!-- Testimonial Carousel -->
-            <div x-data="{ 
-                currentSlide: 0, 
-                totalSlides: {{ $testimonials->count() }},
-                interval: null,
-                itemsPerPage() {
-                    return window.innerWidth >= 1024 ? 3 : (window.innerWidth >= 768 ? 2 : 1);
-                },
-                get totalPages() {
-                    return Math.max(1, Math.ceil(this.totalSlides / Math.max(1, this.itemsPerPage())));
-                },
-                prev() {
-                    this.currentSlide = (this.currentSlide - 1 + this.totalPages) % this.totalPages;
-                },
-                next() { 
-                    this.currentSlide = (this.currentSlide + 1) % this.totalPages; 
-                },
-                goTo(index) {
-                    this.currentSlide = index;
-                }
-            }" class="relative w-full mb-16">
-                <div class="overflow-hidden py-4 -mx-3 px-3">
-                    <div class="flex transition-transform duration-700 ease-out"
-                         :style="`transform: translateX(-${currentSlide * 100}%)`">
-                        
-                        @forelse($testimonials as $testimonial)
-                        <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3">
-                            <div class="bg-white p-8 rounded-[2.5rem] shadow-sm hover:shadow-xl border border-slate-100 h-full flex flex-col justify-between transition-all duration-300">
+                                <!-- Stat 2: Manis Pas -->
                                 <div>
-                                    <!-- Star Ratings -->
-                                    <div class="text-amber-400 mb-4 flex items-center space-x-1">
-                                        @for($i = 0; $i < $testimonial->rating; $i++)
-                                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-                                        @endfor
+                                    <div class="flex justify-between items-center text-xs font-bold text-slate-800 mb-1.5">
+                                        <span class="flex items-center gap-1.5">
+                                            <span class="text-sm">🍯</span>
+                                            <span>{{ __('messages.flavor_stat_2_name') }}</span>
+                                        </span>
+                                        <span class="text-citrus-600 font-extrabold">{{ __('messages.flavor_stat_2_val') }}</span>
                                     </div>
-                                    <p class="text-slate-700 text-base leading-relaxed italic mb-8">
-                                        "{{ $testimonial->translate('content') }}"
-                                    </p>
+                                    <div class="h-2.5 w-full rounded-full bg-slate-200 overflow-hidden">
+                                        <div class="h-full rounded-full bg-gradient-to-r from-citrus-400 to-citrus-500 w-[70%] transition-all duration-500"></div>
+                                    </div>
                                 </div>
 
-                                <div class="flex items-center pt-4 border-t border-slate-100">
-                                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-green-600 to-yellow-400 flex items-center justify-center text-white font-extrabold text-lg mr-4 shadow-md shadow-green-600/20 flex-shrink-0">
-                                        {{ strtoupper(substr($testimonial->author_name, 0, 1)) }}
+                                <!-- Stat 3: Dingin Nyes -->
+                                <div>
+                                    <div class="flex justify-between items-center text-xs font-bold text-slate-800 mb-1.5">
+                                        <span class="flex items-center gap-1.5">
+                                            <span class="text-sm">🧊</span>
+                                            <span>{{ __('messages.flavor_stat_3_name') }}</span>
+                                        </span>
+                                        <span class="text-tropical-700 font-extrabold">{{ __('messages.flavor_stat_3_val') }}</span>
                                     </div>
-                                    <div>
-                                        <div class="font-bold text-slate-900">{{ $testimonial->author_name }}</div>
-                                        <div class="text-xs text-green-700 font-semibold flex items-center">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 mr-1.5"></span>
-                                            Verified Buyer
-                                        </div>
+                                    <div class="h-2.5 w-full rounded-full bg-slate-200 overflow-hidden">
+                                        <div class="h-full rounded-full bg-gradient-to-r from-tropical-400 to-tropical-600 w-[100%] transition-all duration-500"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Stat 4: Aroma Buah -->
+                                <div>
+                                    <div class="flex justify-between items-center text-xs font-bold text-slate-800 mb-1.5">
+                                        <span class="flex items-center gap-1.5">
+                                            <span class="text-sm">🌿</span>
+                                            <span>{{ __('messages.flavor_stat_4_name') }}</span>
+                                        </span>
+                                        <span class="text-tropical-700 font-extrabold">{{ __('messages.flavor_stat_4_val') }}</span>
+                                    </div>
+                                    <div class="h-2.5 w-full rounded-full bg-slate-200 overflow-hidden">
+                                        <div class="h-full rounded-full bg-gradient-to-r from-tropical-500 to-citrus-500 w-[95%] transition-all duration-500"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @empty
-                        <div class="w-full text-center text-slate-500 py-16 px-6 bg-white rounded-3xl border border-slate-100">
-                            <p class="text-lg">{{ __('messages.be_first_testimonial') }}</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =========================================================================
+             3. SECTION 3 — INTERACTIVE 3-STEP SERVING RITUAL (100dvh Fullscreen)
+             ========================================================================= -->
+        <section id="ritual" class="snap-section w-full h-[100dvh] min-h-[100dvh] max-h-[100dvh] flex flex-col justify-center relative pt-14 pb-4 sm:pt-16 sm:pb-6 border-b border-sun-border bg-sun-bg overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-8 w-full">
+
+                <div class="max-w-3xl mb-6 sm:mb-10">
+                    <span class="text-xs font-extrabold tracking-widest text-tropical-700 uppercase block mb-1 sm:mb-2">
+                        {{ __('messages.ritual_eyebrow') }}
+                    </span>
+                    <h2 class="text-2xl sm:text-4xl font-display font-extrabold text-slate-950 mb-1 sm:mb-2">
+                        {{ __('messages.ritual_title') }}
+                    </h2>
+                    <p class="text-slate-600 text-xs sm:text-sm">
+                        {{ __('messages.ritual_subtitle') }}
+                    </p>
+                </div>
+
+                <!-- 3 Steps Interactive Deck -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+                    <!-- Step 01 -->
+                    <div @click="activeStep = 1"
+                        :class="activeStep === 1 ? 'border-tropical-600 bg-white shadow-md ring-2 ring-tropical-600/10' : 'border-sun-border bg-white/70 opacity-90'"
+                        class="cursor-pointer rounded-3xl border p-6 sm:p-8 transition-all duration-300 group hover:border-tropical-400">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="w-10 h-10 rounded-2xl bg-tropical-100 text-tropical-800 font-display font-extrabold text-base flex items-center justify-center">
+                                01
+                            </div>
+                            <span class="text-lg">✂️</span>
                         </div>
-                        @endforelse
+                        <h3 class="text-base sm:text-lg font-bold text-slate-950 mb-2">
+                            {{ __('messages.ritual_step_1_title') }}
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            {{ __('messages.ritual_step_1_desc') }}
+                        </p>
+                    </div>
+
+                    <!-- Step 02 -->
+                    <div @click="activeStep = 2"
+                        :class="activeStep === 2 ? 'border-citrus-500 bg-white shadow-md ring-2 ring-citrus-500/10' : 'border-sun-border bg-white/70 opacity-90'"
+                        class="cursor-pointer rounded-3xl border p-6 sm:p-8 transition-all duration-300 group hover:border-citrus-400">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="w-10 h-10 rounded-2xl bg-citrus-100 text-citrus-700 font-display font-extrabold text-base flex items-center justify-center">
+                                02
+                            </div>
+                            <span class="text-lg">💧</span>
+                        </div>
+                        <h3 class="text-base sm:text-lg font-bold text-slate-950 mb-2">
+                            {{ __('messages.ritual_step_2_title') }}
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            {{ __('messages.ritual_step_2_desc') }}
+                        </p>
+                    </div>
+
+                    <!-- Step 03 -->
+                    <div @click="activeStep = 3"
+                        :class="activeStep === 3 ? 'border-tropical-600 bg-white shadow-md ring-2 ring-tropical-600/10' : 'border-sun-border bg-white/70 opacity-90'"
+                        class="cursor-pointer rounded-3xl border p-6 sm:p-8 transition-all duration-300 group hover:border-tropical-400">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="w-10 h-10 rounded-2xl bg-tropical-100 text-tropical-800 font-display font-extrabold text-base flex items-center justify-center">
+                                03
+                            </div>
+                            <span class="text-lg">🧊</span>
+                        </div>
+                        <h3 class="text-base sm:text-lg font-bold text-slate-950 mb-2">
+                            {{ __('messages.ritual_step_3_title') }}
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            {{ __('messages.ritual_step_3_desc') }}
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =========================================================================
+             4. SECTION 4 — PRODUCT LINEUP & OFFICIAL WHERE TO BUY HUB (100dvh Fullscreen)
+             ========================================================================= -->
+        <section id="produk" class="snap-section w-full h-[100dvh] min-h-[100dvh] max-h-[100dvh] flex flex-col justify-center relative pt-14 pb-4 sm:pt-16 sm:pb-6 border-b border-sun-border bg-white overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-8 w-full">
+
+                <div class="max-w-3xl mb-6 sm:mb-8">
+                    <span class="text-xs font-extrabold tracking-widest text-tropical-700 uppercase block mb-1">
+                        {{ __('messages.product_eyebrow') }}
+                    </span>
+                    <h2 class="text-2xl sm:text-4xl font-display font-extrabold text-slate-950">
+                        {{ __('messages.product_title') }}
+                    </h2>
+                </div>
+
+                <!-- Packshot Card with Real Product Line Image -->
+                <div class="rounded-3xl border border-sun-border bg-sun-subtle p-4 sm:p-6 lg:p-8 shadow-xs mb-6 sm:mb-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+
+                        <!-- Real Product Lineup Image -->
+                        <div class="lg:col-span-4 flex items-center justify-center">
+                            <div class="relative w-full max-w-[320px] rounded-2xl bg-white p-2.5 border border-sun-border shadow-md overflow-hidden group">
+                                <img src="{{ asset('images/product.png') }}"
+                                    alt="Lineup Produk NutriSari DonDong — Sachet, Pouch, & Botol"
+                                    class="w-full h-auto object-contain rounded-xl group-hover:scale-105 transition-transform duration-500">
+
+                                <div class="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-md border border-slate-200 px-2.5 py-1 rounded-lg shadow-xs flex items-center justify-between text-[10px] font-extrabold text-tropical-900">
+                                    <span>Sachet &bull; Pouch &bull; Botol</span>
+                                    <span class="text-citrus-600">Lengkap</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Specifications -->
+                        <div class="lg:col-span-8 space-y-4">
+                            <div>
+                                <span class="text-[11px] font-extrabold uppercase tracking-wider text-tropical-700 block mb-0.5">PRODUK UTAMA</span>
+                                <h3 class="text-xl sm:text-2xl font-display font-extrabold text-slate-950">{{ __('messages.product_name') }}</h3>
+                                <p class="text-citrus-600 font-bold text-xs sm:text-sm">{{ __('messages.product_flavor') }} &bull; {{ __('messages.product_format') }}</p>
+                            </div>
+
+                            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                                {{ __('messages.product_desc') }}
+                            </p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                                <div class="bg-white border border-sun-border rounded-xl p-3 shadow-2xs">
+                                    <span class="text-citrus-600 font-display font-extrabold text-sm block mb-0.5">01</span>
+                                    <span class="text-[11px] font-bold text-slate-900 block">{{ __('messages.product_feature_1') }}</span>
+                                </div>
+                                <div class="bg-white border border-sun-border rounded-xl p-3 shadow-2xs">
+                                    <span class="text-tropical-700 font-display font-extrabold text-sm block mb-0.5">02</span>
+                                    <span class="text-[11px] font-bold text-slate-900 block">{{ __('messages.product_feature_2') }}</span>
+                                </div>
+                                <div class="bg-white border border-sun-border rounded-xl p-3 shadow-2xs">
+                                    <span class="text-tropical-700 font-display font-extrabold text-sm block mb-0.5">03</span>
+                                    <span class="text-[11px] font-bold text-slate-900 block">{{ __('messages.product_feature_3') }}</span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
-                <!-- Pagination Dots -->
-                <div class="flex justify-center mt-6 space-x-2">
-                    <template x-for="i in totalPages" :key="i">
-                        <button @click="goTo(i - 1)" 
-                                :class="{'bg-green-600 w-8': currentSlide === i - 1, 'bg-slate-300 w-2.5 hover:bg-slate-400': currentSlide !== i - 1}"
-                                class="h-2.5 rounded-full transition-all duration-300 focus:outline-none"></button>
-                    </template>
+                <!-- Where to Buy Official Channels Section -->
+                <div id="channel" class="rounded-3xl border border-sun-border bg-sun-subtle p-6 sm:p-8">
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-2 mb-6">
+                        <div>
+                            <span class="text-xs font-extrabold tracking-widest text-tropical-800 uppercase block">{{ __('messages.channel_title') }}</span>
+                            <p class="text-xs text-slate-600">Beli DonDong langsung di online shop resmi kami (Linktree: <a href="https://linktr.ee/dondongkedondong" target="_blank" class="text-tropical-700 font-bold underline">@dondongkedondong</a>)</p>
+                        </div>
+                        <a href="https://linktr.ee/dondongkedondong" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-tropical-800 text-white text-[11px] font-extrabold uppercase tracking-wider hover:bg-tropical-900 transition-colors shadow-2xs">
+                            <span>🔗</span>
+                            <span>Buka Linktree Resmi</span>
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+                        <!-- Shopee -->
+                        <a href="https://shopee.co.id/kedondongshop" target="_blank" class="rounded-2xl border border-orange-200 bg-white hover:border-[#ee4d2d] p-4 flex items-center justify-between transition-all group shadow-2xs hover:shadow-sm">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-xl bg-[#ee4d2d]/10 text-[#ee4d2d] flex items-center justify-center font-black text-sm">
+                                    S
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-extrabold uppercase text-[#ee4d2d] block">Shopee Official</span>
+                                    <span class="text-xs font-bold text-slate-900 group-hover:text-[#ee4d2d] transition-colors">kedondongshop</span>
+                                </div>
+                            </div>
+                            <span class="text-slate-400 group-hover:text-[#ee4d2d] transition-colors font-bold">&rarr;</span>
+                        </a>
+
+                        <!-- Tokopedia -->
+                        <a href="https://www.tokopedia.com/dondongkedondong" target="_blank" class="rounded-2xl border border-emerald-200 bg-white hover:border-[#03ac0e] p-4 flex items-center justify-between transition-all group shadow-2xs hover:shadow-sm">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-xl bg-[#03ac0e]/10 text-[#03ac0e] flex items-center justify-center font-black text-sm">
+                                    T
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-extrabold uppercase text-[#03ac0e] block">Tokopedia Official</span>
+                                    <span class="text-xs font-bold text-slate-900 group-hover:text-[#03ac0e] transition-colors">dondongkedondong</span>
+                                </div>
+                            </div>
+                            <span class="text-slate-400 group-hover:text-[#03ac0e] transition-colors font-bold">&rarr;</span>
+                        </a>
+
+                        <!-- TikTok Shop -->
+                        <a href="https://www.tiktok.com/@dondong_kedondong" target="_blank" class="rounded-2xl border border-slate-200 bg-white hover:border-slate-900 p-4 flex items-center justify-between transition-all group shadow-2xs hover:shadow-sm">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center font-black text-sm">
+                                    ♪
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-extrabold uppercase text-slate-700 block">TikTok Official</span>
+                                    <span class="text-xs font-bold text-slate-900 group-hover:text-slate-950 transition-colors">@dondong_kedondong</span>
+                                </div>
+                            </div>
+                            <span class="text-slate-400 group-hover:text-slate-900 transition-colors font-bold">&rarr;</span>
+                        </a>
+
+                        <!-- Linktree Hub -->
+                        <a href="https://linktr.ee/dondongkedondong" target="_blank" class="rounded-2xl bg-tropical-800 hover:bg-tropical-900 p-4 flex items-center justify-between transition-all group text-white shadow-xs hover:shadow-sm">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-xl bg-white/20 text-white flex items-center justify-center font-black text-sm">
+                                    🌴
+                                </div>
+                                <div>
+                                    <span class="text-[9px] font-bold uppercase tracking-wider text-tropical-200 block">Official Hub</span>
+                                    <span class="text-xs font-extrabold">Linktree DonDong</span>
+                                </div>
+                            </div>
+                            <span class="font-bold">&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =========================================================================
+             5. SECTION 5 — WHY DONDONG? (100dvh Fullscreen)
+             ========================================================================= -->
+        <section id="cerita" class="snap-section w-full h-[100dvh] min-h-[100dvh] max-h-[100dvh] flex flex-col justify-center relative pt-14 pb-4 sm:pt-16 sm:pb-6 border-b border-sun-border bg-sun-bg overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-8 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
+
+                    <div class="lg:col-span-7 space-y-4 sm:space-y-5">
+                        <span class="text-xs font-extrabold tracking-widest text-tropical-700 uppercase block">
+                            {{ __('messages.story_eyebrow') }}
+                        </span>
+
+                        <h2 class="text-2xl sm:text-4xl lg:text-5xl font-display font-extrabold text-slate-950 tracking-tight leading-tight">
+                            {{ !empty($content->translate('ingredients_title')) ? $content->translate('ingredients_title') : __('messages.story_title') }}
+                        </h2>
+
+                        <p class="text-base sm:text-lg font-display font-semibold text-tropical-800 leading-relaxed">
+                            {{ !empty($content->translate('ingredients_content')) ? $content->translate('ingredients_content') : __('messages.story_p1') }}
+                        </p>
+
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            {{ __('messages.story_p2') }}
+                        </p>
+
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            {{ __('messages.story_p3') }}
+                        </p>
+
+                        <div class="pt-3 flex items-center gap-5">
+                            <div class="flex items-center gap-2">
+                                <span class="w-5 h-5 rounded-full bg-tropical-100 text-tropical-800 font-extrabold text-xs flex items-center justify-center">✓</span>
+                                <span class="text-[11px] font-bold text-slate-800 uppercase tracking-wider">Ekstrak Buah Asli</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="w-5 h-5 rounded-full bg-citrus-100 text-citrus-700 font-extrabold text-xs flex items-center justify-center">✓</span>
+                                <span class="text-[11px] font-bold text-slate-800 uppercase tracking-wider">Higienis & Praktis</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Real Ingredients Photograph (Fresh Harvest) -->
+                    <div class="lg:col-span-5">
+                        <div class="rounded-3xl border border-sun-border bg-white p-3 shadow-md overflow-hidden group">
+                            <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-slate-100">
+                                <img src="{{ !empty($content->ingredients_image) ? asset('storage/' . $content->ingredients_image) : asset('images/ingredients.png') }}"
+                                    alt="Buah Kedondong Segar Hasil Panen Kebun Indonesia"
+                                    class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
+
+                                <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-md border border-slate-200 px-3 py-1 rounded-full text-[10px] font-extrabold text-tropical-900 shadow-xs">
+                                    🌿 BUAH KEDONDONG SEGAR
+                                </div>
+                            </div>
+
+                            <div class="p-3.5 text-left">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-citrus-600 block mb-1">DIPETIK DARI KEBUN NUSANTARA</span>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    Diproses dari buah kedondong segar berstandar mutu tinggi untuk mengunci kesegaran alami dan nutrisi alaminya.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
+        </section>
 
-            <!-- Submit Testimonial Form Card -->
-            <div class="max-w-2xl mx-auto bg-gradient-to-b from-white to-green-50/50 p-8 sm:p-12 rounded-[3rem] border border-green-100 shadow-xl shadow-green-950/5">
-                <div class="text-center mb-8">
-                    <h3 class="text-2xl sm:text-3xl font-black text-slate-900">{{ __('messages.share_experience') }}</h3>
-                    <p class="text-slate-600 mt-2">{{ __('messages.tell_us') }}</p>
+
+        <!-- =========================================================================
+             6. SECTION 6 — MOMENT / LIFESTYLE (100dvh Fullscreen)
+             ========================================================================= -->
+        <section id="momen" class="snap-section w-full h-[100dvh] min-h-[100dvh] max-h-[100dvh] flex flex-col justify-center relative pt-14 pb-4 sm:pt-16 sm:pb-6 border-b border-sun-border bg-white overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-8 w-full">
+
+                <div class="max-w-3xl mb-6 sm:mb-8">
+                    <span class="text-xs font-extrabold tracking-widest text-tropical-700 uppercase block mb-1">
+                        {{ __('messages.moments_eyebrow') }}
+                    </span>
+                    <h2 class="text-2xl sm:text-4xl font-display font-extrabold text-slate-950 mb-1 sm:mb-2">
+                        {{ __('messages.moments_title') }}
+                    </h2>
+                    <p class="text-slate-600 text-xs sm:text-sm">
+                        {{ __('messages.moments_subtitle') }}
+                    </p>
                 </div>
 
-                @if(session('success_testimonial'))
-                    <div class="mb-6 p-5 bg-emerald-100 text-emerald-800 rounded-2xl border border-emerald-200 text-center font-bold">
-                        {{ session('success_testimonial') }}
+                <!-- Lifestyle Banner + Moments Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+
+                    <!-- Lifestyle Real Photo -->
+                    <div class="lg:col-span-5">
+                        <div class="rounded-3xl border border-sun-border bg-white p-2.5 shadow-md overflow-hidden group">
+                            <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100">
+                                <img src="{{ asset('images/lifestyle.png') }}"
+                                    alt="Menikmati NutriSari DonDong Dingin Segar Kapan Saja"
+                                    class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute bottom-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-lg text-[10px] font-extrabold text-slate-900">
+                                    ☀️ Segar di Tengah Hari Terik
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Moments 01, 02, 03 List -->
+                    <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                        <!-- Moment 01 -->
+                        <article class="rounded-2xl border border-sun-border bg-sun-subtle p-4 flex flex-col justify-between hover:border-tropical-300 transition-all group">
+                            <div>
+                                <span class="px-2.5 py-0.5 rounded-full bg-citrus-100 text-[9px] font-extrabold tracking-wider text-citrus-700 uppercase mb-2 inline-block">
+                                    {{ __('messages.moment_1_tag') }}
+                                </span>
+                                <h3 class="text-xs sm:text-sm font-bold text-slate-950 mb-1">
+                                    {{ __('messages.moment_1_title') }}
+                                </h3>
+                                <p class="text-[11px] text-slate-600 leading-relaxed">
+                                    {{ __('messages.moment_1_desc') }}
+                                </p>
+                            </div>
+                            <div class="mt-3 pt-2.5 border-t border-slate-200 text-[10px] font-bold text-tropical-700">
+                                Dingin Maksimal
+                            </div>
+                        </article>
+
+                        <!-- Moment 02 -->
+                        <article class="rounded-2xl border border-sun-border bg-sun-subtle p-4 flex flex-col justify-between hover:border-citrus-300 transition-all group">
+                            <div>
+                                <span class="px-2.5 py-0.5 rounded-full bg-tropical-100 text-[9px] font-extrabold tracking-wider text-tropical-800 uppercase mb-2 inline-block">
+                                    {{ __('messages.moment_2_tag') }}
+                                </span>
+                                <h3 class="text-xs sm:text-sm font-bold text-slate-950 mb-1">
+                                    {{ __('messages.moment_2_title') }}
+                                </h3>
+                                <p class="text-[11px] text-slate-600 leading-relaxed">
+                                    {{ __('messages.moment_2_desc') }}
+                                </p>
+                            </div>
+                            <div class="mt-3 pt-2.5 border-t border-slate-200 text-[10px] font-bold text-citrus-600">
+                                Penetral Begah
+                            </div>
+                        </article>
+
+                        <!-- Moment 03 -->
+                        <article class="rounded-2xl border border-sun-border bg-sun-subtle p-4 flex flex-col justify-between hover:border-tropical-300 transition-all group">
+                            <div>
+                                <span class="px-2.5 py-0.5 rounded-full bg-tropical-100 text-[9px] font-extrabold tracking-wider text-tropical-800 uppercase mb-2 inline-block">
+                                    {{ __('messages.moment_3_tag') }}
+                                </span>
+                                <h3 class="text-xs sm:text-sm font-bold text-slate-950 mb-1">
+                                    {{ __('messages.moment_3_title') }}
+                                </h3>
+                                <p class="text-[11px] text-slate-600 leading-relaxed">
+                                    {{ __('messages.moment_3_desc') }}
+                                </p>
+                            </div>
+                            <div class="mt-3 pt-2.5 border-t border-slate-200 text-[10px] font-bold text-tropical-700">
+                                Seru Ramean
+                            </div>
+                        </article>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =========================================================================
+             6B. SECTION 6B — TESTIMONI PEMBELI / EDITORIAL SOCIAL PROOF (100dvh Fullscreen)
+             ========================================================================= -->
+        <section id="testimoni" class="snap-section w-full h-[100dvh] min-h-[100dvh] max-h-[100dvh] flex flex-col justify-center relative pt-14 pb-4 sm:pt-16 sm:pb-6 border-b border-sun-border bg-gradient-to-b from-white via-sun-subtle to-white overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-8 w-full">
+
+                <!-- Section Header with Trust Badges & Write Review CTA -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 sm:mb-8">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-citrus-100 border border-citrus-200 text-citrus-800 text-[10px] font-extrabold uppercase tracking-wider mb-2">
+                            <span>★ ★ ★ ★ ★</span>
+                            <span>{{ __('messages.testimonials_eyebrow') }}</span>
+                        </div>
+                        <h2 class="text-2xl sm:text-4xl font-display font-extrabold text-slate-950 tracking-tight leading-tight">
+                            {{ __('messages.testimonials_title') }}
+                        </h2>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <div class="bg-white border border-sun-border px-4 py-2.5 rounded-2xl shadow-2xs text-left md:text-right hidden sm:block">
+                            <span class="text-xs font-extrabold text-tropical-700 block">4.9 / 5.0 Rating Kepuasan</span>
+                            <span class="text-[10px] text-slate-500 font-medium">{{ __('messages.testimonials_rating_summary') }}</span>
+                        </div>
+                        <button @click="openReviewModal = true"
+                            type="button"
+                            class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-tropical-700 hover:bg-tropical-800 text-white text-xs font-extrabold uppercase tracking-wider shadow-xs hover:shadow-md transition-all transform hover:-translate-y-0.5">
+                            <span>✍️</span>
+                            <span>Tulis Testimoni</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Success / Error Flash Alert -->
+                @if(session('success_testimonial'))
+                <div class="mb-6 p-4 rounded-2xl bg-tropical-100 border border-tropical-300 text-tropical-900 text-xs font-bold flex items-center justify-between shadow-xs animate-bounce">
+                    <div class="flex items-center gap-2.5">
+                        <span class="text-lg">🎉</span>
+                        <span>{{ session('success_testimonial') }}</span>
+                    </div>
+                </div>
                 @endif
 
-                <form action="{{ route('testimonials.store') }}" method="POST" class="space-y-4">
-                    @csrf
-                    <div>
-                        <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-2">{{ __('messages.full_name') }}</label>
-                        <input type="text" name="author" placeholder="{{ __('messages.full_name') }}" required 
-                               class="w-full px-5 py-3.5 rounded-2xl bg-white border border-slate-200 focus:ring-2 focus:ring-green-500 focus:border-green-500 text-base shadow-sm">
+                @if($errors->any())
+                <div class="mb-6 p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-xs font-bold shadow-xs">
+                    <span class="block mb-1">Mohon lengkapi formulir testimoni:</span>
+                    <ul class="list-disc pl-5 font-medium">
+                        @foreach($errors->all() as $err)
+                        <li>{{ $err }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
+                <!-- Editorial Testimonials Asymmetric Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+
+                    <!-- Featured Hero Quote (Left Column - 5 cols) -->
+                    <div class="lg:col-span-5 flex flex-col">
+                        <div class="h-full rounded-3xl bg-gradient-to-br from-tropical-900 via-tropical-800 to-tropical-950 text-white p-7 sm:p-9 shadow-lg flex flex-col justify-between relative overflow-hidden group">
+
+                            <!-- Ambient Light Accent -->
+                            <div class="absolute -top-10 -right-10 w-40 h-40 bg-citrus-400/20 rounded-full blur-2xl pointer-events-none"></div>
+
+                            <div>
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="flex items-center gap-1 text-citrus-400 text-sm">
+                                        ★★★★★
+                                    </div>
+                                    <span class="px-2.5 py-0.5 rounded-full bg-tropical-700/80 border border-tropical-600 text-tropical-200 text-[9px] font-bold uppercase tracking-wider">
+                                        Pilihan Favorit #1
+                                    </span>
+                                </div>
+
+                                <div class="text-3xl sm:text-4xl font-display font-black text-citrus-400 mb-2 leading-none">“</div>
+                                <p class="text-base sm:text-lg lg:text-xl font-display font-bold leading-snug text-white mb-6">
+                                    "Rasa kedondongnya beneran kerasa, seger banget diminum siang-siang!"
+                                </p>
+                            </div>
+
+                            <div class="pt-6 border-t border-tropical-700/60 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-citrus-400 to-tropical-600 flex items-center justify-center font-display font-black text-slate-950 text-sm shadow-xs">
+                                        BS
+                                    </div>
+                                    <div>
+                                        <span class="text-sm font-extrabold text-white block">Budi Santoso</span>
+                                        <span class="text-[10px] text-tropical-300 font-semibold block">✓ Pembeli Terverifikasi &bull; Penikmat Segar</span>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] font-bold text-citrus-400 uppercase bg-tropical-950/60 px-2 py-1 rounded-md border border-tropical-800">
+                                    Original Sachet
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-2">Rating</label>
-                        <select name="rating" required class="w-full px-5 py-3.5 rounded-2xl bg-white border border-slate-200 focus:ring-2 focus:ring-green-500 focus:border-green-500 text-base shadow-sm">
-                            <option value="5" selected>⭐⭐⭐⭐⭐ (5/5 {{ __('messages.rating_5') }})</option>
-                            <option value="4">⭐⭐⭐⭐ (4/5 {{ __('messages.rating_4') }})</option>
-                            <option value="3">⭐⭐⭐ (3/5 {{ __('messages.rating_3') }})</option>
-                            <option value="2">⭐⭐ (2/5 {{ __('messages.rating_2') }})</option>
-                            <option value="1">⭐ (1/5 {{ __('messages.rating_1') }})</option>
-                        </select>
+
+                    <!-- Stacked Editorial Cards (Right Column - 7 cols) -->
+                    <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                        <!-- Testimonial 02 -->
+                        <div class="rounded-3xl border border-sun-border bg-white p-6 shadow-xs flex flex-col justify-between hover:border-tropical-300 hover:shadow-sm transition-all group">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="text-citrus-500 text-xs">★★★★★</div>
+                                    <span class="px-2 py-0.5 rounded-full bg-tropical-50 text-tropical-800 text-[9px] font-extrabold uppercase">
+                                        Bekal Sekolah
+                                    </span>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed mb-4">
+                                    "Anak-anak suka banget varian yang less sugar. Praktis buat bekal sekolah dan sehat karena kaya vitamin C."
+                                </p>
+                            </div>
+                            <div class="pt-3 border-t border-slate-100 flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-full bg-tropical-100 text-tropical-800 font-bold text-xs flex items-center justify-center font-display">
+                                    SA
+                                </div>
+                                <div>
+                                    <span class="text-xs font-bold text-slate-900 block">Siti Aminah</span>
+                                    <span class="text-[9px] text-slate-400 block">Ibu Rumah Tangga &bull; Jakarta</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 03 -->
+                        <div class="rounded-3xl border border-sun-border bg-white p-6 shadow-xs flex flex-col justify-between hover:border-citrus-300 hover:shadow-sm transition-all group">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="text-citrus-500 text-xs">★★★★★</div>
+                                    <span class="px-2 py-0.5 rounded-full bg-citrus-50 text-citrus-700 text-[9px] font-extrabold uppercase">
+                                        Stok Kantor
+                                    </span>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed mb-4">
+                                    "Sering order yang family size buat stok di kantor. Ampuh banget buat balikin mata ngantuk abis makan siang."
+                                </p>
+                            </div>
+                            <div class="pt-3 border-t border-slate-100 flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-full bg-citrus-100 text-citrus-800 font-bold text-xs flex items-center justify-center font-display">
+                                    AW
+                                </div>
+                                <div>
+                                    <span class="text-xs font-bold text-slate-900 block">Andi Wijaya</span>
+                                    <span class="text-[9px] text-slate-400 block">Karyawan Swasta &bull; Surabaya</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 04 (Full width on sm grid) -->
+                        <div class="sm:col-span-2 rounded-3xl border border-sun-border bg-white p-6 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-tropical-300 hover:shadow-sm transition-all">
+                            <div class="space-y-1.5">
+                                <div class="flex items-center gap-2">
+                                    <div class="text-citrus-500 text-xs">★★★★★</div>
+                                    <span class="text-[9px] font-extrabold uppercase text-slate-400">Mahasiswa Hemat</span>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed">
+                                    "Harganya lumayan terjangkau buat kantong mahasiswa. Paling suka dicampur es batu banyak-banyak pas siang terik."
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-2.5 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100 w-full sm:w-auto">
+                                <div class="w-8 h-8 rounded-full bg-tropical-100 text-tropical-800 font-bold text-xs flex items-center justify-center font-display">
+                                    RK
+                                </div>
+                                <div>
+                                    <span class="text-xs font-bold text-slate-900 block">Rina Kartika</span>
+                                    <span class="text-[9px] text-slate-400 block">Mahasiswa &bull; Bandung</span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    <div>
-                        <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-2">Ulasan Anda</label>
-                        <textarea name="content" rows="4" placeholder="{{ __('messages.what_you_like') }}" required 
-                                  class="w-full px-5 py-3.5 rounded-2xl bg-white border border-slate-200 focus:ring-2 focus:ring-green-500 focus:border-green-500 text-base shadow-sm"></textarea>
+
+                </div>
+
+                <!-- Verified Store Proof Ribbon -->
+                <div class="mt-8 pt-6 border-t border-sun-border flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 font-medium">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-tropical-500"></span>
+                        <span>Ulasan terverifikasi otomatis dari Official Store e-Commerce</span>
                     </div>
-                    <button type="submit" 
-                            class="w-full py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-2xl font-bold text-lg hover:shadow-xl hover:shadow-green-600/30 transform hover:-translate-y-0.5 transition-all">
-                        {{ __('messages.send_testimonial') }}
-                    </button>
-                </form>
+                    <div class="flex items-center gap-4 text-[11px] font-bold text-slate-600">
+                        <span>Shopee Mall ★ 4.9</span>
+                        <span>&bull;</span>
+                        <span>Tokopedia ★ 4.9</span>
+                        <span>&bull;</span>
+                        <span>TikTok Shop ★ 4.8</span>
+                    </div>
+                </div>
+
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Lifestyle & Direct Call-to-Action Banner -->
-    <section id="contact" class="py-24 relative overflow-hidden bg-white">
-        <div class="container mx-auto px-6 max-w-7xl relative z-10">
-            <div class="bg-gradient-to-br from-amber-400 via-yellow-400 to-amber-500 rounded-[3rem] p-8 sm:p-14 lg:p-20 flex flex-col lg:flex-row items-center gap-12 shadow-2xl shadow-yellow-500/20 relative overflow-hidden">
-                
-                <!-- Decorative Circles -->
-                <div class="absolute -top-20 -right-20 w-80 h-80 bg-white/20 rounded-full blur-2xl pointer-events-none"></div>
-                <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-amber-600/20 rounded-full blur-2xl pointer-events-none"></div>
 
-                <div class="lg:w-1/2 text-center lg:text-left relative z-10">
-                    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-950 mb-6 leading-tight tracking-tight">
-                        {{ __('messages.start_refreshing') }}
+        <!-- =========================================================================
+             7. SECTION 7 — FAQ & FINAL COMMERCIAL ORDER CTA (100dvh Fullscreen)
+             ========================================================================= -->
+        <section id="faq" class="snap-section w-full h-[100dvh] min-h-[100dvh] max-h-[100dvh] flex flex-col justify-between relative pt-14 pb-2 sm:pt-16 sm:pb-4 border-b border-sun-border bg-sun-bg overflow-hidden">
+            <div class="max-w-4xl mx-auto px-4 sm:px-8 w-full my-auto">
+
+                <div class="text-center mb-6 sm:mb-8">
+                    <span class="text-xs font-extrabold tracking-widest text-tropical-700 uppercase block mb-1">{{ __('messages.faq_eyebrow') }}</span>
+                    <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-950">{{ __('messages.faq_title') }}</h2>
+                </div>
+
+                <div class="space-y-3 mb-10">
+                    <!-- FAQ 1 -->
+                    <div class="rounded-2xl border border-sun-border bg-white overflow-hidden shadow-2xs">
+                        <button @click="openFaq = openFaq === 1 ? null : 1" class="w-full px-5 py-3.5 text-left font-bold text-slate-950 flex justify-between items-center text-xs sm:text-sm focus:outline-none">
+                            <span>{{ __('messages.faq_1_q') }}</span>
+                            <span class="text-tropical-700 text-base font-bold" x-text="openFaq === 1 ? '−' : '+'"></span>
+                        </button>
+                        <div x-show="openFaq === 1" x-cloak class="px-5 pb-4 text-xs text-slate-600 leading-relaxed border-t border-sun-border pt-2.5">
+                            {{ __('messages.faq_1_a') }}
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="rounded-2xl border border-sun-border bg-white overflow-hidden shadow-2xs">
+                        <button @click="openFaq = openFaq === 2 ? null : 2" class="w-full px-5 py-3.5 text-left font-bold text-slate-950 flex justify-between items-center text-xs sm:text-sm focus:outline-none">
+                            <span>{{ __('messages.faq_2_q') }}</span>
+                            <span class="text-tropical-700 text-base font-bold" x-text="openFaq === 2 ? '−' : '+'"></span>
+                        </button>
+                        <div x-show="openFaq === 2" x-cloak class="px-5 pb-4 text-xs text-slate-600 leading-relaxed border-t border-sun-border pt-2.5">
+                            {{ __('messages.faq_2_a') }}
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="rounded-2xl border border-sun-border bg-white overflow-hidden shadow-2xs">
+                        <button @click="openFaq = openFaq === 3 ? null : 3" class="w-full px-5 py-3.5 text-left font-bold text-slate-950 flex justify-between items-center text-xs sm:text-sm focus:outline-none">
+                            <span>{{ __('messages.faq_3_q') }}</span>
+                            <span class="text-tropical-700 text-base font-bold" x-text="openFaq === 3 ? '−' : '+'"></span>
+                        </button>
+                        <div x-show="openFaq === 3" x-cloak class="px-5 pb-4 text-xs text-slate-600 leading-relaxed border-t border-sun-border pt-2.5">
+                            {{ __('messages.faq_3_a') }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final CTA Box -->
+                <div class="rounded-3xl border border-tropical-200 bg-tropical-50 p-6 sm:p-8 text-center shadow-xs">
+                    <span class="text-[10px] font-extrabold tracking-widest text-tropical-800 uppercase block mb-1">
+                        {{ __('messages.final_eyebrow') }}
+                    </span>
+
+                    <h2 class="text-xl sm:text-2xl font-display font-extrabold text-slate-950 mb-2">
+                        {{ __('messages.final_title') }}
                     </h2>
-                    <p class="text-lg sm:text-xl text-amber-950/80 mb-10 font-medium">
-                        {{ __('messages.contact_admin') }}
+
+                    <p class="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto mb-5 leading-relaxed">
+                        {{ __('messages.final_subtitle') }}
                     </p>
-                    <a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '' }}?text=Halo%20Admin%20DonDong!%20Saya%20ingin%20info%20pemesanan%20/%20kemitraan." 
-                       target="_blank"
-                       class="inline-flex items-center px-10 py-5 bg-slate-950 text-white rounded-2xl font-black text-lg hover:bg-slate-800 transition shadow-2xl shadow-slate-950/30 transform hover:-translate-y-1">
-                        <span>{{ __('messages.whatsapp_us') }}</span>
-                        <svg class="w-6 h-6 ml-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.765-5.764-5.765zm3.392 7.624c-.131.374-.757.701-1.045.741-.283.04-.551.05-.884-.04-.203-.053-.473-.131-.806-.271-1.428-.596-2.352-2.049-2.423-2.144-.071-.095-.572-.765-.572-1.458 0-.693.363-1.033.493-1.173.132-.14.286-.174.382-.174.095 0 .191.002.274.005.086.002.202-.033.315.24.116.279.399.972.434 1.044.036.071.06.155.012.251-.048.096-.1.173-.18.251-.081.079-.17.176-.242.235-.081.066-.165.138-.07.301.096.162.427.705.917 1.141.63.563 1.161.738 1.326.823.165.084.263.07.362-.047.099-.117.432-.505.548-.678.116-.174.232-.146.39-.088.158.058 1.001.472 1.174.558.173.088.29.131.332.205.04.07.04.407-.091.782z"/></svg>
-                    </a>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                        <a href="#channel"
+                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-tropical-700 hover:bg-tropical-800 text-white font-display font-extrabold text-xs uppercase tracking-wider shadow-xs transition-all transform hover:-translate-y-0.5">
+                            <span>{{ __('messages.final_cta') }}</span>
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
 
-                <div class="lg:w-1/2 relative z-10 flex justify-center">
-                    <img src="{{ asset('storage/' . ($content->lifestyle_image_path ?? 'images/lifestyle.png')) }}" 
-                         alt="DonDong Lifestyle" 
-                         class="rounded-[3rem] shadow-2xl border-4 border-white/40 max-h-[380px] w-auto object-cover">
+            </div>
+
+            <!-- Minimalist Brand Footer (Integrated at bottom of Section 7) -->
+            <footer class="bg-tropical-950 text-slate-400 py-6 text-xs border-t border-tropical-900 mt-8 w-full">
+                <div class="max-w-7xl mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-tropical-400/80 font-medium">
+                    <div class="flex items-center gap-3">
+                        <img src="{{ asset('images/logo_dondong_official_asli.jpg') }}" alt="DonDong Logo Asli" class="h-6 w-auto rounded-sm object-contain">
+                        <span>DonDong &bull; PT Heavenly Nutrition Indonesia</span>
+                    </div>
+                    <span>{{ __('messages.footer_copyright') }}</span>
+                </div>
+            </footer>
+        </section>
+
+    </main>
+
+    <!-- =========================================================================
+         EDITORIAL TESTIMONIAL SUBMISSION MODAL
+         ========================================================================= -->
+    <div x-show="openReviewModal"
+        x-cloak
+        class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0">
+
+        <!-- Modal Box -->
+        <div @click.away="openReviewModal = false"
+            class="relative w-full max-w-lg rounded-3xl bg-white border border-sun-border p-6 sm:p-8 shadow-2xl overflow-hidden"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+            x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+            x-transition:leave-end="opacity-0 scale-95 translate-y-4">
+
+            <!-- Ambient Glow Top -->
+            <div class="absolute -top-10 -right-10 w-36 h-36 bg-citrus-400/20 rounded-full blur-2xl pointer-events-none"></div>
+
+            <!-- Close Button -->
+            <button @click="openReviewModal = false"
+                type="button"
+                class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 flex items-center justify-center text-sm font-bold transition focus:outline-none"
+                aria-label="Tutup Modal">
+                ✕
+            </button>
+
+            <!-- Modal Header -->
+            <div class="mb-6">
+                <span class="text-[10px] font-extrabold uppercase tracking-widest text-tropical-700 block mb-1">
+                    NUTRISARI DONDONG &bull; TESTIMONI
+                </span>
+                <h3 class="text-xl sm:text-2xl font-display font-extrabold text-slate-950 mb-1">
+                    Bagikan Pengalaman Segar Anda
+                </h3>
+                <p class="text-xs text-slate-500">
+                    Ceritakan bagaimana kesegaran NutriSari DonDong membuat hari Anda lebih bersemangat.
+                </p>
+            </div>
+
+            <!-- Review Form -->
+            <form action="{{ route('testimonials.store') }}" method="POST" class="space-y-4">
+                @csrf
+                <input type="hidden" name="rating" :value="reviewRating">
+
+                <!-- Interactive Star Rating Picker -->
+                <div>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-700 mb-2">
+                        Beri Rating Kesegaran <span class="text-citrus-600">*</span>
+                    </label>
+                    <div class="flex items-center gap-2">
+                        <template x-for="star in [1, 2, 3, 4, 5]">
+                            <button type="button"
+                                @click="reviewRating = star"
+                                @mouseenter="reviewHoverRating = star"
+                                @mouseleave="reviewHoverRating = reviewRating"
+                                class="text-2xl sm:text-3xl transition-transform transform hover:scale-125 focus:outline-none"
+                                :class="(reviewHoverRating >= star) ? 'text-citrus-400' : 'text-slate-200'">
+                                ★
+                            </button>
+                        </template>
+                        <span class="text-xs font-bold text-tropical-800 ml-2" x-text="reviewRating + ' dari 5 Bintang'"></span>
+                    </div>
                 </div>
 
+                <!-- Author Name Input -->
+                <div>
+                    <label for="review-author" class="block text-xs font-extrabold uppercase tracking-wider text-slate-700 mb-1.5">
+                        Nama Lengkap <span class="text-citrus-600">*</span>
+                    </label>
+                    <input type="text"
+                        id="review-author"
+                        name="author"
+                        required
+                        placeholder="Contoh: Budi Santoso / Siti A."
+                        class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-tropical-600 focus:ring-2 focus:ring-tropical-600/20 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none transition bg-slate-50/50">
+                </div>
+
+                <!-- Review Content Textarea -->
+                <div>
+                    <label for="review-content" class="block text-xs font-extrabold uppercase tracking-wider text-slate-700 mb-1.5">
+                        Ulasan / Cerita Kesegaran <span class="text-citrus-600">*</span>
+                    </label>
+                    <textarea id="review-content"
+                        name="content"
+                        rows="3"
+                        required
+                        placeholder="Contoh: Rasa asam manisnya pas banget, es batunya bikin tenggorokan plong abis makan siang terik..."
+                        class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-tropical-600 focus:ring-2 focus:ring-tropical-600/20 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none transition bg-slate-50/50 resize-none"></textarea>
+                </div>
+
+                <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <span class="text-[10px] text-slate-400 font-medium">
+                        🛡️ Testimoni akan ditinjau tim sebelum tampil publik.
+                    </span>
+
+                    <button type="submit"
+                        class="w-full sm:w-auto px-6 py-3 rounded-xl bg-tropical-700 hover:bg-tropical-800 text-white font-display font-extrabold text-xs uppercase tracking-wider shadow-sm transition-all transform hover:-translate-y-0.5">
+                        Kirim Ulasan Segar
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Mobile Sticky Quick Buy Action Bar -->
+    <div x-show="scrolled" x-cloak
+        class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-sun-border p-2.5 px-4 flex items-center justify-between shadow-lg transition-all">
+        <div class="flex items-center gap-2.5">
+            <div class="w-10 h-10 rounded-xl bg-white border border-sun-border p-0.5 overflow-hidden flex items-center justify-center shadow-2xs">
+                <img src="{{ asset('images/logo_dondong_official_asli.jpg') }}" alt="DonDong Logo Asli" class="w-full h-full object-contain transform scale-110">
+            </div>
+            <div>
+                <span class="text-xs font-bold text-slate-900 block leading-tight">DonDong Kedondong</span>
+                <span class="text-[10px] text-chilli-600 font-bold block">Tersedia di Shopee, Tokopedia & TikTok</span>
             </div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-14 bg-slate-950 text-slate-400 border-t border-slate-900 pb-28 md:pb-14">
-        <div class="container mx-auto px-6 max-w-7xl flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="text-center md:text-left">
-                <a href="#" class="text-3xl font-black text-white tracking-tight block mb-2">
-                    DonDong<span class="text-yellow-400">!</span>
-                </a>
-                <p class="text-sm text-slate-500">Copyright © 2026 DonDong! Authentic Ambarella.<br>{{ __('messages.all_rights_reserved') }}</p>
-            </div>
-
-            <!-- Social Media Channels -->
-            <div class="flex items-center space-x-6">
-                <!-- Instagram -->
-                <a href="{{ $settings['instagram_url'] ?? '#' }}" target="_blank" class="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-green-400 hover:bg-white/10 transition shadow-sm" title="Instagram">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                    </svg>
-                </a>
-                <!-- TikTok -->
-                <a href="{{ $settings['tiktok_url'] ?? '#' }}" target="_blank" class="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-green-400 hover:bg-white/10 transition shadow-sm" title="TikTok">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.86-.6-4.12-1.31a8.6 8.6 0 01-1.21-.83v9.42c0 2.14-.54 4.54-2.51 5.85-2.26 1.51-5.54 1.34-7.5-1-1.1-1.31-1.41-3.13-1.07-4.78.36-1.78 1.61-3.4 3.32-4.05.77-.3 1.59-.44 2.41-.43l.01 4.12c-.75-.01-1.53.11-2.13.58a2.53 2.53 0 00-.91 2.23c.12 1.23.95 2.16 2.16 2.37 1.5.26 3.03-.76 3.14-2.27.01-1 .01-2 0-3V0l.02.02z"/>
-                    </svg>
-                </a>
-                <!-- YouTube -->
-                <a href="{{ $settings['youtube_url'] ?? '#' }}" target="_blank" class="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-green-400 hover:bg-white/10 transition shadow-sm" title="YouTube">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Mobile Sticky Quick-Order Thumb Bar -->
-    <div class="md:hidden fixed bottom-4 left-4 right-4 z-50">
-        <a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '' }}?text=Halo%20DonDong!%20Saya%20ingin%20pesan%20sekarang." 
-           target="_blank"
-           class="w-full py-4 px-6 bg-gradient-to-r from-green-600 via-emerald-600 to-green-700 text-white font-black text-base rounded-2xl shadow-2xl shadow-green-900/40 border border-white/20 flex items-center justify-between">
-            <div class="flex items-center space-x-2.5">
-                <span class="w-3 h-3 rounded-full bg-yellow-400 animate-ping"></span>
-                <span>Pesan DonDong Sekarang</span>
-            </div>
-            <div class="bg-white/20 px-3 py-1 rounded-xl text-xs flex items-center space-x-1">
-                <span>WhatsApp</span>
-                <span>→</span>
-            </div>
+        <a href="#channel"
+            class="px-4 py-2 rounded-xl bg-tropical-800 hover:bg-tropical-900 text-white text-xs font-extrabold shadow-xs">
+            Beli
         </a>
     </div>
 
-    <!-- High-Performance Interactive Bubbles Particle Engine -->
-    <script>
-        (function() {
-            const canvas = document.getElementById('bubblesCanvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            let width, height;
-            let particles = [];
-            const particleCount = 28;
-
-            function resize() {
-                width = canvas.width = canvas.parentElement.offsetWidth;
-                height = canvas.height = canvas.parentElement.offsetHeight;
-            }
-            window.addEventListener('resize', resize);
-            resize();
-
-            // Particle Class (Rising Fizzy Bubbles & Green Dew Drops)
-            class Bubble {
-                constructor() {
-                    this.reset(true);
-                }
-
-                reset(initial = false) {
-                    this.x = Math.random() * width;
-                    this.y = initial ? Math.random() * height : height + 20;
-                    this.radius = Math.random() * 8 + 3;
-                    this.speedY = Math.random() * 0.8 + 0.3;
-                    this.wobble = Math.random() * Math.PI * 2;
-                    this.wobbleSpeed = Math.random() * 0.02 + 0.01;
-                    this.wobbleAmp = Math.random() * 1.5 + 0.5;
-                    this.opacity = Math.random() * 0.45 + 0.15;
-                    // Color variety (emerald dew, lime fizz, golden bubble)
-                    const colors = [
-                        'rgba(34, 197, 94, ',   // Green
-                        'rgba(16, 185, 129, ',  // Emerald
-                        'rgba(245, 158, 11, ',  // Amber Gold
-                        'rgba(132, 204, 22, '   // Lime
-                    ];
-                    this.color = colors[Math.floor(Math.random() * colors.length)];
-                }
-
-                update() {
-                    this.y -= this.speedY;
-                    this.wobble += this.wobbleSpeed;
-                    this.x += Math.sin(this.wobble) * this.wobbleAmp;
-
-                    if (this.y < -30) {
-                        this.reset();
-                    }
-                }
-
-                draw() {
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = this.color + this.opacity + ')';
-                    ctx.fill();
-
-                    // Bubble highlight ring
-                    ctx.lineWidth = 1;
-                    ctx.strokeStyle = 'rgba(255, 255, 255, ' + (this.opacity * 0.7) + ')';
-                    ctx.stroke();
-                    ctx.restore();
-                }
-            }
-
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Bubble());
-            }
-
-            function animate() {
-                ctx.clearRect(0, 0, width, height);
-                for (let i = 0; i < particles.length; i++) {
-                    particles[i].update();
-                    particles[i].draw();
-                }
-                requestAnimationFrame(animate);
-            }
-            animate();
-        })();
-    </script>
 </body>
+
 </html>

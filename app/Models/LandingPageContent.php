@@ -37,6 +37,6 @@ class LandingPageContent extends Model
                 return $this->{$translatedField};
             }
         }
-        return $this->{$field};
+        return $this->{$field} ?? '';
     }
 }

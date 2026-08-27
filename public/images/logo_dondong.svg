@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 85" fill="none" class="w-auto h-full">
+  <defs>
+    <!-- Gradients for NutriSari & DonDong -->
+    <linearGradient id="nsBgGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FACC15"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#E11D48"/>
+    </linearGradient>
+    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#86EFAC"/>
+      <stop offset="50%" stop-color="#22C55E"/>
+      <stop offset="100%" stop-color="#15803D"/>
+    </linearGradient>
+    <linearGradient id="dondongGreen" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4ADE80"/>
+      <stop offset="30%" stop-color="#22C55E"/>
+      <stop offset="70%" stop-color="#16A34A"/>
+      <stop offset="100%" stop-color="#14532D"/>
+    </linearGradient>
+    <linearGradient id="orangeFruit" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#EA580C"/>
+    </linearGradient>
+    <filter id="logoShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#052e16" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Top Pill: Classic NutriSari Brandmark -->
+  <g transform="translate(4, 2)">
+    <rect x="0" y="0" width="84" height="20" rx="6" fill="url(#nsBgGradient)" filter="url(#logoShadow)"/>
+    <text x="42" y="14.5" font-family="'Outfit', 'Arial Black', sans-serif" font-weight="900" font-size="11" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">
+      NUTRISARI
+    </text>
+  </g>
+
+  <!-- Twin Kedondong Leaves Sprouting from Logo -->
+  <g transform="translate(108, 0)">
+    <!-- Left Leaf -->
+    <path d="M 14,18 C 6,11 3,2 14,0 C 19,6 19,14 14,18 Z" fill="url(#leafGrad)" stroke="#052E16" stroke-width="1.2" stroke-linejoin="round"/>
+    <path d="M 14,0 C 13,7 14,13 14,18" stroke="#DCFCE7" stroke-width="0.8" stroke-linecap="round"/>
+    
+    <!-- Right Leaf -->
+    <path d="M 14,18 C 22,11 27,3 17,0 C 11,5 11,13 14,18 Z" fill="url(#leafGrad)" stroke="#052E16" stroke-width="1.2" stroke-linejoin="round"/>
+    <path d="M 17,0 C 16,6 15,13 14,18" stroke="#DCFCE7" stroke-width="0.8" stroke-linecap="round"/>
+  </g>
+
+  <!-- Main DonDong! Dimensional Typography -->
+  <g transform="translate(4, 18)" filter="url(#logoShadow)">
+    
+    <!-- Deep Green Shadow / Outline Path Layer -->
+    <text x="0" y="52" font-family="'Outfit', 'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="52" fill="#052E16" stroke="#052E16" stroke-width="9" stroke-linejoin="round" letter-spacing="-1">
+      DonDong<tspan fill="#EA580C" stroke="#7C2D12">!</tspan>
+    </text>
+
+    <!-- Crisp White Intermediary Outline Layer -->
+    <text x="0" y="52" font-family="'Outfit', 'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="52" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="4.5" stroke-linejoin="round" letter-spacing="-1">
+      DonDong<tspan fill="#F59E0B" stroke="#FFFFFF">!</tspan>
+    </text>
+
+    <!-- Vibrant Gradient Front Fill Layer -->
+    <text x="0" y="52" font-family="'Outfit', 'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="52" fill="url(#dondongGreen)" letter-spacing="-1">
+      DonDong<tspan fill="url(#orangeFruit)">!</tspan>
+    </text>
+
+    <!-- Ambarella Fruit Graphic in the Letter 'o' -->
+    <circle cx="82" cy="36" r="6" fill="url(#orangeFruit)" stroke="#052E16" stroke-width="1.2"/>
+    <path d="M 82,30 C 80,27 83,25 85,27 Z" fill="#22C55E"/>
+
+    <!-- Ambarella Fruit Graphic in the 2nd Letter 'o' -->
+    <circle cx="190" cy="36" r="6" fill="url(#orangeFruit)" stroke="#052E16" stroke-width="1.2"/>
+    <path d="M 190,30 C 188,27 191,25 193,27 Z" fill="#22C55E"/>
+  </g>
+</svg>

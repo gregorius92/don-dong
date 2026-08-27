@@ -8,7 +8,7 @@ class LandingController extends Controller
 {
     public function index()
     {
-        $content = \App\Models\LandingPageContent::first();
+        $content = \App\Models\LandingPageContent::first() ?? new \App\Models\LandingPageContent();
         $products = \App\Models\Product::where('is_active', true)->get();
         $testimonials = \App\Models\Testimonial::where('is_visible', true)->get();
         $settings = \App\Models\GlobalSetting::pluck('value', 'key');

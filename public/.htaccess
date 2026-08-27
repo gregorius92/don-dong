@@ -20,11 +20,26 @@
     RewriteRule ^ index.php [L]
 </IfModule>
 
+# GZIP / Brotli Compression for Text, CSS, JavaScript, and SVGs
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
 # Media & Static Asset Caching / Streaming Optimization
 <IfModule mod_mime.c>
     AddType video/mp4 .mp4
     AddType video/webm .webm
     AddType image/webp .webp
+    AddType image/svg+xml .svg
 </IfModule>
 
 <IfModule mod_expires.c>
@@ -34,13 +49,17 @@
     ExpiresByType image/png "access plus 1 month"
     ExpiresByType image/jpeg "access plus 1 month"
     ExpiresByType image/webp "access plus 1 month"
-    ExpiresByType text/css "access plus 1 week"
-    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
 </IfModule>
 
 <IfModule mod_headers.c>
     <FilesMatch "\.(mp4|webm)$">
         Header set Cache-Control "public, max-age=2592000"
         Header set Accept-Ranges "bytes"
+    </FilesMatch>
+    <FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|webp|js|css|swf|svg)$">
+        Header set Cache-Control "public, max-age=2592000, immutable"
     </FilesMatch>
 </IfModule>

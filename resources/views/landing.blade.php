@@ -288,6 +288,8 @@
             loop
             playsinline
             preload="auto"
+            disablePictureInPicture
+            disableRemotePlayback
             poster="{{ asset('images/hero.png') }}"
             class="transition-opacity duration-1000">
             <source src="{{ asset('Green_fruit_floating_in_water_202608272024.mp4') }}" type="video/mp4">
@@ -548,6 +550,8 @@
                             <div class="relative aspect-square rounded-xl overflow-hidden bg-black/60">
                                 <img src="{{ !empty($content->ingredients_image) ? asset('storage/' . $content->ingredients_image) : asset('images/ingredients.png') }}"
                                     alt="Buah Kedondong Tropis Nusantara Segar"
+                                    loading="lazy"
+                                    decoding="async"
                                     class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                                 <div class="absolute bottom-3.5 left-3.5 right-3.5 flex items-center justify-between text-xs sm:text-sm font-bold text-white">
@@ -619,6 +623,8 @@
                         <div class="relative w-full max-w-[220px] sm:max-w-[260px] rounded-2xl glass-panel p-4 shadow-xl">
                             <img src="{{ asset('images/product.png') }}"
                                 alt="NutriSari DonDong Pack"
+                                loading="lazy"
+                                decoding="async"
                                 class="w-full h-auto max-h-[160px] sm:max-h-[200px] object-contain drop-shadow-xl">
                             <div class="mt-2.5 pt-2.5 border-t border-white/10 flex items-center justify-between text-xs sm:text-sm font-bold text-slate-300">
                                 <span class="text-tropical-300 uppercase">NutriSari DonDong</span>
@@ -1056,17 +1062,11 @@
                         smoothTouch: false
                     });
 
-                    function raf(time) {
-                        lenis.raf(time);
-                        requestAnimationFrame(raf);
-                    }
-                    requestAnimationFrame(raf);
-
                     lenis.on('scroll', ScrollTrigger.update);
                     gsap.ticker.add((time) => {
                         lenis.raf(time * 1000);
                     });
-                    gsap.ticker.lagSmoothing(0);
+                    gsap.ticker.lagSmoothing(500, 33);
                 }
             } catch (err) {
                 console.warn('Lenis init skipped, using native scrolling:', err);
@@ -1115,17 +1115,19 @@
             let heroTl = null;
             let progress = 10;
 
-            // Smoothly advance progress bar while waiting for video buffer
+            // Smoothly advance progress bar for a snappy, branded intro
             const progressTimer = setInterval(() => {
                 if (isRevealed) {
                     clearInterval(progressTimer);
                     return;
                 }
-                if (progress < 85) {
-                    progress += Math.floor(Math.random() * 8) + 4;
-                    if (preloaderBar) preloaderBar.style.width = Math.min(progress, 85) + '%';
+                progress += Math.floor(Math.random() * 14) + 10;
+                if (preloaderBar) preloaderBar.style.width = Math.min(progress, 90) + '%';
+                if (progress >= 90) {
+                    clearInterval(progressTimer);
+                    setTimeout(finishAndReveal, 350);
                 }
-            }, 180);
+            }, 120);
 
             function finishAndReveal() {
                 if (isRevealed) return;
@@ -1134,58 +1136,37 @@
 
                 if (preloaderBar) preloaderBar.style.width = '100%';
                 if (preloaderText) {
-                    preloaderText.innerText = "{{ app()->getLocale() == 'en' ? 'Ready to Explore!' : 'Kesegaran Siap!' }}";
+                    preloaderText.innerText = "{{ app()->getLocale() == 'en' ? 'Ready!' : 'Kesegaran Siap!' }}";
                 }
 
-                // Allow 450ms for the 100% bar animation to complete smoothly
+                // Smooth reveal
                 setTimeout(() => {
                     if (preloader) {
                         preloader.classList.add('opacity-0', 'pointer-events-none');
                         setTimeout(() => {
                             preloader.remove();
-                        }, 800);
+                        }, 600);
                     }
 
                     // Trigger Hero GSAP entrance animation
                     if (heroTl) {
                         heroTl.play();
                     }
-                }, 450);
+                }, 300);
             }
 
             if (heroVideo) {
-                // Kickstart playback immediately in background so it builds buffer & starts decoding
+                // Kickstart playback immediately in background
                 heroVideo.play().catch(() => {});
 
-                // Function to verify that video has rendered real frames
-                function checkVideoReady() {
-                    if (heroVideo.readyState >= 4 || (heroVideo.readyState >= 3 && heroVideo.currentTime > 0.2)) {
-                        finishAndReveal();
-                    }
-                }
-
-                // Listen for high-confidence buffering and time progress
-                heroVideo.addEventListener('canplaythrough', () => {
-                    heroVideo.play().catch(() => {});
-                    // Brief delay to ensure decoder has pushed smooth initial frames
-                    setTimeout(checkVideoReady, 300);
+                // Listen for early play
+                heroVideo.addEventListener('playing', () => {
+                    setTimeout(finishAndReveal, 200);
                 }, { once: true });
-
-                heroVideo.addEventListener('timeupdate', function onFirstFrames() {
-                    if (heroVideo.currentTime > 0.25) {
-                        heroVideo.removeEventListener('timeupdate', onFirstFrames);
-                        finishAndReveal();
-                    }
-                });
-
-                // In case readyState is already satisfied
-                if (heroVideo.readyState >= 4) {
-                    setTimeout(finishAndReveal, 400);
-                }
             }
 
-            // High network tolerance fallback timeout (max 6.5s on very slow networks)
-            setTimeout(finishAndReveal, 6500);
+            // Quick maximum fallback (never wait more than 1.8s)
+            setTimeout(finishAndReveal, 1800);
 
             // 3. Register GSAP Plugins
             if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
@@ -1206,18 +1187,17 @@
                         .to(heroActions, { opacity: 1, y: 0 }, '-=0.9');
                 }
 
-                // Background Video Scroll Depth (GPU-Accelerated Transform Only)
-                const bgVideo = document.querySelector('#cinematic-video-stage video');
-                if (bgVideo) {
-                    gsap.to(bgVideo, {
-                        scale: 1.12,
-                        opacity: 0.75,
+                // Background Atmospheric Overlay Depth (Zero Video Decoder Overhead)
+                const bgOverlay = document.querySelector('.cinematic-overlay');
+                if (bgOverlay) {
+                    gsap.to(bgOverlay, {
+                        opacity: 0.92,
                         ease: 'none',
                         scrollTrigger: {
                             trigger: 'body',
                             start: 'top top',
                             end: 'bottom bottom',
-                            scrub: 1.2
+                            scrub: 1
                         }
                     });
                 }

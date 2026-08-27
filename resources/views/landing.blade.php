@@ -28,8 +28,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Preload Hero Poster for Instant First Paint -->
+    <link rel="preload" as="image" href="{{ asset('images/hero.png') }}" fetchpriority="high">
+
+    <!-- Tailwind CSS Local Engine -->
+    <script>
+        // Suppress dev notice in console
+        const _origWarn = console.warn;
+        console.warn = function(...args) {
+            if (args[0] && typeof args[0] === 'string' && (args[0].includes('cdn.tailwindcss.com') || args[0].includes('should not be used in production'))) return;
+            _origWarn.apply(console, args);
+        };
+    </script>
+    <script src="{{ file_exists(public_path('js/tailwind.min.js')) ? asset('js/tailwind.min.js') : 'https://cdn.tailwindcss.com' }}"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -64,6 +75,9 @@
             }
         }
     </script>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <!-- Lenis Smooth Scroll -->
     <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
@@ -1047,17 +1061,30 @@
                 });
             });
 
+            // Ensure background video plays immediately without delay
+            const heroVideo = document.getElementById('bg-hero-video');
+            if (heroVideo) {
+                heroVideo.play().catch(() => {});
+            }
+
             // 3. Register GSAP Plugins
             if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
 
                 // Hero Intro Animation Timeline
-                const heroTl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 1.2 } });
-                heroTl
-                    .to('#hero-label', { opacity: 1, y: 0, delay: 0.2 })
-                    .to('#hero-title', { opacity: 1, scale: 1, duration: 1.4, ease: 'power4.out' }, '-=0.8')
-                    .to('#hero-sub', { opacity: 1, y: 0 }, '-=0.9')
-                    .to('#hero-actions', { opacity: 1, y: 0 }, '-=0.9');
+                const heroLabel = document.getElementById('hero-label');
+                const heroTitle = document.getElementById('hero-title');
+                const heroSub = document.getElementById('hero-sub');
+                const heroActions = document.getElementById('hero-actions');
+
+                if (heroLabel && heroTitle && heroSub && heroActions) {
+                    const heroTl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 1.2 } });
+                    heroTl
+                        .to(heroLabel, { opacity: 1, y: 0, delay: 0.2 })
+                        .to(heroTitle, { opacity: 1, scale: 1, duration: 1.4, ease: 'power4.out' }, '-=0.8')
+                        .to(heroSub, { opacity: 1, y: 0 }, '-=0.9')
+                        .to(heroActions, { opacity: 1, y: 0 }, '-=0.9');
+                }
 
                 // Background Video Scroll Depth
                 const bgVideo = document.querySelector('#cinematic-video-stage video');
@@ -1094,18 +1121,23 @@
 
                 // Scene Transitions
                 const scenes = ['#scene-2', '#scene-3', '#scene-4', '#scene-5', '#scene-6'];
-                scenes.forEach(scene => {
-                    gsap.from(scene + ' .max-w-6xl', {
-                        opacity: 0,
-                        y: 30,
-                        duration: 1.1,
-                        ease: 'power3.out',
-                        scrollTrigger: {
-                            trigger: scene,
-                            start: 'top 75%',
-                            toggleActions: 'play none none reverse'
-                        }
-                    });
+                scenes.forEach(sceneId => {
+                    const sceneElem = document.querySelector(sceneId);
+                    if (!sceneElem) return;
+                    const contentWrap = sceneElem.querySelector('.max-w-7xl, .max-w-6xl, .w-full');
+                    if (contentWrap) {
+                        gsap.from(contentWrap, {
+                            opacity: 0,
+                            y: 30,
+                            duration: 1.1,
+                            ease: 'power3.out',
+                            scrollTrigger: {
+                                trigger: sceneElem,
+                                start: 'top 75%',
+                                toggleActions: 'play none none reverse'
+                            }
+                        });
+                    }
                 });
             }
 

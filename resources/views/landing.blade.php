@@ -148,25 +148,27 @@
             height: 100%;
             object-fit: cover;
             object-position: center;
-            transform: scale(1.04);
-            will-change: transform, filter, opacity;
+            transform: translate3d(0, 0, 0) scale(1.04);
+            -webkit-transform: translate3d(0, 0, 0) scale(1.04);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            will-change: transform;
             transition: opacity 0.5s ease-out;
         }
 
-        /* Cinematic Vignette & Atmospheric Grading */
+        /* High-Performance Atmospheric Overlay without heavy blend modes */
         .cinematic-overlay {
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at 50% 45%, rgba(5, 17, 8, 0.3) 0%, rgba(5, 17, 8, 0.75) 65%, rgba(5, 17, 8, 0.96) 100%),
-                        linear-gradient(180deg, rgba(5, 17, 8, 0.8) 0%, transparent 20%, transparent 75%, rgba(5, 17, 8, 0.96) 100%);
-            mix-blend-mode: multiply;
+            background: radial-gradient(circle at 50% 45%, rgba(5, 17, 8, 0.4) 0%, rgba(5, 17, 8, 0.78) 65%, rgba(5, 17, 8, 0.96) 100%),
+                        linear-gradient(180deg, rgba(5, 17, 8, 0.85) 0%, transparent 20%, transparent 75%, rgba(5, 17, 8, 0.96) 100%);
             pointer-events: none;
         }
 
         .cinematic-glow {
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse at 50% 20%, rgba(74, 222, 128, 0.12) 0%, transparent 60%);
+            background: radial-gradient(ellipse at 50% 20%, rgba(74, 222, 128, 0.1) 0%, transparent 60%);
             pointer-events: none;
         }
 
@@ -233,6 +235,48 @@
         reviewRating: 5,
         reviewHoverRating: 5
     }">
+
+    <!-- =========================================================================
+         CINEMATIC PRELOADER SCREEN (Wait until video & assets ready)
+         ========================================================================= -->
+    <div id="cinematic-preloader"
+        class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#051108] transition-all duration-700 select-none overflow-hidden">
+        <!-- Ambient background aura -->
+        <div class="absolute w-[350px] h-[350px] sm:w-[450px] sm:h-[450px] rounded-full bg-tropical-500/15 blur-[90px] animate-pulse"></div>
+        
+        <div class="relative z-10 flex flex-col items-center text-center px-6">
+            <!-- Glowing Brand Emblem with pulsing rings -->
+            <div class="relative mb-6">
+                <div class="absolute -inset-3 rounded-2xl bg-gradient-to-tr from-tropical-500/40 to-citrus-400/30 blur-md animate-ping opacity-60"></div>
+                <div class="relative h-20 w-20 sm:h-24 sm:w-24 rounded-2xl bg-black/60 backdrop-blur-xl border border-tropical-400/40 p-1 shadow-2xl flex items-center justify-center overflow-hidden">
+                    <img src="{{ asset('images/logo_dondong_official_asli.jpg') }}"
+                        alt="DonDong Logo"
+                        class="h-full w-full object-cover rounded-xl shadow-inner">
+                </div>
+            </div>
+
+            <!-- Kinetic Brand Subtitle -->
+            <span class="text-[11px] sm:text-xs font-extrabold uppercase tracking-[0.3em] text-tropical-400 mb-1.5">
+                NutriSari DonDong
+            </span>
+            <h2 class="text-xl sm:text-2xl font-display font-black tracking-tight text-white mb-6">
+                {{ app()->getLocale() == 'en' ? 'The Authentic Ambarella Experience' : 'Sensasi Kesegaran Kedondong Asli' }}
+            </h2>
+
+            <!-- Modern Slim Progress Track -->
+            <div class="w-48 sm:w-56 h-1.5 rounded-full bg-white/10 overflow-hidden relative shadow-inner mb-3">
+                <div id="preloader-bar"
+                    class="h-full w-0 bg-gradient-to-r from-tropical-400 via-tropical-500 to-citrus-400 rounded-full transition-all duration-300 shadow-[0_0_12px_rgba(74,222,128,0.8)]">
+                </div>
+            </div>
+
+            <!-- Dynamic Status Text -->
+            <div class="flex items-center gap-2 text-[11px] font-semibold text-slate-400 uppercase tracking-widest">
+                <span class="w-1.5 h-1.5 rounded-full bg-tropical-400 animate-ping"></span>
+                <span id="preloader-text">{{ app()->getLocale() == 'en' ? 'Preparing experience...' : 'Menyiapkan kesegaran...' }}</span>
+            </div>
+        </div>
+    </div>
 
     <!-- =========================================================================
          CINEMATIC BACKGROUND VIDEO STAGE (Fixed Living Environment)
@@ -1061,43 +1105,91 @@
                 });
             });
 
-            // Ensure background video plays immediately without delay
+            // Preloader Controller
+            const preloader = document.getElementById('cinematic-preloader');
+            const preloaderBar = document.getElementById('preloader-bar');
+            const preloaderText = document.getElementById('preloader-text');
             const heroVideo = document.getElementById('bg-hero-video');
-            if (heroVideo) {
-                heroVideo.play().catch(() => {});
+
+            let isRevealed = false;
+            let heroTl = null;
+
+            function revealExperience() {
+                if (isRevealed) return;
+                isRevealed = true;
+
+                if (preloaderBar) preloaderBar.style.width = '100%';
+                if (preloaderText) {
+                    preloaderText.innerText = "{{ app()->getLocale() == 'en' ? 'Welcome!' : 'Selamat Menikmati!' }}";
+                }
+
+                setTimeout(() => {
+                    if (preloader) {
+                        preloader.classList.add('opacity-0', 'pointer-events-none');
+                        setTimeout(() => {
+                            preloader.remove();
+                        }, 750);
+                    }
+
+                    // Kickstart video & Hero intro timeline
+                    if (heroVideo) {
+                        heroVideo.play().catch(() => {});
+                    }
+                    if (heroTl) {
+                        heroTl.play();
+                    }
+                }, 350);
             }
+
+            // Animate initial loading bar
+            if (preloaderBar) {
+                setTimeout(() => { preloaderBar.style.width = '70%'; }, 150);
+            }
+
+            // Check if video is already ready or listen for ready state
+            if (heroVideo) {
+                if (heroVideo.readyState >= 3) {
+                    revealExperience();
+                } else {
+                    heroVideo.addEventListener('canplay', revealExperience, { once: true });
+                    heroVideo.addEventListener('playing', revealExperience, { once: true });
+                }
+            }
+
+            // Fallback timeout: Never block user more than 2.4s even on slow network
+            setTimeout(revealExperience, 2400);
 
             // 3. Register GSAP Plugins
             if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
 
-                // Hero Intro Animation Timeline
+                // Hero Intro Animation Timeline (Paused until preloader reveals)
                 const heroLabel = document.getElementById('hero-label');
                 const heroTitle = document.getElementById('hero-title');
                 const heroSub = document.getElementById('hero-sub');
                 const heroActions = document.getElementById('hero-actions');
 
                 if (heroLabel && heroTitle && heroSub && heroActions) {
-                    const heroTl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 1.2 } });
+                    heroTl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out', duration: 1.2 } });
                     heroTl
-                        .to(heroLabel, { opacity: 1, y: 0, delay: 0.2 })
-                        .to(heroTitle, { opacity: 1, scale: 1, duration: 1.4, ease: 'power4.out' }, '-=0.8')
+                        .to(heroLabel, { opacity: 1, y: 0, delay: 0.1 })
+                        .to(heroTitle, { opacity: 1, scale: 1, duration: 1.3, ease: 'power4.out' }, '-=0.8')
                         .to(heroSub, { opacity: 1, y: 0 }, '-=0.9')
                         .to(heroActions, { opacity: 1, y: 0 }, '-=0.9');
                 }
 
-                // Background Video Scroll Depth
+                // Background Video Scroll Depth (GPU-Accelerated Transform Only)
                 const bgVideo = document.querySelector('#cinematic-video-stage video');
                 if (bgVideo) {
                     gsap.to(bgVideo, {
-                        scale: 1.18,
-                        filter: 'brightness(0.7) blur(2px)',
+                        scale: 1.12,
+                        opacity: 0.75,
                         ease: 'none',
                         scrollTrigger: {
                             trigger: 'body',
                             start: 'top top',
                             end: 'bottom bottom',
-                            scrub: 1.5
+                            scrub: 1.2
                         }
                     });
                 }

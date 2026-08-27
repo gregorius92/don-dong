@@ -109,31 +109,41 @@
             font-family: 'Outfit', sans-serif;
         }
 
-        /* Responsive Scene Container: Fullscreen on Desktop, Natural Fluid Flow on Mobile */
+        /* Responsive Scene Container: Natural Flow with Generous Spacing on Mobile, Strict Fullscreen on Desktop */
         .scene-container {
             position: relative;
             z-index: 10;
             width: 100%;
-            min-height: 100vh;
-            min-height: 100dvh;
-            height: auto;
+            min-height: auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding-top: 5rem;
-            padding-bottom: 3.5rem;
+            padding-top: 5.5rem;
+            padding-bottom: 5.5rem;
             box-sizing: border-box;
             overflow: visible;
         }
 
+        #scene-1 {
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding-top: 6rem;
+            padding-bottom: 3rem;
+        }
+
         @media (min-width: 1024px) {
             .scene-container {
+                min-height: 100dvh;
                 height: 100dvh;
                 max-height: 100dvh;
-                padding-top: 4.25rem;
-                padding-bottom: 1.5rem;
+                padding-top: 4.5rem;
+                padding-bottom: 2rem;
                 overflow: hidden;
+            }
+            #scene-1 {
+                padding-top: 4.5rem;
+                padding-bottom: 2rem;
             }
         }
 
@@ -400,7 +410,7 @@
              SCENE 01: THE ARRIVAL (Strict 100dvh Fullscreen)
              ========================================================================= -->
         <section id="scene-1" class="scene-container text-center px-4 sm:px-8">
-            <div class="max-w-6xl mx-auto w-full flex flex-col items-center justify-center my-auto">
+            <div class="max-w-6xl mx-auto w-full flex flex-col items-center justify-center my-auto py-2">
 
                 <div id="hero-label" class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-black/50 backdrop-blur-md border border-tropical-400/30 text-tropical-300 text-xs sm:text-sm md:text-base font-extrabold uppercase tracking-[0.22em] mb-4 shadow-lg opacity-0 transform translate-y-4">
                     <span class="w-2 h-2 rounded-full bg-tropical-400 animate-pulse"></span>
@@ -409,19 +419,19 @@
                     <span class="text-citrus-300 font-semibold">{{ __('messages.hero_badge_spicy') }}</span>
                 </div>
 
-                <div class="relative mb-3 select-none">
-                    <h1 id="hero-title" class="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[11.5rem] font-display font-black uppercase tracking-tight leading-none text-white glow-text-green opacity-0 transform scale-95">
+                <div class="relative mb-3 sm:mb-4 select-none max-w-full">
+                    <h1 id="hero-title" class="text-5xl sm:text-7xl md:text-8xl lg:text-[9.5rem] xl:text-[11.5rem] font-display font-black uppercase tracking-tight leading-none text-white glow-text-green opacity-0 transform scale-95 break-words">
                         {{ __('messages.scene1_title') }}
                     </h1>
                 </div>
 
-                <p id="hero-sub" class="text-base sm:text-xl md:text-2xl lg:text-3xl font-light text-slate-200 tracking-wide max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed opacity-0 transform translate-y-4">
+                <p id="hero-sub" class="text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-light text-slate-200 tracking-wide max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed opacity-0 transform translate-y-4 px-2">
                     {{ !empty($content->translate('hero_title')) ? $content->translate('hero_title') : __('messages.scene1_emotion') }}
                 </p>
 
-                <div id="hero-actions" class="flex flex-col sm:flex-row items-center gap-3.5 sm:gap-5 opacity-0 transform translate-y-4">
+                <div id="hero-actions" class="w-full sm:w-auto flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-5 opacity-0 transform translate-y-4">
                     <a href="{{ (!empty($content->hero_cta_link) && $content->hero_cta_link !== '#contact') ? $content->hero_cta_link : '#channel' }}"
-                        class="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gradient-to-r from-tropical-500 to-tropical-600 hover:from-tropical-400 hover:to-tropical-500 text-slate-950 font-display font-black text-xs sm:text-sm lg:text-base uppercase tracking-widest transition-all duration-300 transform hover:scale-105 shadow-[0_0_30px_rgba(74,222,128,0.4)]">
+                        class="w-full sm:w-auto justify-center inline-flex items-center gap-2.5 px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-tropical-500 to-tropical-600 hover:from-tropical-400 hover:to-tropical-500 text-slate-950 font-display font-black text-xs sm:text-sm lg:text-base uppercase tracking-widest transition-all duration-300 transform hover:scale-105 shadow-[0_0_30px_rgba(74,222,128,0.4)]">
                         <span>{{ !empty($content->translate('hero_cta_text')) ? $content->translate('hero_cta_text') : __('messages.hero_cta_primary') }}</span>
                         <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
                             <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
@@ -430,7 +440,7 @@
 
                     <button type="button"
                         id="start-tour-btn"
-                        class="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-bold text-xs sm:text-sm lg:text-base uppercase tracking-widest transition-all duration-300">
+                        class="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-6 sm:px-7 py-3.5 sm:py-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-bold text-xs sm:text-sm lg:text-base uppercase tracking-widest transition-all duration-300">
                         <span>{{ __('messages.hero_cta_secondary') }}</span>
                     </button>
                 </div>
@@ -440,7 +450,7 @@
             <!-- Scroll Cue Indicator -->
             <button type="button"
                 id="cue-tour-btn"
-                class="mt-auto mb-2 flex flex-col items-center gap-1.5 text-slate-400 hover:text-tropical-400 transition-colors cursor-pointer focus:outline-none"
+                class="mt-6 lg:mt-auto mb-2 flex flex-col items-center gap-1.5 text-slate-400 hover:text-tropical-400 transition-colors cursor-pointer focus:outline-none"
                 aria-label="{{ app()->getLocale() == 'en' ? 'Discover the Freshness' : 'Jelajahi Kesegaran' }}">
                 <span class="text-[10px] sm:text-xs lg:text-sm font-extrabold uppercase tracking-[0.25em]">{{ app()->getLocale() == 'en' ? 'Discover the Freshness' : 'Jelajahi Kesegaran' }}</span>
                 <div class="w-4 h-7 sm:w-5 sm:h-8 rounded-full border-2 border-white/30 flex items-start justify-center p-0.5">
@@ -454,18 +464,18 @@
              SCENE 02: THE TASTE (Strict 100dvh Fullscreen)
              ========================================================================= -->
         <section id="scene-2" class="scene-container px-4 sm:px-8">
-            <div class="max-w-7xl mx-auto w-full my-auto">
+            <div class="max-w-7xl mx-auto w-full my-auto py-4 lg:py-0">
 
                 <!-- Kinetic Sensory Word Row -->
-                <div class="kinetic-words-wrap flex items-center justify-between gap-3 sm:gap-6 mb-6 sm:mb-8 overflow-hidden no-scrollbar select-none opacity-90 w-full py-2">
-                    <span class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-black text-outline-green uppercase tracking-tighter kinetic-word whitespace-nowrap leading-none" data-speed="1.2">{{ __('messages.scene2_word_1') }}</span>
-                    <span class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-black text-white glow-text-green uppercase tracking-tighter kinetic-word whitespace-nowrap leading-none" data-speed="0.8">{{ __('messages.scene2_word_2') }}</span>
-                    <span class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-black text-outline-light uppercase tracking-tighter kinetic-word whitespace-nowrap leading-none" data-speed="1.4">{{ __('messages.scene2_word_3') }}</span>
-                    <span class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-black text-citrus-400 glow-text-gold uppercase tracking-tighter kinetic-word whitespace-nowrap leading-none" data-speed="0.9">{{ __('messages.scene2_word_4') }}</span>
+                <div class="kinetic-words-wrap flex items-center justify-between gap-3 sm:gap-6 mb-6 sm:mb-8 overflow-x-auto lg:overflow-hidden no-scrollbar select-none opacity-90 w-full py-2">
+                    <span class="text-2xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-black text-outline-green uppercase tracking-tighter kinetic-word whitespace-nowrap leading-none shrink-0" data-speed="1.2">{{ __('messages.scene2_word_1') }}</span>
+                    <span class="text-2xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-black text-white glow-text-green uppercase tracking-tighter kinetic-word whitespace-nowrap leading-none shrink-0" data-speed="0.8">{{ __('messages.scene2_word_2') }}</span>
+                    <span class="text-2xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-black text-outline-light uppercase tracking-tighter kinetic-word whitespace-nowrap leading-none shrink-0" data-speed="1.4">{{ __('messages.scene2_word_3') }}</span>
+                    <span class="text-2xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-black text-citrus-400 glow-text-gold uppercase tracking-tighter kinetic-word whitespace-nowrap leading-none shrink-0" data-speed="0.9">{{ __('messages.scene2_word_4') }}</span>
                 </div>
 
                 <!-- 2-Column Grid -->
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
                     <div class="lg:col-span-6 space-y-4">
                         <div class="inline-flex items-center gap-2 text-tropical-400 text-xs sm:text-sm lg:text-base font-extrabold uppercase tracking-[0.2em]">
@@ -489,7 +499,7 @@
                     </div>
 
                     <div class="lg:col-span-6">
-                        <div class="rounded-2xl glass-panel p-6 sm:p-7 shadow-xl space-y-4">
+                        <div class="rounded-2xl glass-panel p-5 sm:p-7 shadow-xl space-y-4">
                             <div>
                                 <span class="text-xs sm:text-sm lg:text-base font-extrabold uppercase tracking-[0.2em] text-tropical-300 block mb-1">
                                     {{ __('messages.flavor_meter_title') }}
@@ -553,9 +563,9 @@
              SCENE 03: THE FRUIT (Strict 100dvh Fullscreen)
              ========================================================================= -->
         <section id="scene-3" class="scene-container px-4 sm:px-8">
-            <div class="max-w-7xl mx-auto w-full my-auto">
+            <div class="max-w-7xl mx-auto w-full my-auto py-4 lg:py-0">
 
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
                     <div class="lg:col-span-5 flex justify-center">
                         <div class="relative w-full max-w-xs sm:max-w-md rounded-2xl overflow-hidden glass-panel p-2.5 shadow-2xl group">
@@ -595,7 +605,7 @@
                             {{ __('messages.story_p2') }}
                         </p>
 
-                        <div class="pt-2 grid grid-cols-2 gap-3.5">
+                        <div class="pt-3 grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                             <div class="p-4 rounded-xl glass-panel-subtle text-left">
                                 <span class="text-xs sm:text-sm lg:text-base font-extrabold uppercase text-tropical-300 block mb-1">{{ __('messages.fruit_feature_1_title') }}</span>
                                 <span class="text-xs sm:text-sm lg:text-base text-slate-300">{{ __('messages.fruit_feature_1_desc') }}</span>
@@ -617,9 +627,9 @@
              SCENE 04: THE PRODUCT SHOWCASE (Strict 100dvh Fullscreen - 3 Cards Grid)
              ========================================================================= -->
         <section id="scene-4" class="scene-container px-4 sm:px-8">
-            <div class="max-w-7xl mx-auto w-full my-auto">
+            <div class="max-w-7xl mx-auto w-full my-auto py-4 lg:py-0">
 
-                <div class="text-center mb-4 sm:mb-5">
+                <div class="text-center mb-6 sm:mb-8">
                     <span class="text-tropical-400 text-xs sm:text-sm lg:text-base font-extrabold uppercase tracking-[0.25em] block mb-1.5">
                         {{ __('messages.product_scene_eyebrow') }}
                     </span>
@@ -629,7 +639,7 @@
                 </div>
 
                 <!-- 3-Product Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-4 sm:mb-5">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mb-6 sm:mb-7">
                     @php
                         $displayProducts = (isset($products) && $products->isNotEmpty()) ? $products->take(3) : collect([
                             (object)[
@@ -654,10 +664,10 @@
                     @endphp
 
                     @foreach($displayProducts as $index => $prod)
-                        <div class="rounded-2xl glass-panel p-4 sm:p-5 shadow-2xl flex flex-col justify-between group hover:border-tropical-400/50 transition-all duration-300">
+                        <div class="rounded-2xl glass-panel p-5 sm:p-6 shadow-2xl flex flex-col justify-between group hover:border-tropical-400/50 transition-all duration-300">
                             <div>
                                 <!-- Packshot Canvas -->
-                                <div class="relative w-full h-[120px] sm:h-[140px] rounded-xl bg-black/40 border border-white/10 p-3 flex items-center justify-center overflow-hidden mb-3 group-hover:bg-black/60 transition">
+                                <div class="relative w-full h-[130px] sm:h-[140px] rounded-xl bg-black/40 border border-white/10 p-3 flex items-center justify-center overflow-hidden mb-3.5 group-hover:bg-black/60 transition">
                                     <img src="{{ !empty($prod->image_path) ? asset('storage/' . $prod->image_path) : asset('images/product.png') }}"
                                         alt="{{ is_object($prod) && method_exists($prod, 'translate') ? $prod->translate('name') : $prod->name }}"
                                         loading="lazy"
@@ -694,9 +704,9 @@
                 </div>
 
                 <!-- Catalog Link CTA -->
-                <div class="text-center">
+                <div class="text-center pt-2">
                     <a href="{{ route('products.catalog') }}"
-                        class="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/10 hover:bg-tropical-500/20 border border-white/15 hover:border-tropical-400/50 text-xs sm:text-sm font-display font-bold text-slate-200 hover:text-white transition transform hover:scale-105 shadow-lg">
+                        class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/10 hover:bg-tropical-500/20 border border-white/15 hover:border-tropical-400/50 text-xs sm:text-sm font-display font-bold text-slate-200 hover:text-white transition transform hover:scale-105 shadow-lg">
                         <span>🛍️</span>
                         <span>{{ __('messages.view_all_products') }}</span>
                         <span class="text-tropical-300 font-extrabold">&rarr;</span>
@@ -711,7 +721,7 @@
              SCENE 05: THE TESTIMONIALS & MOMENTS (Strict 100dvh Fullscreen)
              ========================================================================= -->
         <section id="scene-5" class="scene-container px-4 sm:px-8">
-            <div class="max-w-7xl mx-auto w-full my-auto">
+            <div class="max-w-7xl mx-auto w-full my-auto py-4 lg:py-0">
 
                 @if(session('success_testimonial'))
                     <div class="mb-4 p-3.5 rounded-xl bg-tropical-500/20 border border-tropical-400 text-tropical-300 text-xs sm:text-sm text-center font-bold">
@@ -719,22 +729,22 @@
                     </div>
                 @endif
 
-                <div class="text-center mb-4 sm:mb-6">
+                <div class="text-center mb-6 sm:mb-8">
                     <span class="text-citrus-300 text-xs sm:text-sm lg:text-base font-extrabold uppercase tracking-[0.25em] block mb-1">
                         {{ __('messages.testimonials_eyebrow') }}
                     </span>
                     <h2 class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-black text-white tracking-tight leading-tight">
                         {{ __('messages.testimonials_title') }}
                     </h2>
-                    <p class="text-xs sm:text-sm lg:text-base text-tropical-300 font-light mt-1">
+                    <p class="text-xs sm:text-sm lg:text-base text-tropical-300 font-light mt-1.5">
                         {{ __('messages.testimonials_rating_summary') }}
                     </p>
                 </div>
 
                 <!-- Testimonials Grid (3 Verified Buyer Cards) -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 mb-5">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6 mb-6">
                     @forelse($testimonials->take(3) as $testimonial)
-                        <div class="p-4 sm:p-5 rounded-2xl glass-panel flex flex-col justify-between shadow-xl border border-white/10 hover:border-tropical-400/40 transition group">
+                        <div class="p-5 rounded-2xl glass-panel flex flex-col justify-between shadow-xl border border-white/10 hover:border-tropical-400/40 transition group">
                             <div>
                                 <div class="flex items-center justify-between mb-2.5">
                                     <div class="text-citrus-400 text-sm sm:text-base tracking-wider">
@@ -748,8 +758,8 @@
                                     "{{ $testimonial->translate('content') }}"
                                 </p>
                             </div>
-                            <div class="pt-2.5 border-t border-white/10 flex items-center gap-2.5">
-                                <div class="w-8 h-8 rounded-full bg-tropical-500/20 border border-tropical-400/40 flex items-center justify-center font-bold text-xs text-tropical-300">
+                            <div class="pt-3 border-t border-white/10 flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-full bg-tropical-500/20 border border-tropical-400/40 flex items-center justify-center font-bold text-xs text-tropical-300 shrink-0">
                                     {{ strtoupper(substr($testimonial->author_name, 0, 1)) }}
                                 </div>
                                 <div>
@@ -759,7 +769,7 @@
                             </div>
                         </div>
                     @empty
-                        <div class="p-4 sm:p-5 rounded-2xl glass-panel flex flex-col justify-between shadow-xl border border-white/10 hover:border-tropical-400/40 transition">
+                        <div class="p-5 rounded-2xl glass-panel flex flex-col justify-between shadow-xl border border-white/10 hover:border-tropical-400/40 transition">
                             <div>
                                 <div class="flex items-center justify-between mb-2.5">
                                     <div class="text-citrus-400 text-sm sm:text-base">★★★★★</div>
@@ -769,8 +779,8 @@
                                     "{{ app()->getLocale() == 'en' ? 'The genuine sweet-sour ambarella flavor is spot on! Especially revitalizing served cold on a hot afternoon.' : 'Rasa asam manis kedondongnya beneran otentik! Pas banget diminum dingin pas siang hari terik.' }}"
                                 </p>
                             </div>
-                            <div class="pt-2.5 border-t border-white/10 flex items-center gap-2.5">
-                                <div class="w-8 h-8 rounded-full bg-tropical-500/20 text-tropical-300 font-bold text-xs flex items-center justify-center">B</div>
+                            <div class="pt-3 border-t border-white/10 flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-full bg-tropical-500/20 text-tropical-300 font-bold text-xs flex items-center justify-center shrink-0">B</div>
                                 <div>
                                     <h4 class="text-xs sm:text-sm font-bold text-white">Budi Santoso</h4>
                                     <span class="text-[10px] sm:text-xs text-slate-400">{{ app()->getLocale() == 'en' ? 'Fruit Drink Lover • Jakarta' : 'Pecinta Minuman Buah • Jakarta' }}</span>
@@ -778,7 +788,7 @@
                             </div>
                         </div>
 
-                        <div class="p-4 sm:p-5 rounded-2xl glass-panel flex flex-col justify-between shadow-xl border border-white/10 hover:border-tropical-400/40 transition">
+                        <div class="p-5 rounded-2xl glass-panel flex flex-col justify-between shadow-xl border border-white/10 hover:border-tropical-400/40 transition">
                             <div>
                                 <div class="flex items-center justify-between mb-2.5">
                                     <div class="text-citrus-400 text-sm sm:text-base">★★★★★</div>
@@ -788,8 +798,8 @@
                                     "{{ app()->getLocale() == 'en' ? 'Incredible freshness! Never imagined enjoying authentic ambarella drink this easily without any harsh sourness.' : 'Seger parah! Gak nyangka kedondong bisa diseduh sepraktis ini dan gak asam berlebihan di lambung.' }}"
                                 </p>
                             </div>
-                            <div class="pt-2.5 border-t border-white/10 flex items-center gap-2.5">
-                                <div class="w-8 h-8 rounded-full bg-citrus-500/20 text-citrus-300 font-bold text-xs flex items-center justify-center">S</div>
+                            <div class="pt-3 border-t border-white/10 flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-full bg-citrus-500/20 text-citrus-300 font-bold text-xs flex items-center justify-center shrink-0">S</div>
                                 <div>
                                     <h4 class="text-xs sm:text-sm font-bold text-white">Siti Rahmawati</h4>
                                     <span class="text-[10px] sm:text-xs text-slate-400">{{ app()->getLocale() == 'en' ? 'Homemaker • Surabaya' : 'Ibu Rumah Tangga • Surabaya' }}</span>
@@ -797,7 +807,7 @@
                             </div>
                         </div>
 
-                        <div class="p-4 sm:p-5 rounded-2xl glass-panel flex flex-col justify-between shadow-xl border border-white/10 hover:border-tropical-400/40 transition">
+                        <div class="p-5 rounded-2xl glass-panel flex flex-col justify-between shadow-xl border border-white/10 hover:border-tropical-400/40 transition">
                             <div>
                                 <div class="flex items-center justify-between mb-2.5">
                                     <div class="text-citrus-400 text-sm sm:text-base">★★★★★</div>
@@ -807,8 +817,8 @@
                                     "{{ app()->getLocale() == 'en' ? 'Right after spicy meals, a glass of cold NutriSari DonDong cleanses the palate completely!' : 'Habis makan pedas langsung minum NutriSari DonDong dingin, langsung seger tuntas!' }}"
                                 </p>
                             </div>
-                            <div class="pt-2.5 border-t border-white/10 flex items-center gap-2.5">
-                                <div class="w-8 h-8 rounded-full bg-tropical-500/20 text-tropical-300 font-bold text-xs flex items-center justify-center">R</div>
+                            <div class="pt-3 border-t border-white/10 flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-full bg-tropical-500/20 text-tropical-300 font-bold text-xs flex items-center justify-center shrink-0">R</div>
                                 <div>
                                     <h4 class="text-xs sm:text-sm font-bold text-white">Reza Pratama</h4>
                                     <span class="text-[10px] sm:text-xs text-slate-400">{{ app()->getLocale() == 'en' ? 'Student • Bandung' : 'Mahasiswa • Bandung' }}</span>
@@ -819,7 +829,7 @@
                 </div>
 
                 <!-- Action Bar & Review Invitation -->
-                <div class="rounded-2xl glass-panel p-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+                <div class="rounded-2xl glass-panel p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-3.5 text-center sm:text-left">
                     <div class="flex items-center gap-3">
                         <span class="w-2.5 h-2.5 rounded-full bg-tropical-400 animate-pulse"></span>
                         <span class="text-xs sm:text-sm lg:text-base text-slate-200 font-medium">
@@ -828,7 +838,7 @@
                     </div>
                     <button @click="openReviewModal = true"
                         type="button"
-                        class="px-6 py-2.5 rounded-full bg-tropical-500 hover:bg-tropical-400 text-slate-950 text-xs sm:text-sm font-display font-black uppercase tracking-wider transition transform hover:scale-105 shadow-md shrink-0">
+                        class="w-full sm:w-auto px-6 py-2.5 rounded-full bg-tropical-500 hover:bg-tropical-400 text-slate-950 text-xs sm:text-sm font-display font-black uppercase tracking-wider transition transform hover:scale-105 shadow-md shrink-0">
                         ✍️ {{ __('messages.testimonial_cta') }}
                     </button>
                 </div>
@@ -841,17 +851,17 @@
              SCENE 06: THE FINAL REVEAL & ORDER HUB (Strict 100dvh Fullscreen)
              ========================================================================= -->
         <section id="scene-6" class="scene-container px-4 sm:px-8 justify-between">
-            <div class="max-w-6xl mx-auto w-full my-auto text-center">
+            <div class="max-w-6xl mx-auto w-full my-auto text-center py-4 lg:py-0">
 
                 <!-- Grand Title -->
-                <div class="mb-5 sm:mb-6">
+                <div class="mb-6 sm:mb-8">
                     <span class="text-xs sm:text-sm lg:text-base font-extrabold uppercase tracking-[0.25em] text-tropical-400 block mb-1.5">
                         {{ __('messages.final_eyebrow') }}
                     </span>
                     <h2 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-black text-white tracking-tight leading-tight mb-2.5">
                         {{ __('messages.final_title') }}
                     </h2>
-                    <p class="text-sm sm:text-lg md:text-xl lg:text-2xl text-slate-300 font-light max-w-2xl mx-auto mb-5">
+                    <p class="text-sm sm:text-lg md:text-xl lg:text-2xl text-slate-300 font-light max-w-2xl mx-auto mb-6">
                         {{ __('messages.final_subtitle') }}
                     </p>
 
@@ -865,8 +875,8 @@
                 </div>
 
                 <!-- Official Channels Hub Grid -->
-                <div id="channel" class="rounded-2xl glass-panel p-5 sm:p-7 shadow-xl mb-4">
-                    <div class="flex items-center justify-between gap-2 mb-3.5">
+                <div id="channel" class="rounded-2xl glass-panel p-5 sm:p-7 shadow-xl mb-6">
+                    <div class="flex items-center justify-between gap-2 mb-4">
                         <span class="text-xs sm:text-sm lg:text-base font-extrabold uppercase tracking-[0.2em] text-tropical-400">{{ __('messages.channel_title') }}</span>
                         <a href="https://linktr.ee/dondongkedondong" target="_blank"
                             class="text-xs sm:text-sm font-extrabold text-tropical-300 hover:underline">
@@ -874,11 +884,11 @@
                         </a>
                     </div>
 
-                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
                         <a href="https://shopee.co.id/kedondongshop" target="_blank"
-                            class="p-3.5 sm:p-4 rounded-xl bg-white/5 border border-orange-500/30 hover:border-orange-500 hover:bg-orange-500/10 transition group flex items-center justify-between">
-                            <div class="flex items-center gap-2.5 text-left">
-                                <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-lg bg-orange-500/20 text-orange-400 flex items-center justify-center font-black text-sm sm:text-base">S</div>
+                            class="p-4 rounded-xl bg-white/5 border border-orange-500/30 hover:border-orange-500 hover:bg-orange-500/10 transition group flex items-center justify-between">
+                            <div class="flex items-center gap-3 text-left">
+                                <div class="w-10 h-10 rounded-lg bg-orange-500/20 text-orange-400 flex items-center justify-center font-black text-sm sm:text-base shrink-0">S</div>
                                 <div>
                                     <span class="text-[10px] sm:text-xs font-extrabold uppercase text-orange-400 block">Shopee Mall</span>
                                     <span class="text-xs sm:text-sm lg:text-base font-bold text-white">kedondongshop</span>
@@ -887,9 +897,9 @@
                         </a>
 
                         <a href="https://www.tokopedia.com/dondongkedondong" target="_blank"
-                            class="p-3.5 sm:p-4 rounded-xl bg-white/5 border border-emerald-500/30 hover:border-emerald-500 hover:bg-emerald-500/10 transition group flex items-center justify-between">
-                            <div class="flex items-center gap-2.5 text-left">
-                                <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-black text-sm sm:text-base">T</div>
+                            class="p-4 rounded-xl bg-white/5 border border-emerald-500/30 hover:border-emerald-500 hover:bg-emerald-500/10 transition group flex items-center justify-between">
+                            <div class="flex items-center gap-3 text-left">
+                                <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-black text-sm sm:text-base shrink-0">T</div>
                                 <div>
                                     <span class="text-[10px] sm:text-xs font-extrabold uppercase text-emerald-400 block">Tokopedia</span>
                                     <span class="text-xs sm:text-sm lg:text-base font-bold text-white">dondongkedondong</span>
@@ -898,9 +908,9 @@
                         </a>
 
                         <a href="https://www.tiktok.com/@dondong_kedondong" target="_blank"
-                            class="p-3.5 sm:p-4 rounded-xl bg-white/5 border border-white/20 hover:border-white hover:bg-white/10 transition group flex items-center justify-between">
-                            <div class="flex items-center gap-2.5 text-left">
-                                <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-lg bg-white/20 text-white flex items-center justify-center font-black text-sm sm:text-base">♪</div>
+                            class="p-4 rounded-xl bg-white/5 border border-white/20 hover:border-white hover:bg-white/10 transition group flex items-center justify-between">
+                            <div class="flex items-center gap-3 text-left">
+                                <div class="w-10 h-10 rounded-lg bg-white/20 text-white flex items-center justify-center font-black text-sm sm:text-base shrink-0">♪</div>
                                 <div>
                                     <span class="text-[10px] sm:text-xs font-extrabold uppercase text-slate-300 block">TikTok Shop</span>
                                     <span class="text-xs sm:text-sm lg:text-base font-bold text-white">@dondong</span>
@@ -909,9 +919,9 @@
                         </a>
 
                         <a href="https://wa.me/6281234567890?text=Halo%20NutriSari%20DonDong%2C%20saya%20ingin%20pesan" target="_blank"
-                            class="p-3.5 sm:p-4 rounded-xl bg-tropical-600/20 border border-tropical-400/40 hover:border-tropical-400 hover:bg-tropical-600/30 transition group flex items-center justify-between">
-                            <div class="flex items-center gap-2.5 text-left">
-                                <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-lg bg-tropical-500 text-slate-950 flex items-center justify-center font-black text-sm sm:text-base">WA</div>
+                            class="p-4 rounded-xl bg-tropical-600/20 border border-tropical-400/40 hover:border-tropical-400 hover:bg-tropical-600/30 transition group flex items-center justify-between">
+                            <div class="flex items-center gap-3 text-left">
+                                <div class="w-10 h-10 rounded-lg bg-tropical-500 text-slate-950 flex items-center justify-center font-black text-sm sm:text-base shrink-0">WA</div>
                                 <div>
                                     <span class="text-[10px] sm:text-xs font-extrabold uppercase text-tropical-300 block">WhatsApp</span>
                                     <span class="text-xs sm:text-sm lg:text-base font-bold text-white">{{ __('messages.order_direct') }}</span>
@@ -921,7 +931,7 @@
                     </div>
                 </div>
 
-                <div class="flex items-center justify-center gap-3">
+                <div class="flex items-center justify-center gap-3 mb-6">
                     <button @click="openFaqModal = true"
                         type="button"
                         class="text-xs sm:text-sm lg:text-base text-slate-400 hover:text-tropical-300 transition underline font-medium">
@@ -932,7 +942,7 @@
             </div>
 
             <!-- Minimalist Footer -->
-            <footer class="w-full pt-3 pb-1 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs sm:text-sm text-slate-400">
+            <footer class="w-full pt-4 pb-2 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs sm:text-sm text-slate-400 mt-6 lg:mt-auto">
                 <div class="flex items-center gap-2.5">
                     <img src="{{ asset('images/logo_dondong_official_asli.jpg') }}" alt="DonDong Logo" loading="lazy" decoding="async" class="h-6 w-auto rounded object-contain">
                     <span class="text-slate-300 font-semibold">{{ __('messages.company_name') }}</span>

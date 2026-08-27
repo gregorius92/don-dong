@@ -55,7 +55,7 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .font-display { font-family: 'Outfit', sans-serif; }
 
-        /* Global Form Input Spacious & Beautiful Styles */
+        /* Global Form Input Styles with Flexible Padding */
         input[type="text"],
         input[type="email"],
         input[type="password"],
@@ -65,17 +65,20 @@
         input[type="tel"],
         select,
         textarea {
-            display: block !important;
-            width: 100% !important;
-            padding: 0.75rem 1rem !important; /* 12px atas-bawah, 16px kiri-kanan -> sangat lega */
-            font-size: 0.875rem !important;
-            line-height: 1.5 !important;
-            border-radius: 0.75rem !important;
-            border: 1.5px solid #cbd5e1 !important;
-            background-color: #ffffff !important;
-            color: #0f172a !important;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
-            transition: all 0.15s ease-in-out !important;
+            display: block;
+            width: 100%;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            border-radius: 0.75rem;
+            border: 1.5px solid #cbd5e1;
+            background-color: #ffffff;
+            color: #0f172a;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            transition: all 0.15s ease-in-out;
         }
 
         input[type="text"]:focus,
@@ -87,24 +90,24 @@
         input[type="tel"]:focus,
         select:focus,
         textarea:focus {
-            outline: none !important;
-            border-color: #059669 !important;
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important;
-            background-color: #ffffff !important;
+            outline: none;
+            border-color: #059669;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+            background-color: #ffffff;
         }
 
         input[type="checkbox"] {
-            width: 1.25rem !important;
-            height: 1.25rem !important;
-            border-radius: 0.375rem !important;
-            border: 1.5px solid #94a3b8 !important;
-            color: #059669 !important;
-            cursor: pointer !important;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 0.375rem;
+            border: 1.5px solid #94a3b8;
+            color: #059669;
+            cursor: pointer;
         }
 
         label {
-            margin-bottom: 0.4rem !important;
-            display: inline-block !important;
+            margin-bottom: 0.4rem;
+            display: inline-block;
         }
     </style>
 </head>

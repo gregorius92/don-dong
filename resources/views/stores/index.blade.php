@@ -210,7 +210,8 @@
                                name="q"
                                value="{{ $searchQuery }}"
                                placeholder="{{ app()->getLocale() == 'en' ? 'Search store name, street, or area...' : 'Cari nama toko, jalan, atau area...' }}"
-                               class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-black/40 border border-white/20 text-white placeholder-slate-400 text-xs sm:text-sm focus:border-tropical-400 outline-none transition">
+                               style="padding-left: 2.75rem !important;"
+                               class="w-full pr-4 py-2.5 rounded-xl bg-black/40 border border-white/20 text-white placeholder-slate-400 text-xs sm:text-sm focus:border-tropical-400 outline-none transition">
                     </div>
 
                     <!-- City Select Filter -->

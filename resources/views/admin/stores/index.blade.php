@@ -75,7 +75,8 @@
                                name="q"
                                value="{{ request('q') }}"
                                placeholder="Cari nama toko, alamat, atau no kontak..."
-                               class="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl bg-white text-slate-900 placeholder-slate-400 border-slate-300 shadow-xs focus:border-emerald-600 focus:ring-emerald-600 font-medium">
+                               style="padding-left: 2.75rem !important;"
+                               class="w-full pr-4 py-2.5 text-sm rounded-xl bg-white text-slate-900 placeholder-slate-400 border-slate-300 shadow-xs focus:border-emerald-600 focus:ring-emerald-600 font-medium">
                     </div>
 
                     <!-- City Filter Dropdown -->

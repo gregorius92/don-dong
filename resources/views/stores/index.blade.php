@@ -101,21 +101,20 @@
           mobileNavOpen: false,
           activeStoreId: {{ $stores->isNotEmpty() ? $stores->first()->id : 'null' }},
           activeStoreName: '{{ $stores->isNotEmpty() ? addslashes($stores->first()->name) : 'Dong Store' }}',
-          activeAddress: '{{ $stores->isNotEmpty() ? addslashes($stores->first()->address) : '' }}',
-          activePhone: '{{ $stores->isNotEmpty() ? $stores->first()->phone : '' }}',
-          activeGmapsUrl: '{{ $stores->isNotEmpty() ? $stores->first()->gmaps_url : '' }}',
-          activeMapEmbedUrl: '{{ $stores->isNotEmpty() ? $stores->first()->map_embed_url : '' }}',
-          selectStore(store) {
-              this.activeStoreId = store.id;
-              this.activeStoreName = store.name;
-              this.activeAddress = store.address;
-              this.activePhone = store.phone || '';
-              this.activeGmapsUrl = store.gmaps_url || '';
-              this.activeMapEmbedUrl = store.map_embed_url || '';
+          activeStoreAddress: '{{ $stores->isNotEmpty() ? addslashes($stores->first()->address) : '' }}',
+          activeStorePhone: '{{ $stores->isNotEmpty() ? $stores->first()->phone : '' }}',
+          activeStoreMapsUrl: '{{ $stores->isNotEmpty() ? ($stores->first()->gmaps_url ?? $stores->first()->google_maps_link ?? '') : '' }}',
+          activeMapSrc: '{{ $stores->isNotEmpty() ? ($stores->first()->map_embed_url ?? $stores->first()->embed_src ?? '') : '' }}',
+          selectStore(id, name, address, mapSrc, mapsUrl) {
+              this.activeStoreId = id;
+              this.activeStoreName = name;
+              this.activeStoreAddress = address;
+              this.activeMapSrc = mapSrc;
+              this.activeStoreMapsUrl = mapsUrl;
               
               // Scroll to map preview smoothly on mobile
               if (window.innerWidth < 1024) {
-                  document.getElementById('map-preview-panel')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                  document.getElementById('interactive-map-view')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
               }
           }
       }">
@@ -279,9 +278,9 @@
                     </div>
 
                     @forelse($stores as $store)
-                        <div @click="selectStore({{ $store->id }}, '{{ addslashes($store->name) }}', '{{ addslashes($store->address) }}', '{{ $store->embed_src }}', '{{ $store->google_maps_link }}')"
+                        <div @click="selectStore({{ $store->id }}, '{{ addslashes($store->name) }}', '{{ addslashes($store->address) }}', '{{ $store->map_embed_url ?? $store->embed_src ?? '' }}', '{{ $store->gmaps_url ?? $store->google_maps_link ?? '' }}')"
                              class="rounded-2xl glass-panel p-5 shadow-xl transition-all duration-300 cursor-pointer group hover:bg-white/[0.08]"
-                             :class="selectedStoreId === {{ $store->id }} ? 'border-tropical-400 bg-tropical-950/40 ring-1 ring-tropical-400/50' : 'border-white/10'">
+                             :class="activeStoreId === {{ $store->id }} ? 'border-tropical-400 bg-tropical-950/40 ring-1 ring-tropical-400/50' : 'border-white/10'">
                             
                             <div class="flex items-start justify-between gap-3 mb-2">
                                 <div>
@@ -293,7 +292,7 @@
                                     </h3>
                                 </div>
                                 <span class="text-xs px-2 py-1 rounded-lg bg-black/40 border border-white/10 text-tropical-400 font-bold shrink-0"
-                                      x-show="selectedStoreId === {{ $store->id }}">
+                                      x-show="activeStoreId === {{ $store->id }}">
                                     📍 Terpilih
                                 </span>
                             </div>
@@ -388,7 +387,7 @@
     <footer class="w-full pt-6 pb-6 px-4 sm:px-8 border-t border-white/10 bg-black/40 text-xs text-slate-400">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
             <div class="flex items-center gap-2.5">
-                <img src="{{ asset('images/logo_dondong_official_asli.jpg') }}" alt="DonDong Logo" class="h-6 w-auto rounded object-contain">
+                <img src="{{ asset('images/logo_dondong_official_asli.svg') }}" alt="Dong Logo" class="h-6 w-auto object-contain">
                 <span class="text-slate-300 font-semibold">{{ __('messages.company_name') }}</span>
             </div>
             <span>{{ __('messages.footer_copyright') }}</span>

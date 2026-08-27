@@ -1105,7 +1105,7 @@
                 });
             });
 
-            // Preloader Controller
+            // Preloader Controller with Strict Buffer & Playback Verification
             const preloader = document.getElementById('cinematic-preloader');
             const preloaderBar = document.getElementById('preloader-bar');
             const preloaderText = document.getElementById('preloader-text');
@@ -1113,51 +1113,79 @@
 
             let isRevealed = false;
             let heroTl = null;
+            let progress = 10;
 
-            function revealExperience() {
+            // Smoothly advance progress bar while waiting for video buffer
+            const progressTimer = setInterval(() => {
+                if (isRevealed) {
+                    clearInterval(progressTimer);
+                    return;
+                }
+                if (progress < 85) {
+                    progress += Math.floor(Math.random() * 8) + 4;
+                    if (preloaderBar) preloaderBar.style.width = Math.min(progress, 85) + '%';
+                }
+            }, 180);
+
+            function finishAndReveal() {
                 if (isRevealed) return;
                 isRevealed = true;
+                clearInterval(progressTimer);
 
                 if (preloaderBar) preloaderBar.style.width = '100%';
                 if (preloaderText) {
-                    preloaderText.innerText = "{{ app()->getLocale() == 'en' ? 'Welcome!' : 'Selamat Menikmati!' }}";
+                    preloaderText.innerText = "{{ app()->getLocale() == 'en' ? 'Ready to Explore!' : 'Kesegaran Siap!' }}";
                 }
 
+                // Allow 450ms for the 100% bar animation to complete smoothly
                 setTimeout(() => {
                     if (preloader) {
                         preloader.classList.add('opacity-0', 'pointer-events-none');
                         setTimeout(() => {
                             preloader.remove();
-                        }, 750);
+                        }, 800);
                     }
 
-                    // Kickstart video & Hero intro timeline
-                    if (heroVideo) {
-                        heroVideo.play().catch(() => {});
-                    }
+                    // Trigger Hero GSAP entrance animation
                     if (heroTl) {
                         heroTl.play();
                     }
-                }, 350);
+                }, 450);
             }
 
-            // Animate initial loading bar
-            if (preloaderBar) {
-                setTimeout(() => { preloaderBar.style.width = '70%'; }, 150);
-            }
-
-            // Check if video is already ready or listen for ready state
             if (heroVideo) {
-                if (heroVideo.readyState >= 3) {
-                    revealExperience();
-                } else {
-                    heroVideo.addEventListener('canplay', revealExperience, { once: true });
-                    heroVideo.addEventListener('playing', revealExperience, { once: true });
+                // Kickstart playback immediately in background so it builds buffer & starts decoding
+                heroVideo.play().catch(() => {});
+
+                // Function to verify that video has rendered real frames
+                function checkVideoReady() {
+                    if (heroVideo.readyState >= 4 || (heroVideo.readyState >= 3 && heroVideo.currentTime > 0.2)) {
+                        finishAndReveal();
+                    }
+                }
+
+                // Listen for high-confidence buffering and time progress
+                heroVideo.addEventListener('canplaythrough', () => {
+                    heroVideo.play().catch(() => {});
+                    // Brief delay to ensure decoder has pushed smooth initial frames
+                    setTimeout(checkVideoReady, 300);
+                }, { once: true });
+
+                heroVideo.addEventListener('timeupdate', function onFirstFrames() {
+                    if (heroVideo.currentTime > 0.25) {
+                        heroVideo.removeEventListener('timeupdate', onFirstFrames);
+                        finishAndReveal();
+                    }
+                });
+
+                // In case readyState is already satisfied
+                if (heroVideo.readyState >= 4) {
+                    setTimeout(finishAndReveal, 400);
                 }
             }
 
-            // Fallback timeout: Never block user more than 2.4s even on slow network
-            setTimeout(revealExperience, 2400);
+            // High network tolerance fallback timeout (max 6.5s on very slow networks)
+            setTimeout(finishAndReveal, 6500);
 
             // 3. Register GSAP Plugins
             if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {

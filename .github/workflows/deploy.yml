@@ -16,15 +16,15 @@ jobs:
       - name: 🚚 Checkout Repository
         uses: actions/checkout@v4
 
-      - name: ⚙️ Setup PHP 8.2
+      - name: ⚙️ Setup PHP 8.4
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.4'
           extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql, bcmath, gd, zip
 
       - name: 📦 Install Composer Dependencies (Production)
         run: |
-          composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+          composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --ignore-platform-reqs
 
       - name: 📂 Sync Files via FTP to InfinityFree
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5

@@ -138,12 +138,12 @@
             </a>
 
             <!-- Navigation Links -->
-            <nav class="hidden md:flex items-center gap-7 text-xs sm:text-sm font-extrabold uppercase tracking-[0.16em] text-slate-300">
+            <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-xs sm:text-sm font-extrabold uppercase tracking-[0.16em] text-slate-300">
                 <a href="{{ route('home') }}" class="hover:text-tropical-400 transition-colors">Home</a>
                 <a href="{{ route('home') }}#scene-2" class="hover:text-tropical-400 transition-colors">Sensasi Rasa</a>
                 <a href="{{ route('home') }}#scene-4" class="hover:text-tropical-400 transition-colors">Produk</a>
-                <a href="{{ route('products.catalog') }}" class="hover:text-tropical-400 transition-colors">Katalog</a>
-                <a href="{{ route('stores.index') }}" class="text-tropical-400 font-black border-b-2 border-tropical-400 pb-0.5">Lokasi Toko</a>
+                <a href="{{ route('stores.index') }}" class="text-tropical-400 font-black border-b-2 border-tropical-400 pb-0.5">Toko</a>
+                <a href="{{ route('home') }}#scene-5" class="hover:text-tropical-400 transition-colors">Testimoni</a>
                 <a href="{{ route('home') }}#channel" class="hover:text-tropical-400 transition-colors">Order Hub</a>
             </nav>
 
@@ -170,8 +170,10 @@
         <!-- Mobile Drawer -->
         <div x-show="mobileNavOpen" x-cloak @click.away="mobileNavOpen = false" x-transition class="md:hidden mt-2 max-w-7xl mx-auto rounded-2xl glass-panel p-5 space-y-3 shadow-2xl">
             <a href="{{ route('home') }}" class="block text-sm font-bold text-slate-200 hover:text-tropical-400">Home</a>
-            <a href="{{ route('products.catalog') }}" class="block text-sm font-bold text-slate-200 hover:text-tropical-400">Katalog Produk</a>
-            <a href="{{ route('stores.index') }}" class="block text-sm font-bold text-tropical-400">Lokasi Toko & Outlet</a>
+            <a href="{{ route('home') }}#scene-2" class="block text-sm font-bold text-slate-200 hover:text-tropical-400">Sensasi Rasa</a>
+            <a href="{{ route('home') }}#scene-4" class="block text-sm font-bold text-slate-200 hover:text-tropical-400">Produk</a>
+            <a href="{{ route('stores.index') }}" class="block text-sm font-bold text-tropical-400">Toko</a>
+            <a href="{{ route('home') }}#scene-5" class="block text-sm font-bold text-slate-200 hover:text-tropical-400">Testimoni</a>
             <a href="{{ route('home') }}#channel" class="block text-sm font-bold text-slate-200 hover:text-tropical-400">Order Hub</a>
         </div>
     </header>

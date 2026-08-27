@@ -345,7 +345,7 @@
                 <a href="#scene-1" class="hover:text-tropical-400 transition-colors">Home</a>
                 <a href="#scene-2" class="hover:text-tropical-400 transition-colors">{{ __('messages.nav_taste') }}</a>
                 <a href="#scene-4" class="hover:text-tropical-400 transition-colors">{{ __('messages.nav_product') }}</a>
-                <a href="{{ route('stores.index') }}" class="hover:text-tropical-400 transition-colors text-tropical-300 font-black">📍 Toko</a>
+                <a href="{{ route('stores.index') }}" class="hover:text-tropical-400 transition-colors">Toko</a>
                 <a href="#scene-5" class="hover:text-tropical-400 transition-colors">{{ __('messages.nav_testimonials') }}</a>
                 <a href="#scene-6" class="hover:text-tropical-400 transition-colors">Order Hub</a>
             </nav>
@@ -388,7 +388,7 @@
             <a href="#scene-1" @click="mobileNavOpen = false" class="block text-sm font-bold text-slate-200 hover:text-tropical-400">Home</a>
             <a href="#scene-2" @click="mobileNavOpen = false" class="block text-sm font-bold text-slate-200 hover:text-tropical-400">{{ __('messages.nav_taste') }}</a>
             <a href="#scene-4" @click="mobileNavOpen = false" class="block text-sm font-bold text-slate-200 hover:text-tropical-400">{{ __('messages.nav_product') }}</a>
-            <a href="{{ route('stores.index') }}" class="block text-sm font-bold text-tropical-400">📍 Lokasi Toko & Outlet</a>
+            <a href="{{ route('stores.index') }}" class="block text-sm font-bold text-slate-200 hover:text-tropical-400">Toko</a>
             <a href="#scene-5" @click="mobileNavOpen = false" class="block text-sm font-bold text-slate-200 hover:text-tropical-400">{{ __('messages.nav_testimonials') }}</a>
             <a href="#scene-6" @click="mobileNavOpen = false" class="block text-sm font-bold text-slate-200 hover:text-tropical-400">Order Hub</a>
             <div class="pt-2 border-t border-white/10">

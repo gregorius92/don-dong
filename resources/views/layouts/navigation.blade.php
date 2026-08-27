@@ -7,12 +7,12 @@
             <div class="flex items-center gap-6 lg:gap-8">
                 <!-- Brand Emblem -->
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2.5 group shrink-0">
-                    <div class="h-9 w-9 rounded-xl bg-slate-900 border border-slate-800 p-0.5 flex items-center justify-center overflow-hidden group-hover:ring-2 group-hover:ring-emerald-500 transition-all shadow-sm">
-                        <img src="{{ asset('images/logo_dondong_official_asli.jpg') }}" alt="DonDong Emblem" class="h-full w-full object-cover rounded-lg">
+                    <div class="h-9 w-9 rounded-xl bg-white border border-slate-200 p-0.5 flex items-center justify-center overflow-hidden group-hover:ring-2 group-hover:ring-emerald-500 transition-all shadow-xs">
+                        <img src="{{ asset('images/logo_dondong_official_asli.svg') }}" alt="Dong Emblem" class="h-full w-full object-contain">
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-[9px] font-black uppercase tracking-[0.2em] text-emerald-600">NutriSari</span>
-                        <span class="text-sm font-display font-black text-slate-900 leading-tight">DONDONG <span class="text-xs font-bold text-slate-400">CMS</span></span>
+                        <span class="text-[9px] font-black uppercase tracking-[0.2em] text-emerald-600">Kedondong Asli</span>
+                        <span class="text-sm font-display font-black text-slate-900 leading-tight">DONG <span class="text-xs font-bold text-slate-400">CMS</span></span>
                     </div>
                 </a>
 

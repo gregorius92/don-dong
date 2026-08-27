@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>{{ app()->getLocale() == 'en' ? 'Store Locations — NutriSari DonDong' : 'Lokasi Toko & Outlet — NutriSari DonDong' }}</title>
-    <meta name="description" content="{{ app()->getLocale() == 'en' ? 'Find official NutriSari DonDong store locations and retailers in your city.' : 'Temukan lokasi toko resmi, outlet, dan distributor NutriSari DonDong terdekat di kotamu.' }}">
+    <title>{{ app()->getLocale() == 'en' ? 'Store Locations — Dong' : 'Lokasi Toko & Outlet — Dong' }}</title>
+    <meta name="description" content="{{ app()->getLocale() == 'en' ? 'Find official Dong store locations and retailers in your city.' : 'Temukan lokasi toko resmi, outlet, dan distributor Dong terdekat di kotamu.' }}">
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="{{ asset('images/logo_dondong_official_asli.jpg') }}">
@@ -68,7 +68,7 @@
         
         body {
             background-color: #051108;
-            color: #f1f5f9;
+            color: #f8fafc;
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
@@ -77,10 +77,10 @@
         }
 
         .glass-panel {
-            background: rgba(10, 29, 13, 0.75);
+            background: rgba(10, 25, 14, 0.75);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(134, 239, 172, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.12);
         }
 
         .glass-panel-subtle {
@@ -91,7 +91,7 @@
         }
 
         .glow-text-green {
-            text-shadow: 0 0 35px rgba(74, 222, 128, 0.45);
+            text-shadow: 0 0 35px rgba(74, 222, 128, 0.4);
         }
     </style>
 </head>
@@ -99,41 +99,40 @@
 <body class="min-h-screen flex flex-col justify-between"
       x-data="{
           mobileNavOpen: false,
-          selectedStoreId: {{ $stores->isNotEmpty() ? $stores->first()->id : 'null' }},
-          activeMapSrc: '{{ $stores->isNotEmpty() ? $stores->first()->embed_src : 'https://maps.google.com/maps?q=Indonesia&hl=id&z=5&output=embed' }}',
-          activeStoreName: '{{ $stores->isNotEmpty() ? addslashes($stores->first()->name) : 'NutriSari DonDong Store' }}',
-          activeStoreAddress: '{{ $stores->isNotEmpty() ? addslashes($stores->first()->address) : '' }}',
-          activeStoreMapsUrl: '{{ $stores->isNotEmpty() ? $stores->first()->google_maps_link : '#' }}',
-          selectStore(id, name, address, embedSrc, mapsUrl) {
-              this.selectedStoreId = id;
-              this.activeStoreName = name;
-              this.activeStoreAddress = address;
-              this.activeMapSrc = embedSrc;
-              this.activeStoreMapsUrl = mapsUrl;
+          activeStoreId: {{ $stores->isNotEmpty() ? $stores->first()->id : 'null' }},
+          activeStoreName: '{{ $stores->isNotEmpty() ? addslashes($stores->first()->name) : 'Dong Store' }}',
+          activeAddress: '{{ $stores->isNotEmpty() ? addslashes($stores->first()->address) : '' }}',
+          activePhone: '{{ $stores->isNotEmpty() ? $stores->first()->phone : '' }}',
+          activeGmapsUrl: '{{ $stores->isNotEmpty() ? $stores->first()->gmaps_url : '' }}',
+          activeMapEmbedUrl: '{{ $stores->isNotEmpty() ? $stores->first()->map_embed_url : '' }}',
+          selectStore(store) {
+              this.activeStoreId = store.id;
+              this.activeStoreName = store.name;
+              this.activeAddress = store.address;
+              this.activePhone = store.phone || '';
+              this.activeGmapsUrl = store.gmaps_url || '';
+              this.activeMapEmbedUrl = store.map_embed_url || '';
               
-              // Smooth scroll to map on mobile
+              // Scroll to map preview smoothly on mobile
               if (window.innerWidth < 1024) {
-                  const mapElement = document.getElementById('interactive-map-view');
-                  if (mapElement) {
-                      mapElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  }
+                  document.getElementById('map-preview-panel')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
               }
           }
       }">
 
     <!-- =========================================================================
-         HEADER
+         TOP NAVIGATION BAR
          ========================================================================= -->
     <header class="sticky top-0 z-50 w-full px-4 sm:px-8 py-3.5 bg-black/60 backdrop-blur-md border-b border-white/10">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <!-- Brand -->
             <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                <div class="h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-black/40 backdrop-blur-md border border-white/15 p-0.5 flex items-center justify-center overflow-hidden group-hover:border-tropical-400/50 transition duration-300">
-                    <img src="{{ asset('images/logo_dondong_official_asli.jpg') }}" alt="DonDong Emblem" class="h-full w-full object-cover rounded-lg group-hover:scale-110 transition-transform">
+                <div class="h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-white p-0.5 flex items-center justify-center overflow-hidden group-hover:ring-2 group-hover:ring-tropical-400 transition duration-300 shadow-md">
+                    <img src="{{ asset('images/logo_dondong_official_asli.svg') }}" alt="Dong Emblem" class="h-full w-full object-contain group-hover:scale-110 transition-transform">
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.2em] text-tropical-400">NutriSari</span>
-                    <span class="text-sm sm:text-base font-display font-black text-white group-hover:text-citrus-300 transition-colors">DONDONG</span>
+                    <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.2em] text-tropical-400">Kedondong Asli</span>
+                    <span class="text-base sm:text-lg lg:text-xl font-display font-black tracking-wider text-white group-hover:text-citrus-300 transition-colors">DONG</span>
                 </div>
             </a>
 
@@ -181,21 +180,20 @@
     <!-- =========================================================================
          HERO & FILTER SECTION
          ========================================================================= -->
-    <main class="flex-grow py-8 sm:py-12 px-4 sm:px-8">
-        <div class="max-w-7xl mx-auto">
-
-            <!-- Title & Subtitle -->
-            <div class="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
-                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-tropical-500/15 border border-tropical-400/30 text-tropical-300 text-xs sm:text-sm font-extrabold uppercase tracking-[0.2em] mb-3 shadow-md">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div class="relative z-10">
+            <!-- Header Breadcrumb & Title -->
+            <div class="text-center max-w-3xl mx-auto mb-8">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-tropical-500/10 border border-tropical-400/20 text-tropical-300 text-xs font-black uppercase tracking-wider mb-3">
                     <span>📍</span> <span>{{ app()->getLocale() == 'en' ? 'Store & Retailer Locator' : 'Temukan Toko Terdekat' }}</span>
                 </div>
                 <h1 class="text-3xl sm:text-5xl lg:text-6xl font-display font-black tracking-tight text-white glow-text-green uppercase mb-3">
-                    {{ app()->getLocale() == 'en' ? 'Official DonDong Outlets' : 'Lokasi Toko & Outlet Resmi' }}
+                    {{ app()->getLocale() == 'en' ? 'Official Dong Outlets' : 'Lokasi Toko & Outlet Resmi' }}
                 </h1>
                 <p class="text-sm sm:text-base lg:text-lg text-slate-300 font-light leading-relaxed">
-                    {{ app()->getLocale() == 'en' ? 'Discover official retail stores, experience hubs, and partner supermarkets in your area.' : 'Kunjungi toko resmi, supermarket rekanan, dan hub kesegaran NutriSari DonDong di berbagai kota Indonesia.' }}
+                    {{ app()->getLocale() == 'en' ? 'Discover official retail stores, experience hubs, and partner supermarkets in your area.' : 'Kunjungi toko resmi, supermarket rekanan, dan hub kesegaran Dong di berbagai kota Indonesia.' }}
                 </p>
-            </div>
+            </div> </div>
 
             <!-- Search & City Filter Bar -->
             <div class="glass-panel rounded-2xl p-4 sm:p-5 shadow-2xl mb-8 border border-white/15">

@@ -4,24 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>{{ app()->getLocale() == 'en' ? 'NutriSari DonDong — The Authentic Ambarella Experience' : 'NutriSari DonDong — Segarnya Kedondong Asli, Bikin Balik Lagi' }}</title>
-    <meta name="description" content="{{ app()->getLocale() == 'en' ? 'Experience the authentic, crisp sweet-and-sour taste of Indonesian ambarella fruit with NutriSari DonDong. Cinematic instant freshness in every chilled glass.' : 'Nikmati sensasi kesegaran buah kedondong asli Indonesia bersama NutriSari DonDong. Kesegaran alami instan dalam setiap tegukan dingin.' }}">
+    <title>{{ app()->getLocale() == 'en' ? 'Dong — The Authentic Ambarella Experience' : 'Dong — Cocok Segar Setelah Makan Pedas' }}</title>
+    <meta name="description" content="{{ app()->getLocale() == 'en' ? 'Experience the authentic, crisp sweet-and-sour taste of Indonesian ambarella fruit with Dong. Cinematic instant freshness in every chilled glass.' : 'Nikmati sensasi kesegaran buah kedondong asli Indonesia bersama Dong. Cocok segar setelah makan pedas.' }}">
 
     <!-- Canonical & OpenGraph -->
     <link rel="canonical" href="{{ url()->current() }}">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="{{ app()->getLocale() == 'en' ? 'NutriSari DonDong — The Authentic Ambarella Experience' : 'NutriSari DonDong — Segarnya Kedondong Asli' }}">
+    <meta property="og:title" content="{{ app()->getLocale() == 'en' ? 'Dong — The Authentic Ambarella Experience' : 'Dong — Segarnya Kedondong Asli' }}">
     <meta property="og:description" content="{{ app()->getLocale() == 'en' ? 'Experience the crisp, iconic sweet-and-sour taste of Indonesian ambarella fruit.' : 'Nikmati sensasi rasa kedondong asli Indonesia yang segar dan tak terlupakan.' }}">
-    <meta property="og:site_name" content="NutriSari DonDong">
+    <meta property="og:site_name" content="Dong">
     <meta property="og:image" content="{{ asset('images/product.png') }}">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="NutriSari DonDong — Segarnya Kedondong Asli">
+    <meta name="twitter:title" content="Dong — Segarnya Kedondong Asli">
     <meta name="twitter:image" content="{{ asset('images/product.png') }}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo_dondong_official_asli.jpg') }}">
-    <link rel="shortcut icon" href="{{ asset('images/logo_dondong_official_asli.jpg') }}">
-    <link rel="apple-touch-icon" href="{{ asset('images/logo_dondong_official_asli.jpg') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('images/logo_dondong_official_asli.svg') }}">
+    <link rel="shortcut icon" href="{{ asset('images/logo_dondong_official_asli.svg') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo_dondong_official_asli.svg') }}">
 
     <!-- Google Fonts: Outfit (Display & Editorial) & Plus Jakarta Sans (Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,9 +79,6 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-    <!-- Lenis Smooth Scroll (Non-blocking) -->
-    <script defer src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-
     <!-- GSAP & ScrollTrigger (Non-blocking) -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -92,6 +89,10 @@
     <style>
         [x-cloak] {
             display: none !important;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         html, body {
@@ -114,10 +115,12 @@
             position: relative;
             z-index: 10;
             width: 100%;
-            min-height: auto;
+            min-height: auto !important;
+            height: auto !important;
+            max-height: none !important;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             padding-top: 5.5rem;
             padding-bottom: 5.5rem;
@@ -126,17 +129,18 @@
         }
 
         #scene-1 {
-            min-height: 100vh;
-            min-height: 100dvh;
+            min-height: 100vh !important;
+            min-height: 100dvh !important;
             padding-top: 6rem;
             padding-bottom: 3rem;
         }
 
         @media (min-width: 1024px) {
             .scene-container {
-                min-height: 100dvh;
-                height: 100dvh;
-                max-height: 100dvh;
+                min-height: 100dvh !important;
+                height: 100dvh !important;
+                max-height: 100dvh !important;
+                justify-content: center;
                 padding-top: 4.5rem;
                 padding-bottom: 2rem;
                 overflow: hidden;
@@ -263,21 +267,21 @@
         <div class="absolute w-[350px] h-[350px] sm:w-[450px] sm:h-[450px] rounded-full bg-tropical-500/15 blur-[90px] animate-pulse"></div>
         
         <div class="relative z-10 flex flex-col items-center text-center px-6">
-            <!-- Glowing Brand Emblem with pulsing rings -->
-            <div class="relative mb-6">
-                <div class="absolute -inset-3 rounded-2xl bg-gradient-to-tr from-tropical-500/40 to-citrus-400/30 blur-md animate-ping opacity-60"></div>
-                <div class="relative h-20 w-20 sm:h-24 sm:w-24 rounded-2xl bg-black/60 backdrop-blur-xl border border-tropical-400/40 p-1 shadow-2xl flex items-center justify-center overflow-hidden">
-                    <img src="{{ asset('images/logo_dondong_official_asli.jpg') }}"
-                        alt="DonDong Logo"
+            <!-- Kinetic Animated Ring with Brand Icon -->
+            <div class="relative mb-4">
+                <div class="absolute -inset-2.5 bg-gradient-to-r from-tropical-400 to-citrus-400 rounded-2xl blur-md opacity-70 animate-pulse"></div>
+                <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white p-1.5 flex items-center justify-center shadow-2xl border border-white/20">
+                    <img src="{{ asset('images/logo_dondong_official_asli.svg') }}"
+                        alt="Dong Logo"
                         loading="eager"
                         decoding="async"
-                        class="h-full w-full object-cover rounded-xl shadow-inner">
+                        class="h-full w-full object-contain">
                 </div>
             </div>
 
             <!-- Kinetic Brand Subtitle -->
             <span class="text-[11px] sm:text-xs font-extrabold uppercase tracking-[0.3em] text-tropical-400 mb-1.5">
-                NutriSari DonDong
+                DONG
             </span>
             <h2 class="text-xl sm:text-2xl font-display font-black tracking-tight text-white mb-6">
                 {{ app()->getLocale() == 'en' ? 'The Authentic Ambarella Experience' : 'Sensasi Kesegaran Kedondong Asli' }}
@@ -326,17 +330,17 @@
         <div class="max-w-7xl mx-auto flex items-center justify-between">
 
             <!-- Brand Identifier -->
-            <a href="#scene-1" class="flex items-center gap-3 group" aria-label="NutriSari DonDong Homepage">
-                <div class="h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-black/40 backdrop-blur-md border border-white/15 p-0.5 flex items-center justify-center overflow-hidden group-hover:border-tropical-400/50 transition-all duration-300 shadow-md">
-                    <img src="{{ asset('images/logo_dondong_official_asli.jpg') }}"
-                        alt="DonDong Official Emblem"
+            <a href="#scene-1" class="flex items-center gap-3 group" aria-label="Dong Homepage">
+                <div class="h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-white p-0.5 flex items-center justify-center overflow-hidden group-hover:ring-2 group-hover:ring-tropical-400 transition-all duration-300 shadow-md">
+                    <img src="{{ asset('images/logo_dondong_official_asli.svg') }}"
+                        alt="Dong Official Emblem"
                         loading="eager"
                         decoding="async"
-                        class="h-full w-full object-cover rounded-lg group-hover:scale-110 transition-transform duration-500">
+                        class="h-full w-full object-contain group-hover:scale-110 transition-transform duration-500">
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.2em] text-tropical-400">NutriSari</span>
-                    <span class="text-sm sm:text-base lg:text-lg font-display font-black tracking-tight text-white group-hover:text-citrus-300 transition-colors">DONDONG</span>
+                    <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.2em] text-tropical-400">Kedondong Asli</span>
+                    <span class="text-base sm:text-lg lg:text-xl font-display font-black tracking-wider text-white group-hover:text-citrus-300 transition-colors">DONG</span>
                 </div>
             </a>
 
@@ -764,7 +768,7 @@
                                 </div>
                                 <div>
                                     <h4 class="text-xs sm:text-sm font-bold text-white leading-none">{{ $testimonial->author_name }}</h4>
-                                    <span class="text-[10px] sm:text-xs text-slate-400">{{ $testimonial->author_title ?? (app()->getLocale() == 'en' ? 'NutriSari DonDong Customer' : 'Pembeli NutriSari DonDong') }}</span>
+                                    <span class="text-[10px] sm:text-xs text-slate-400">{{ $testimonial->author_title ?? (app()->getLocale() == 'en' ? 'Dong Customer' : 'Pembeli Dong') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -814,7 +818,7 @@
                                     <span class="px-2 py-0.5 rounded-full bg-tropical-500/20 text-tropical-300 text-[10px] font-extrabold uppercase">{{ __('messages.verified_badge') }}</span>
                                 </div>
                                 <p class="text-xs sm:text-sm lg:text-base text-slate-200 font-medium leading-relaxed italic mb-3">
-                                    "{{ app()->getLocale() == 'en' ? 'Right after spicy meals, a glass of cold NutriSari DonDong cleanses the palate completely!' : 'Habis makan pedas langsung minum NutriSari DonDong dingin, langsung seger tuntas!' }}"
+                                    "{{ app()->getLocale() == 'en' ? 'Right after spicy meals, a glass of cold Dong cleanses the palate completely!' : 'Habis makan pedas langsung minum Dong dingin, langsung seger tuntas!' }}"
                                 </p>
                             </div>
                             <div class="pt-3 border-t border-white/10 flex items-center gap-2.5">
@@ -918,7 +922,7 @@
                             </div>
                         </a>
 
-                        <a href="https://wa.me/6281234567890?text=Halo%20NutriSari%20DonDong%2C%20saya%20ingin%20pesan" target="_blank"
+                        <a href="https://wa.me/6281234567890?text=Halo%20Dong%2C%20saya%20ingin%20pesan" target="_blank"
                             class="p-4 rounded-xl bg-tropical-600/20 border border-tropical-400/40 hover:border-tropical-400 hover:bg-tropical-600/30 transition group flex items-center justify-between">
                             <div class="flex items-center gap-3 text-left">
                                 <div class="w-10 h-10 rounded-lg bg-tropical-500 text-slate-950 flex items-center justify-center font-black text-sm sm:text-base shrink-0">WA</div>
@@ -1091,55 +1095,24 @@
          ========================================================================= -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // 1. Initialize Lenis Smooth Scrolling
-            let lenis = null;
-            try {
-                if (typeof Lenis !== 'undefined') {
-                    lenis = new Lenis({
-                        duration: 1.2,
-                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                        smoothWheel: true,
-                        smoothTouch: false
-                    });
-
-                    lenis.on('scroll', ScrollTrigger.update);
-                    gsap.ticker.add((time) => {
-                        lenis.raf(time * 1000);
-                    });
-                    gsap.ticker.lagSmoothing(500, 33);
-                }
-            } catch (err) {
-                console.warn('Lenis init skipped, using native scrolling:', err);
-            }
-
-            // Universal Scroll Helper
+            // Universal Scroll Helper (Native Hardware Accelerated)
             window.smoothScrollTo = function(targetSelector, onComplete) {
                 const target = document.querySelector(targetSelector);
                 if (!target) return;
 
-                if (lenis) {
-                    lenis.scrollTo(target, {
-                        duration: 1.5,
-                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                        onComplete: () => {
-                            if (typeof onComplete === 'function') onComplete();
-                        }
-                    });
-                } else {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                    if (typeof onComplete === 'function') {
-                        setTimeout(onComplete, 1200);
-                    }
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (typeof onComplete === 'function') {
+                    setTimeout(onComplete, 800);
                 }
             };
 
-            // 2. Smooth Scroll for all in-page anchor links
+            // Smooth Scroll for all in-page anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
                     if (href && href !== '#' && document.querySelector(href)) {
                         e.preventDefault();
-                        if (isTourActive) stopAutoTour();
+                        if (typeof isTourActive !== 'undefined' && isTourActive) stopAutoTour();
                         window.smoothScrollTo(href);
                     }
                 });

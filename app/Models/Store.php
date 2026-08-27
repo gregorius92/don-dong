@@ -108,7 +108,7 @@ class Store extends Model
             $cleanNumber = '62' . $cleanNumber;
         }
 
-        $message = urlencode("Halo {$this->name}, saya ingin menanyakan ketersediaan produk NutriSari DonDong.");
+        $message = urlencode("Halo {$this->name}, saya ingin menanyakan ketersediaan produk Dong.");
         return "https://wa.me/{$cleanNumber}?text={$message}";
     }
 }

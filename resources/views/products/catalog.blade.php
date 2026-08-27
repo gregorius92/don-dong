@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>{{ app()->getLocale() == 'en' ? 'Product Catalog — NutriSari DonDong' : 'Katalog Produk — NutriSari DonDong' }}</title>
-    <meta name="description" content="{{ app()->getLocale() == 'en' ? 'Explore all variants and packaging options of NutriSari DonDong authentic ambarella drink.' : 'Jelajahi semua varian dan pilihan kemasan minuman kedondong asli NutriSari DonDong.' }}">
+    <title>{{ app()->getLocale() == 'en' ? 'Product Catalog — Dong' : 'Katalog Produk — Dong' }}</title>
+    <meta name="description" content="{{ app()->getLocale() == 'en' ? 'Explore all variants and packaging options of Dong authentic ambarella drink.' : 'Jelajahi semua varian dan pilihan kemasan minuman kedondong asli Dong.' }}">
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="{{ asset('images/logo_dondong_official_asli.jpg') }}">
@@ -103,12 +103,12 @@
     <header class="relative z-50 w-full px-4 sm:px-8 py-4 bg-black/40 backdrop-blur-md border-b border-white/10">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                <div class="h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-black/40 backdrop-blur-md border border-white/15 p-0.5 flex items-center justify-center overflow-hidden group-hover:border-tropical-400/50 transition shadow-md">
-                    <img src="{{ asset('images/logo_dondong_official_asli.jpg') }}" alt="DonDong Emblem" class="h-full w-full object-cover rounded-lg group-hover:scale-110 transition-transform">
+                <div class="h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-white p-0.5 flex items-center justify-center overflow-hidden group-hover:ring-2 group-hover:ring-tropical-400 transition shadow-md">
+                    <img src="{{ asset('images/logo_dondong_official_asli.svg') }}" alt="Dong Emblem" class="h-full w-full object-contain group-hover:scale-110 transition-transform">
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.2em] text-tropical-400">NutriSari</span>
-                    <span class="text-sm sm:text-base font-display font-black tracking-tight text-white group-hover:text-citrus-300 transition-colors">DONDONG</span>
+                    <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.2em] text-tropical-400">Kedondong Asli</span>
+                    <span class="text-base sm:text-lg font-display font-black tracking-wider text-white group-hover:text-citrus-300 transition-colors">DONG</span>
                 </div>
             </a>
 
@@ -138,7 +138,7 @@
                 {{ app()->getLocale() == 'en' ? 'Authentic Product Lineup' : 'Katalog Pilihan Produk Asli' }}
             </span>
             <h1 class="text-3xl sm:text-5xl lg:text-6xl font-display font-black tracking-tight text-white mb-3">
-                {{ app()->getLocale() == 'en' ? 'Explore All DonDong Variants' : 'Koleksi Kemasan NutriSari DonDong' }}
+                {{ app()->getLocale() == 'en' ? 'Explore All Dong Variants' : 'Koleksi Kemasan Dong' }}
             </h1>
             <p class="text-sm sm:text-base lg:text-lg text-slate-300 font-light max-w-2xl mx-auto">
                 {{ app()->getLocale() == 'en' 
@@ -266,7 +266,7 @@
 
     <!-- Footer -->
     <footer class="relative z-10 w-full px-4 sm:px-8 py-6 bg-black/60 border-t border-white/10 text-center text-xs text-slate-500">
-        <p>&copy; {{ date('Y') }} NutriSari DonDong. {{ app()->getLocale() == 'en' ? 'All rights reserved.' : 'Hak Cipta Dilindungi.' }}</p>
+        <p>&copy; {{ date('Y') }} Dong. {{ app()->getLocale() == 'en' ? 'All rights reserved.' : 'Hak Cipta Dilindungi.' }}</p>
     </footer>
 
 </body>

@@ -8,8 +8,8 @@
     <title>{{ config('app.name', 'Laravel') }} — Admin CMS</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo_dondong_official_asli.jpg') }}">
-    <link rel="shortcut icon" href="{{ asset('images/logo_dondong_official_asli.jpg') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('images/logo_dondong_official_asli.svg') }}">
+    <link rel="shortcut icon" href="{{ asset('images/logo_dondong_official_asli.svg') }}">
 
     <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -135,10 +135,10 @@
         <footer class="py-5 px-4 sm:px-8 border-t border-slate-200 text-center text-xs text-slate-500 bg-white">
             <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
                 <div class="flex items-center gap-2">
-                    <img src="{{ asset('images/logo_dondong_official_asli.jpg') }}" alt="Logo" class="h-4 w-4 rounded object-cover">
-                    <span class="font-extrabold text-slate-800">NutriSari DonDong CMS Portal</span>
+                    <img src="{{ asset('images/logo_dondong_official_asli.svg') }}" alt="Logo" class="h-4 w-4 object-contain">
+                    <span class="font-extrabold text-slate-800">Dong CMS Portal</span>
                 </div>
-                <span>&copy; {{ date('Y') }} PT Nutrifood Indonesia. All rights reserved.</span>
+                <span>&copy; {{ date('Y') }} Dong Indonesia. All rights reserved.</span>
             </div>
         </footer>
     </div>

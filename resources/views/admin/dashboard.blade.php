@@ -6,7 +6,7 @@
                     Dashboard Administrasi
                 </h1>
                 <p class="text-xs text-slate-500 font-medium mt-0.5">
-                    Ringkasan performa dan manajemen konten website NutriSari DonDong
+                    Ringkasan performa dan manajemen konten website Dong
                 </p>
             </div>
             <div class="flex items-center gap-3">

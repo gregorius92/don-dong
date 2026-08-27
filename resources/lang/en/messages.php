@@ -2,7 +2,7 @@
 
 return [
     // Brand & Header
-    'brand_name' => 'NutriSari Dondong',
+    'brand_name' => 'Dong',
     'brand_tagline' => 'The Freshness of Ambarella, Bringing You Back.',
     'nav_story' => 'Story',
     'nav_taste' => 'Taste Profile',
@@ -15,13 +15,13 @@ return [
     // Testimonials Section
     'testimonials_eyebrow' => 'CUSTOMER REVIEWS',
     'testimonials_title' => 'WHAT OUR REFRESHED FANS SAY.',
-    'testimonials_subtitle' => 'Real stories from people enjoying the authentic freshness of NutriSari DonDong across Indonesia.',
+    'testimonials_subtitle' => 'Real stories from people enjoying the authentic freshness of Dong across Indonesia.',
     'testimonials_rating_summary' => '4.9/5 from 1,200+ Verified Customer Reviews',
 
     // Hero Section
     'hero_eyebrow' => 'NEW TASTE CAMPAIGN',
-    'hero_title' => 'THE FRESHNESS OF DONDONG, BRINGING YOU BACK.',
-    'hero_lead' => 'Experience the crisp, distinctive taste of Indonesian ambarella in every refreshing sip of NutriSari Dondong.',
+    'hero_title' => 'THE FRESHNESS OF DONG, BRINGING YOU BACK.',
+    'hero_lead' => 'Experience the crisp, distinctive taste of Indonesian ambarella in every refreshing sip of Dong.',
     'hero_cta_primary' => 'TASTE THE FRESHNESS',
     'hero_cta_secondary' => 'DISCOVER PRODUCT',
     'hero_badge' => 'Authentic Tropical Sweet-Sour Profile',
@@ -47,7 +47,7 @@ return [
     'ritual_title' => '3 SECONDS TO INSTANT FRESHNESS.',
     'ritual_subtitle' => 'Ultra-fine powder formula designed to dissolve seamlessly in ice water without tedious stirring.',
     'ritual_step_1_title' => 'Tear Sachet',
-    'ritual_step_1_desc' => 'Pour 1 packet of NutriSari Dondong into your favorite glass or tumbler.',
+    'ritual_step_1_desc' => 'Pour 1 packet of Dong into your favorite glass or tumbler.',
     'ritual_step_2_title' => 'Add 150ml Cold Water',
     'ritual_step_2_desc' => 'Pour cold or room-temperature water; the micro-particles dissolve in seconds.',
     'ritual_step_3_title' => 'Add Ice & Enjoy',
@@ -56,7 +56,7 @@ return [
     // Section 3: Product Reveal & Where to Buy
     'product_eyebrow' => 'PACKAGING & SPECS',
     'product_title' => 'MEET THE REFRESHMENT.',
-    'product_name' => 'NutriSari Dondong',
+    'product_name' => 'Dong',
     'product_flavor' => 'Natural Ambarella Fruit Extract',
     'product_format' => 'Instant Sachets (10s Pack & Strip)',
     'product_desc' => 'Ultra-fine ambarella powder that dissolves instantly in iced water. Authentic tropical sweet-and-sour goodness without the hassle of peeling.',
@@ -66,27 +66,27 @@ return [
 
     // Where to buy
     'channel_title' => 'AVAILABLE ON OFFICIAL CHANNELS',
-    'channel_subtitle' => 'Get NutriSari Dondong at official e-commerce merchants or your local grocery stores.',
+    'channel_subtitle' => 'Get Dong at official e-commerce merchants or your local grocery stores.',
     'channel_wa' => 'Direct WhatsApp Order',
     'channel_shopee' => 'Shopee Mall',
     'channel_tokopedia' => 'Tokopedia Official',
     'channel_tiktok' => 'TikTok Shop',
     'channel_retail' => 'Convenience & Supermarkets Nearby',
 
-    // Section 4: Why Dondong (Storytelling)
-    'story_eyebrow' => 'THE DONDONG STORY',
-    'story_title' => 'DONDONG HAS A STORY OF ITS OWN.',
+    // Section 4: Why Dong (Storytelling)
+    'story_eyebrow' => 'THE DONG STORY',
+    'story_title' => 'DONG HAS A STORY OF ITS OWN.',
     'story_p1' => 'There is a flavor that immediately reminds us of something beloved and familiar. Refreshing, pleasantly tart, distinct, and unforgettable.',
     'story_p2' => 'Indonesian ambarella fruit holds an invigorating tropical character that cannot be replicated. Its crisp, mouth-watering flavor has been a nostalgic favorite across generations.',
-    'story_p3' => 'NutriSari Dondong encapsulates this legendary heritage into a convenient, delicious drink—letting you experience authentic ambarella freshness anytime, anywhere.',
+    'story_p3' => 'Dong encapsulates this legendary heritage into a convenient, delicious drink—letting you experience authentic ambarella freshness anytime, anywhere.',
 
     // Section 5: Moment / Occasion Lifestyle
     'moments_eyebrow' => 'EVERY OCCASION',
     'moments_title' => 'PERFECT FOR EVERY MOMENT.',
-    'moments_subtitle' => 'From sizzling sunny afternoons to lively gatherings with loved ones, dondong is always the ideal companion.',
+    'moments_subtitle' => 'From sizzling sunny afternoons to lively gatherings with loved ones, Dong is always the ideal companion.',
     'moment_1_tag' => 'HEAT WAVE',
     'moment_1_title' => 'Instant Thirst Quencher on Hot Days',
-    'moment_1_desc' => 'When the midday sun blazes down, a frosty glass of NutriSari Dondong instantly restores your vibrant energy and focus.',
+    'moment_1_desc' => 'When the midday sun blazes down, a frosty glass of Dong instantly restores your vibrant energy and focus.',
     'moment_2_tag' => 'DINING & CUISINE',
     'moment_2_title' => 'Palate Cleanser for Spicy & Savory Meals',
     'moment_2_desc' => 'Its zesty natural acidity effortlessly cleanses the palate after enjoying rich, spicy, and savory Indonesian culinary delights.',
@@ -103,28 +103,28 @@ return [
     // FAQ Section
     'faq_eyebrow' => 'FREQUENTLY ASKED QUESTIONS',
     'faq_title' => 'FREQUENTLY ASKED QUESTIONS',
-    'faq_1_q' => 'Is NutriSari Dondong made with real fruit extract?',
-    'faq_1_a' => 'Yes, NutriSari Dondong is made from selected ambarella fruit extracts using advanced spray-dry processing to preserve its genuine sweet-sour flavor and natural Vitamin C.',
+    'faq_1_q' => 'Is Dong made with real fruit extract?',
+    'faq_1_a' => 'Yes, Dong is made from selected ambarella fruit extracts using advanced spray-dry processing to preserve its genuine sweet-sour flavor and natural Vitamin C.',
     'faq_2_q' => 'Does it really dissolve instantly in cold water?',
     'faq_2_a' => 'Absolutely. The micro-granule formula dissolves smoothly in cold or iced water without clumping or gritty residue.',
     'faq_3_q' => 'Is it safe for daily refreshment?',
     'faq_3_a' => 'Yes, it is formulated to safely support your daily Vitamin C needs, produced under strict certified food safety and Halal standards.',
 
     // Section 7: Final Commercial Ending
-    'final_eyebrow' => 'NUTRISARI DONDONG',
-    'final_title' => 'READY TO REDISCOVER DONDONG?',
-    'final_subtitle' => 'Reclaim the authentic, invigorating taste of Indonesian ambarella with NutriSari Dondong today.',
-    'final_cta' => 'EXPERIENCE NUTRISARI DONDONG',
+    'final_eyebrow' => 'DONG',
+    'final_title' => 'READY TO REDISCOVER DONG?',
+    'final_subtitle' => 'Reclaim the authentic, invigorating taste of Indonesian ambarella with Dong today.',
+    'final_cta' => 'EXPERIENCE DONG',
     'final_note' => 'Available at your nearest stores, supermarkets, and official online merchants.',
 
     // Sticky mobile bar
-    'sticky_title' => 'NutriSari Dondong',
+    'sticky_title' => 'Dong',
     'sticky_subtitle' => 'The Freshness Bringing You Back',
     'sticky_cta' => 'Order Now',
 
     // Cinematic Scene Enhancements
-    'scene1_label' => 'NUTRISARI',
-    'scene1_title' => 'DONDONG',
+    'scene1_label' => 'AUTHENTIC AMBARELLA DRINK',
+    'scene1_title' => 'DONG',
     'scene1_emotion' => 'The flavor you’ve always missed.',
     'scene2_word_1' => 'TART.',
     'scene2_word_2' => 'CRISP.',
@@ -147,11 +147,11 @@ return [
     'product_strip_2' => 'High in daily Vitamin C',
     'product_strip_3' => 'Balanced sweet-and-sour taste',
     'verified_badge' => 'Verified Buyer',
-    'testimonial_invite' => 'Have your own refreshing story with NutriSari DonDong?',
+    'testimonial_invite' => 'Have your own refreshing story with Dong?',
     'testimonial_cta' => 'Share Your Review',
     'order_direct' => 'Direct Order',
     'faq_btn' => 'Read FAQs (Frequently Asked Questions)',
-    'review_modal_eyebrow' => 'NUTRISARI DONDONG • CUSTOMER REVIEWS',
+    'review_modal_eyebrow' => 'DONG • CUSTOMER REVIEWS',
     'review_modal_title' => 'Share Your Refreshing Experience',
     'review_modal_rating_label' => 'Rate Freshness',
     'review_modal_author_label' => 'Full Name',
@@ -160,7 +160,7 @@ return [
     'review_modal_content_placeholder' => 'e.g., The sweet-and-sour balance is spot on, extra refreshing with ice cubes...',
     'review_modal_verified_note' => 'Verified customer review.',
     'review_modal_submit' => 'Submit Review',
-    'company_name' => 'NutriSari DonDong • PT Heavenly Nutrition',
+    'company_name' => 'Dong • PT Heavenly Nutrition',
 
     'view_all_products' => 'View All Product Variants',
     'product_scene_eyebrow' => 'PACKAGING & VARIANTS',
@@ -168,9 +168,8 @@ return [
     'order_now' => 'Order Now',
 
     // Footer
-    'footer_desc' => 'NutriSari Dondong — Delivering authentic Indonesian ambarella fruit refreshment with uncompromising food safety and quality standards.',
+    'footer_desc' => 'Dong — Delivering authentic Indonesian ambarella fruit refreshment with uncompromising food safety and quality standards.',
     'footer_links_title' => 'Navigation',
     'footer_contact_title' => 'Customer Care & Enquiries',
-    'footer_copyright' => 'Copyright © 2026 NutriSari Dondong. All rights reserved.',
+    'footer_copyright' => 'Copyright © ' . date('Y') . ' Dong. All rights reserved.',
 ];
-

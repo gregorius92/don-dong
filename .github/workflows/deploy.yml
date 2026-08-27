@@ -1,0 +1,45 @@
+name: 🚀 Auto Deploy to InfinityFree
+
+on:
+  push:
+    branches:
+      - development
+      - main
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploying to InfinityFree
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚚 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup PHP 8.2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql, bcmath, gd, zip
+
+      - name: 📦 Install Composer Dependencies (Production)
+        run: |
+          composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+
+      - name: 📂 Sync Files via FTP to InfinityFree
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: htdocs/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.agents/**
+            Dockerfile
+            docker-compose.yml
+            render.yaml
+            tests/**
+            phpunit.xml
+            README.md

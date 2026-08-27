@@ -341,11 +341,11 @@
             </a>
 
             <!-- Desktop Scene Links (Clean & Number-Free) -->
-            <nav class="hidden md:flex items-center gap-7 lg:gap-9 text-xs lg:text-sm font-extrabold uppercase tracking-[0.16em] text-slate-300" aria-label="Navigation">
+            <nav class="hidden md:flex items-center gap-6 lg:gap-8 text-xs lg:text-sm font-extrabold uppercase tracking-[0.16em] text-slate-300" aria-label="Navigation">
                 <a href="#scene-1" class="hover:text-tropical-400 transition-colors">Home</a>
                 <a href="#scene-2" class="hover:text-tropical-400 transition-colors">{{ __('messages.nav_taste') }}</a>
-                <a href="#scene-3" class="hover:text-tropical-400 transition-colors">{{ __('messages.nav_story') }}</a>
                 <a href="#scene-4" class="hover:text-tropical-400 transition-colors">{{ __('messages.nav_product') }}</a>
+                <a href="{{ route('stores.index') }}" class="hover:text-tropical-400 transition-colors text-tropical-300 font-black">📍 Toko</a>
                 <a href="#scene-5" class="hover:text-tropical-400 transition-colors">{{ __('messages.nav_testimonials') }}</a>
                 <a href="#scene-6" class="hover:text-tropical-400 transition-colors">Order Hub</a>
             </nav>
@@ -387,8 +387,8 @@
             class="md:hidden mt-2 max-w-7xl mx-auto rounded-2xl glass-panel p-5 space-y-3 shadow-2xl border border-white/15">
             <a href="#scene-1" @click="mobileNavOpen = false" class="block text-sm font-bold text-slate-200 hover:text-tropical-400">Home</a>
             <a href="#scene-2" @click="mobileNavOpen = false" class="block text-sm font-bold text-slate-200 hover:text-tropical-400">{{ __('messages.nav_taste') }}</a>
-            <a href="#scene-3" @click="mobileNavOpen = false" class="block text-sm font-bold text-slate-200 hover:text-tropical-400">{{ __('messages.nav_story') }}</a>
             <a href="#scene-4" @click="mobileNavOpen = false" class="block text-sm font-bold text-slate-200 hover:text-tropical-400">{{ __('messages.nav_product') }}</a>
+            <a href="{{ route('stores.index') }}" class="block text-sm font-bold text-tropical-400">📍 Lokasi Toko & Outlet</a>
             <a href="#scene-5" @click="mobileNavOpen = false" class="block text-sm font-bold text-slate-200 hover:text-tropical-400">{{ __('messages.nav_testimonials') }}</a>
             <a href="#scene-6" @click="mobileNavOpen = false" class="block text-sm font-bold text-slate-200 hover:text-tropical-400">Order Hub</a>
             <div class="pt-2 border-t border-white/10">

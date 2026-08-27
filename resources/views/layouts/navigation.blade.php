@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.*')">
                         {{ __('Produk') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.stores.index')" :active="request()->routeIs('admin.stores.*')">
+                        {{ __('Toko') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.settings.*')">
                         {{ __('Pengaturan') }}
                     </x-nav-link>
@@ -77,6 +80,21 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.landing-page.index')" :active="request()->routeIs('admin.landing-page.*')">
+                {{ __('Landing Page') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.*')">
+                {{ __('Produk') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.stores.index')" :active="request()->routeIs('admin.stores.*')">
+                {{ __('Toko') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.settings.*')">
+                {{ __('Pengaturan') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.testimonials.index')" :active="request()->routeIs('admin.testimonials.*')">
+                {{ __('Testimoni') }}
             </x-responsive-nav-link>
         </div>
 

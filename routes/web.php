@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LandingController::class, 'index'])->name('home');
 Route::get('/katalog', [\App\Http\Controllers\ProductCatalogController::class, 'index'])->name('products.catalog');
 Route::get('/products-catalog', [\App\Http\Controllers\ProductCatalogController::class, 'index']);
+Route::get('/toko', [\App\Http\Controllers\StoreLocatorController::class, 'index'])->name('stores.index');
+Route::get('/stores', [\App\Http\Controllers\StoreLocatorController::class, 'index']);
 Route::get('/lang/{lang}', [\App\Http\Controllers\LanguageController::class, 'switchLang'])->name('lang.switch');
 Route::post('/testimonials', [\App\Http\Controllers\TestimonialController::class, 'store'])->name('testimonials.store');
 
@@ -34,6 +36,15 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/products/{product}/edit', [\App\Http\Controllers\Admin\ProductController::class, 'edit'])->name('products.edit');
     Route::post('/products/{product}', [\App\Http\Controllers\Admin\ProductController::class, 'update'])->name('products.update');
     Route::delete('/products/{product}', [\App\Http\Controllers\Admin\ProductController::class, 'destroy'])->name('products.destroy');
+
+    // Store CMS
+    Route::get('/stores', [\App\Http\Controllers\Admin\StoreController::class, 'index'])->name('stores.index');
+    Route::get('/stores/create', [\App\Http\Controllers\Admin\StoreController::class, 'create'])->name('stores.create');
+    Route::post('/stores/store', [\App\Http\Controllers\Admin\StoreController::class, 'store'])->name('stores.store');
+    Route::get('/stores/{store}/edit', [\App\Http\Controllers\Admin\StoreController::class, 'edit'])->name('stores.edit');
+    Route::put('/stores/{store}', [\App\Http\Controllers\Admin\StoreController::class, 'update'])->name('stores.update');
+    Route::post('/stores/{store}/toggle', [\App\Http\Controllers\Admin\StoreController::class, 'toggle'])->name('stores.toggle');
+    Route::delete('/stores/{store}', [\App\Http\Controllers\Admin\StoreController::class, 'destroy'])->name('stores.destroy');
     
     // Settings CMS
     Route::get('/settings', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
